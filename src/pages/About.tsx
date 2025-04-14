@@ -63,11 +63,11 @@ const About = () => {
                     <div className="grid md:grid-cols-2 gap-8">
                         <AboutCard
                             title="Who I Am"
-                            description="I’m a B.Tech Computer Science student specializing in AI & ML with a 3.89 CGPA, committed to excellence in technology. Passionate about software engineering, I focus on frontend development, the MERN stack, and machine learning to build impactful solutions."
+                            description="B.Tech Computer Science student specializing in Data Science with a 3.39 CGPA. Skilled in Python, machine learning, data analysis, and statistical modeling. I’m driven by curiosity, a love for data, and a passion for building smart, impactful solutions through research and collaboration."
                         />
                         <AboutCard
                             title="What I Do"
-                            description="I specialize in developing scalable web applications and integrating AI-driven solutions. With expertise in the MERN stack and machine learning, I create seamless user experiences while optimizing system performance and efficiency."
+                            description="I work at the intersection of data and technology—analyzing trends, building predictive models, and deriving actionable insights. My focus is on creating efficient, data-driven solutions that optimize performance and support real-world decision-making."
                         />
                     </div>
                 </motion.div>

@@ -12,9 +12,9 @@ const educationData = [
       "Compiler Design",
     ],
     achievements: [
-      "2x Merit Scholaship",
-      "IIIC Student Head",
-      "FutureForge Hackathon Winner",
+      "runerup TECH X CSE’24 Technical Quiz, ACS Engineering College (2023)",
+      "IIIC Media and PR Head",
+      "Media Head of CSE Department",
     ],
   },
   {
