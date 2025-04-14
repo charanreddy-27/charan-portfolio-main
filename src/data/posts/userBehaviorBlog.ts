@@ -7,7 +7,7 @@ export const userBehaviorBlog: BlogPost = {
   description: "Explore how machine learning and data analytics unveil patterns in mobile device usage to shape user-centric app experiences.",
   date: "2025-04-14",
   author: "Chanda Charan Reddy",
-  image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d",
+  image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
   readingTime: "10 min read",
   content: `# Decoding Mobile Usage Behavior with Data Science
 

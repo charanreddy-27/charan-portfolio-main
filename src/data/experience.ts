@@ -1,19 +1,5 @@
 const workData = [
   {
-    company: "Defence Research and Development Organisation (DRDO)",
-    position: "Embedded Systems Intern – Aerospace Applications",
-    duration: "May 2024 - June 2024 (2 months)",
-    location: "Bengaluru, Karnataka, India",
-    description: "Contributed to the development of high-assurance engine control systems for military-grade aero gas turbines.",
-    responsibilities: [
-      "Developed and tested Full Authority Digital Engine Control (FADEC) systems adhering to MISRA C and DO-178C standards",
-      "Engineered real-time control algorithms using MATLAB/Simulink, reducing processing latency by 20%",
-      "Collaborated with cross-functional teams to integrate FADEC systems into next-gen aero engines",
-      "Engaged in hands-on development of safety-critical embedded systems used in defense aviation"
-    ],
-    tools: ["MATLAB", "Simulink", "Embedded C", "FADEC", "Real-time Systems"],
-  },
-  {
     company: "GB Traders",
     position: "Digital Marketing & Social Media Intern",
     duration: "February 2025 – Present",
@@ -27,6 +13,20 @@ const workData = [
       "Managed cross-platform presence using scheduled content calendars and audience insights"
     ],
     tools: ["Canva", "Meta Business Suite", "Buffer", "Google Analytics", "ChatGPT (content ideation)", "Google Sheets (analytics tracking)"],
+  },
+  {
+    company: "Defence Research and Development Organisation (DRDO)",
+    position: "Embedded Systems Intern – Aerospace Applications",
+    duration: "May 2024 - June 2024 (2 months)",
+    location: "Bengaluru, Karnataka, India",
+    description: "Contributed to the development of high-assurance engine control systems for military-grade aero gas turbines.",
+    responsibilities: [
+      "Developed and tested Full Authority Digital Engine Control (FADEC) systems adhering to MISRA C and DO-178C standards",
+      "Engineered real-time control algorithms using MATLAB/Simulink, reducing processing latency by 20%",
+      "Collaborated with cross-functional teams to integrate FADEC systems into next-gen aero engines",
+      "Engaged in hands-on development of safety-critical embedded systems used in defense aviation"
+    ],
+    tools: ["MATLAB", "Simulink", "Embedded C", "FADEC", "Real-time Systems"],
   },
 ];
 

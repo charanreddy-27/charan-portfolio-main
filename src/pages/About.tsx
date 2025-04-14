@@ -67,7 +67,7 @@ const About = () => {
                         />
                         <AboutCard
                             title="What I Do"
-                            description="I work at the intersection of data and technology—analyzing trends, building predictive models, and deriving actionable insights. My focus is on creating efficient, data-driven solutions that optimize performance and support real-world decision-making."
+                            description="I specialize in developing scalable web applications and integrating AI-driven solutions. With expertise in the MERN stack and machine learning, I create seamless user experiences while optimizing system performance and efficiency."
                         />
                     </div>
                 </motion.div>

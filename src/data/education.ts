@@ -21,9 +21,10 @@ const educationData = [
     school: "Sri Chaitanya college",
     degree: "Higher Secondary Education",
     duration: "June 2020 - March 2022",
-    Percentage: "80.5%",
+    gpa: "8.05/10.0",
     location: "Andhra Pradesh, India",
     courses: ["Mathematics", "Physics", "Chemistry", "Biology"],
+    achievements: [],
   },
 ];
 

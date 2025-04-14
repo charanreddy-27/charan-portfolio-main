@@ -7,7 +7,7 @@ export const aiDataCleaning: BlogPost = {
   description: "Learn how AI can streamline your data cleaning process, improve accuracy, and save time.",
   date: "2024-09-06",
   author: "Zachary Amos",
-  image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+  image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d",
   readingTime: "10 min read",
   content: `# How to Utilize AI for Improved Data Cleaning
 
