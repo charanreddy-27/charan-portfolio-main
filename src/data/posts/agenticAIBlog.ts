@@ -7,7 +7,7 @@ export const agenticAIBlog: BlogPost = {
   description: "Explore how agentic AI is transforming the design process by acting as a creative collaborator and driving innovation in product development.",
   date: "2025-04-09",
   author: "Vlada Zdorovenko",
-  image: "https://images.unsplash.com/photo-1573495612281-2819a8b130c9",
+  image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d",
   readingTime: "12 min read",
   content: `# Agentic AI: Revolutionizing Design
 
