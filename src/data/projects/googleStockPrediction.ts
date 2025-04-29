@@ -3,7 +3,7 @@ export const googleStockPredictionProject = {
   title: "Google Stock Price Prediction using LSTM and PyTorch",
   description:
     "A project to predict the future stock prices of Google (GOOG) using historical stock data and machine learning techniques.",
-  image: "https://images.unsplash.com/photo-1580894908360-3c6b8240b81b", // Image related to stock market
+  image: "/paper/project-3.webp",
   tools: ["PyTorch", "Keras", "yfinance", "MinMaxScaler", "Matplotlib", "Pandas"],
   slug: "google-stock-prediction",
   overview:

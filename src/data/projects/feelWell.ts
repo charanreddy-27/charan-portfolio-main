@@ -3,7 +3,7 @@ export const feelWellProject = {
   title: "FeelWell: Mental Health & Well-Being Platform",
   description:
     "Created an interactive web platform that promotes mental wellness through chatbot conversations, educational content, and statistics.",
-  image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+    image: "/paper/project-2.webp",
   tools: ["React", "Next.js", "Flask", "Python", "Azure", "PostgreSQL"],
   slug: "feelwell-platform",
   overview:
