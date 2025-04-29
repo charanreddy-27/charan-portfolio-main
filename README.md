@@ -1,69 +1,49 @@
-# Welcome to your Lovable project
+# 🌟 **Charan Reddy's Portfolio** 🌟
 
-## Project info
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Rubik&size=30&duration=4000&color=F76D57&center=true&vCenter=true&lines=Welcome+to+My+Portfolio!;Frontend+Developer+|+TypeScript+Enthusiast;Creative+Problem+Solver+⚡" alt="Typing animation" />
+</p>
 
-**URL**: https://lovable.dev/projects/0af12319-ca2c-481b-bfa6-be005ce0a9e7
+<p align="center">
+  <img src="https://img.shields.io/badge/TypeScript-98.1%25-blue?style=for-the-badge" alt="TypeScript Badge" />
+  <img src="https://img.shields.io/badge/CSS-1.2%25-orange?style=for-the-badge" alt="CSS Badge" />
+  <img src="https://img.shields.io/badge/Other-0.7%25-lightgrey?style=for-the-badge" alt="Other Badge" />
+</p>
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🌈 **About Me**
+🎨 Welcome to my portfolio repository! This project showcases my skills, experience, and passion for web development. With a strong focus on **TypeScript**, **CSS**, and modern front-end frameworks, I aim to craft elegant and user-friendly web experiences. ❤️
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0af12319-ca2c-481b-bfa6-be005ce0a9e7) and start prompting.
+## 💼 **Features**
+✨ **Fully Responsive Design:** Optimized for all devices.  
+🎨 **Smooth Animations:** Beautiful transitions and effects.  
+⚡ **Fast Performance:** Lightning-fast loading speed.  
+🌟 **Showcase of Projects:** View my top projects and contributions.  
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🚀 **Technologies Used**
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=typescript,css,react,html,vscode,git" alt="Tech Stack Icons">
+</p>
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🎨 **Connect With Me**
+<p align="center">
+  <a href="https://www.linkedin.com/in/chandacharanreddy/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-Charan%20Reddy-blue?style=for-the-badge&logo=linkedin" alt="LinkedIn Badge"/></a>
+  <a href="mailto:charanreddychanda@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Email-charanreddychanda%40gmail.com-red?style=for-the-badge&logo=gmail" alt="Email Badge"/></a>
+  <a href="https://github.com/charanreddy-27" target="_blank"><img src="https://img.shields.io/badge/GitHub-charanreddy--27-lightgrey?style=for-the-badge&logo=github" alt="GitHub Badge"/></a>
+</p>
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/0af12319-ca2c-481b-bfa6-be005ce0a9e7) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+<p align="center" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 18px; color: #4B4B4B;">
+  © 2025 <strong>Charan Reddy</strong>. All rights reserved.
+</p>
+<p align="center" style="font-family: 'Courier New', Courier, monospace; font-size: 16px; color: #8D8D8D;">
+  Built with 💙 for web development.
+</p>
