@@ -7,7 +7,7 @@ export const modernDataStackBlog: BlogPost = {
   description: "Explore how the Modern Data Stack is reshaping the way businesses manage and analyze data, from collection to visualization.",
   date: "2024-10-22",
   author: "Anand Subramanian",
-  image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d",
+  image: "https://plus.unsplash.com/premium_photo-1744947616801-ce4fd7f822e3?q=80&w=3840&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   readingTime: "12 min read",
   content: `# Unveiling the Modern Data Stack: Revolutionizing Data Management and Analytics
 

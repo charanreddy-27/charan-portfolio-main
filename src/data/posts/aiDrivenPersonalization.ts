@@ -7,7 +7,7 @@ export const aiDrivenPersonalization: BlogPost = {
   description: "Explore how artificial intelligence is revolutionizing UI design by providing highly adaptive, personalized user experiences.",
   date: "2025-04-07",
   author: "Edward Nick",
-  image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+  image: "https://plus.unsplash.com/premium_photo-1733306548826-95daff988ae6?q=80&w=3912&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   readingTime: "15 min read",
   content: `# How AI-Driven Personalization is Transforming User Interface Design
 

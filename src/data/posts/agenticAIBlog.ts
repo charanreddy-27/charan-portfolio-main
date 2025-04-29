@@ -3,11 +3,11 @@ import { BlogPost } from './types';
 export const agenticAIBlog: BlogPost = {
   id: "6",
   slug: "agentic-ai-revolutionizing-design",
-  title: "Agentic AI: Revolutionizing Design",
+  title: "Agentic AI: Revolutionizing Design (Updated)",
   description: "Explore how agentic AI is transforming the design process by acting as a creative collaborator and driving innovation in product development.",
   date: "2025-04-09",
   author: "Vlada Zdorovenko",
-  image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+  image: "https://images.unsplash.com/photo-1658863025658-4a259cc68fc9?q=80&w=2881&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   readingTime: "12 min read",
   content: `# Agentic AI: Revolutionizing Design
 

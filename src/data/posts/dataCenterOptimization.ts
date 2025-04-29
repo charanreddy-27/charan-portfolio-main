@@ -7,7 +7,7 @@ export const dataCenterOptimization: BlogPost = {
   description: "Learn how predictive analytics can optimize energy consumption in data centers, using techniques like workload management, energy efficiency forecasting, and cooling system performance.",
   date: "2024-04-14",
   author: "Zachary Amos",
-  image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+  image: "https://images.unsplash.com/photo-1698306642516-9841228dcff3?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   readingTime: "10 min read",
   content: `# Optimizing Data Center Energy Consumption with Predictive Analytics
 
@@ -139,5 +139,5 @@ updateData({ newData: updatedTemperatureData });
 Predictive analytics is a powerful tool for optimizing energy consumption in data centers. By utilizing models like decision trees, regression models, and time series analysis, data centers can achieve significant energy savings and prevent costly equipment failures. With the continued advancement of predictive technology, energy efficiency in data centers will continue to improve, contributing to a greener future.
 
 `,
-  tags: ["Data Center", "Energy Consumption", "Predictive Analytics", "Machine Learning", "Sustainability"],
+  tags: ["Data Center", "Energy Consumption", "Predictive Analytics", "Machine Learning",],
 };
