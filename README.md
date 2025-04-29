@@ -16,7 +16,16 @@
 🎨 Welcome to my portfolio repository! This project showcases my skills, experience, and passion for web development. With a strong focus on **TypeScript**, **CSS**, and modern front-end frameworks, I aim to craft elegant and user-friendly web experiences. ❤️
 
 ---
+## 🚀 **Visit My Website**
+Click below to explore my portfolio:
 
+<p align="center">
+  <a href="https://charan-reddy.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/Visit%20Portfolio-charan--reddy.vercel.app-blueviolet?style=for-the-badge&logo=next.js&logoColor=white" alt="Portfolio Button">
+  </a>
+</p>
+
+---
 ## 💼 **Features**
 ✨ **Fully Responsive Design:** Optimized for all devices.  
 🎨 **Smooth Animations:** Beautiful transitions and effects.  
