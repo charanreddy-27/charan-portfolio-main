@@ -3,7 +3,7 @@ export const faceDBProject = {
   title: "Face Recognition and Vector Database Integration",
   description:
     "Developed a face recognition system integrated with vector databases for accurate identification, querying, and management of facial data.",
-  image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc",
+    image: "/paper/project-1.webp",
   tools: ["Python", "face_recognition", "ChromaDB", "Pinecone", "unittest"],
   slug: "face-recognition-db",
   overview:
