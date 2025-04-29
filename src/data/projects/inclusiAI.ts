@@ -3,7 +3,7 @@ export const inclusiAIProject = {
   title: "Inclusi-AI Vasyan: Mental Well-being Support System",
   description:
     "Built an AI-driven mental health application offering personalized support, mood tracking, and emotional care through GPT-3 and Azure.",
-  image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+  image: "/paper/project-4.webp",
   tools: ["Flask", "Next.js", "GPT-3", "Azure", "PostgreSQL", "Azure CLI"],
   slug: "inclusi-ai-vasyan",
   overview:
