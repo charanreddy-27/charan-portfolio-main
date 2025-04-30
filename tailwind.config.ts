@@ -115,11 +115,23 @@ export default {
         gradient: "gradient 15s ease infinite",
         marquee: "marquee 20s linear infinite",
       },
+      boxShadow: {
+        cardHover: "0 4px 10px rgba(0, 0, 0, 0.1)", // Custom shadow for hover
+      },
+      transitionProperty: {
+        cardHover: "transform, box-shadow", // Transition for hover effects
+      },
+      transitionTimingFunction: {
+        cardHover: "ease-in-out", // Smooth transition
+      },
+      transform: {
+        cardHover: "translateY(-5px)", // Custom transform for hover
+      },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
-    function({ addUtilities }: { addUtilities: Function }) {
+    function ({ addUtilities }: { addUtilities: Function }) {
       addUtilities({
         ".scrollbar-hide": {
           "-ms-overflow-style": "none",

@@ -1,14 +1,29 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { GraduationCap, Briefcase, CalendarIcon, Building, Award, BookOpen, Star, Trophy, MapPin, Timer } from "lucide-react";
+import { 
+    GraduationCap, 
+    Briefcase, 
+    CalendarIcon, 
+    Building, 
+    Award, 
+    BookOpen, 
+    Star, 
+    Trophy, 
+    MapPin, 
+    Timer 
+} from "lucide-react";
 import educationData from "@/data/education";
 import workData from "@/data/experience";
 
 const AboutCard = ({ title, description }) => (
     <Card className="bg-secondary/50 backdrop-blur-sm hover:bg-secondary/60 transition-all duration-300">
         <CardContent className="p-6">
-            <h3 className="text-2xl font-heading font-bold mb-4 text-primary">{title}</h3>
-            <p className="text-muted-foreground leading-relaxed">{description}</p>
+            <h3 className="text-2xl font-heading font-bold mb-4 text-primary">
+                {title}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+                {description}
+            </p>
         </CardContent>
     </Card>
 );
@@ -22,15 +37,23 @@ const TimelineItem = ({ icon: Icon, title, subtitle, details, content }) => (
                 {title}
             </CardTitle>
             <CardDescription>
-                <div className="space-y-2 mt-2">{details}</div>
+                <div className="space-y-2 mt-2">
+                    {details}
+                </div>
             </CardDescription>
         </CardHeader>
-        <CardContent>{content}</CardContent>
+        <CardContent>
+            {content}
+        </CardContent>
     </Card>
 );
 
 const Timeline = ({ title, icon: Icon, data, renderDetails, renderContent }) => (
-    <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+    <motion.div 
+        initial={{ opacity: 0, x: -20 }} 
+        whileInView={{ opacity: 1, x: 0 }} 
+        transition={{ duration: 0.5 }}
+    >
         <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-2">
             <Icon className="text-primary w-8 h-8" />
             {title}
@@ -43,11 +66,10 @@ const Timeline = ({ title, icon: Icon, data, renderDetails, renderContent }) => 
                         key={index}
                         icon={title === "Education" ? BookOpen : Building}
                         title={item.school || item.company}
-                        subtitle={item.degree || item.position || ""} // Ensuring subtitle is provided
+                        subtitle={item.degree || item.position || ""}
                         details={renderDetails(item)}
                         content={renderContent(item)}
                     />
-
                 ))}
             </div>
         </div>
@@ -58,8 +80,15 @@ const About = () => {
     return (
         <section className="py-20 bg-background" id="about">
             <div className="container mx-auto px-4">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-20">
-                    <h2 className="text-4xl font-heading font-bold mb-12 text-center">About Me</h2>
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    whileInView={{ opacity: 1, y: 0 }} 
+                    transition={{ duration: 0.5 }} 
+                    className="mb-20"
+                >
+                    <h2 className="text-4xl font-heading font-bold mb-12 text-center">
+                        About Me
+                    </h2>
                     <div className="grid md:grid-cols-2 gap-8">
                         <AboutCard
                             title="Who I Am"
@@ -78,19 +107,51 @@ const About = () => {
                         data={educationData}
                         renderDetails={(edu) => (
                             <>
-                                <div className="flex items-center gap-2"><CalendarIcon className="w-4 h-4" />{edu.duration}</div>
-                                <div className="flex items-center gap-2"><MapPin className="w-4 h-4" />{edu.location}</div>
-                                <div className="flex items-center gap-2"><Award className="w-4 h-4" />GPA: {edu.gpa}</div>
+                                <div className="flex items-center gap-2">
+                                    <CalendarIcon className="w-4 h-4" />
+                                    {edu.duration}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <MapPin className="w-4 h-4" />
+                                    {edu.location}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Award className="w-4 h-4" />
+                                    GPA: {edu.gpa}
+                                </div>
                             </>
                         )}
                         renderContent={(edu) => (
                             <>
-                                <p className="font-medium mb-4">{edu.degree}</p>
+                                <p className="font-medium mb-4">
+                                    {edu.degree}
+                                </p>
                                 <div className="space-y-4">
-                                    <h4 className="text-sm font-semibold mb-2 flex items-center gap-2"><Star className="w-4 h-4 text-primary" />Key Courses</h4>
-                                    <div className="flex flex-wrap gap-2">{edu.courses.map((course, i) => (<span key={i} className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary">{course}</span>))}</div>
-                                    <h4 className="text-sm font-semibold mb-2 flex items-center gap-2"><Trophy className="w-4 h-4 text-primary" />Achievements</h4>
-                                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">{edu.achievements.map((achievement, i) => (<li key={i}>{achievement}</li>))}</ul>
+                                    <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                                        <Star className="w-4 h-4 text-primary" />
+                                        Key Courses
+                                    </h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {edu.courses.map((course, i) => (
+                                            <span 
+                                                key={i} 
+                                                className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                                            >
+                                                {course}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                                        <Trophy className="w-4 h-4 text-primary" />
+                                        Achievements
+                                    </h4>
+                                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                        {edu.achievements.map((achievement, i) => (
+                                            <li key={i}>
+                                                {achievement}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </>
                         )}
@@ -100,20 +161,50 @@ const About = () => {
                         icon={Briefcase}
                         data={workData}
                         renderDetails={(work) => (
-                            <>
-                                <div className="flex items-center gap-2"><CalendarIcon className="w-4 h-4" />{work.duration}</div>
-                                <div className="flex items-center gap-2"><MapPin className="w-4 h-4" />{work.location}</div>
-                                <div className="flex items-center gap-2"><Timer className="w-4 h-4" />{work.position}</div>
-                            </>
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <CalendarIcon className="w-4 h-4" />
+                                    <span>{work.duration}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <MapPin className="w-4 h-4" />
+                                    <span>{work.location}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Timer className="w-4 h-4" />
+                                    <span>{work.position}</span>
+                                </div>
+                            </div>
                         )}
                         renderContent={(work) => (
-                            <>
-                                <p className="text-muted-foreground mb-4">{work.description}</p>
-                                <h4 className="text-sm font-semibold mb-2 flex items-center gap-2"><Star className="w-4 h-4 text-primary" />Key Responsibilities</h4>
-                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">{work.responsibilities.map((responsibility, i) => (<li key={i}>{responsibility}</li>))}</ul>
-                                <h4 className="text-sm font-semibold mb-2 flex items-center gap-2"><Trophy className="w-4 h-4 text-primary" />Technologies</h4>
-                                <div className="flex flex-wrap gap-2">{work.tools.map((tool, i) => (<span key={i} className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary">{tool}</span>))}</div>
-                            </>
+                            <div className="space-y-4">
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {work.description}
+                                </p>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-primary" />
+                                    Key Responsibilities
+                                </h4>
+                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                    {work.responsibilities.map((responsibility, i) => (
+                                        <li key={i}>{responsibility}</li>
+                                    ))}
+                                </ul>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Trophy className="w-4 h-4 text-primary" />
+                                    Technologies
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                    {work.tools.map((tool, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                                        >
+                                            {tool}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
                         )}
                     />
                 </div>
