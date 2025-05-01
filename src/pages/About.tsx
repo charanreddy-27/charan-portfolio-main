@@ -92,7 +92,7 @@ const About = () => {
                     <div className="grid md:grid-cols-2 gap-8">
                         <AboutCard
                             title="Who I Am"
-                            description="B.Tech Computer Science student specializing in Data Science with a 3.39 CGPA. Skilled in Python, machine learning, data analysis, and statistical modeling. I’m driven by curiosity, a love for data, and a passion for building smart, impactful solutions through research and collaboration."
+                            description="B.Tech Computer Science student specializing in Data Science with a 8.60 CGPA. Skilled in Python, machine learning, data analysis, and statistical modeling. I’m driven by curiosity, a love for data, and a passion for building smart, impactful solutions through research and collaboration."
                         />
                         <AboutCard
                             title="What I Do"
