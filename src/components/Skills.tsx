@@ -3,8 +3,23 @@ import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 
 import {
-  Code, Database, Cloud, PenTool, Server, Laptop, Rocket,
-  GitBranch, Layers, FrameIcon, Type, Terminal, Database as DbIcon
+  Code,
+  Database,
+  Cloud,
+  PenTool,
+  Server,
+  Laptop,
+  Rocket,
+  GitBranch,
+  Layers,
+  FrameIcon,
+  Type,
+  Terminal,
+  BookOpen,
+  Monitor,
+  BarChart2,
+  Globe,
+  Layout,
 } from "lucide-react";
 
 type Skill = {
@@ -15,19 +30,29 @@ type Skill = {
 
 const skills: Skill[] = [
   {
-    name: "Next.js",
-    icon: <Code className="h-10 w-10" />,
+    name: "Python",
+    icon: <Terminal className="h-10 w-10" />, // Alternative icon for Python
+    category: "Languages",
+  },
+  {
+    name: "Java",
+    icon: <Code className="h-10 w-10" />, // Alternative icon for Java
+    category: "Languages",
+  },
+  {
+    name: "React",
+    icon: <Monitor className="h-10 w-10" />, // Alternative icon for React
     category: "Frameworks",
   },
   {
-    name: "Tailwind CSS",
-    icon: <Terminal className="h-10 w-10" />,
-    category: "Frameworks",
+    name: "NoSQL",
+    icon: <Database className="h-10 w-10" />,
+    category: "Database",
   },
   {
-    name: "Google Cloud",
-    icon: <Cloud className="h-10 w-10" />,
-    category: "Cloud",
+    name: "Power BI",
+    icon: <BarChart2 className="h-10 w-10" />, // Alternative icon for Power BI
+    category: "Data Visualization",
   },
   {
     name: "Figma",
@@ -35,44 +60,14 @@ const skills: Skill[] = [
     category: "Design",
   },
   {
-    name: "Docker",
-    icon: <Server className="h-10 w-10" />,
-    category: "DevOps",
+    name: "WordPress",
+    icon: <Globe className="h-10 w-10" />, // Alternative icon for WordPress
+    category: "CMS",
   },
   {
-    name: "Neo4j",
-    icon: <DbIcon className="h-10 w-10" />,
-    category: "Database",
-  },
-  {
-    name: "GSAP",
-    icon: <Laptop className="h-10 w-10" />,
-    category: "Animation",
-  },
-  {
-    name: "Vercel",
-    icon: <Rocket className="h-10 w-10" />,
-    category: "DevOps",
-  },
-  {
-    name: "Git",
-    icon: <GitBranch className="h-10 w-10" />,
-    category: "DevOps",
-  },
-  {
-    name: "Kubernetes",
-    icon: <Layers className="h-10 w-10" />,
-    category: "DevOps",
-  },
-  {
-    name: "React",
-    icon: <FrameIcon className="h-10 w-10" />,
-    category: "Frameworks",
-  },
-  {
-    name: "TypeScript",
-    icon: <Type className="h-10 w-10" />,
-    category: "Languages",
+    name: "Pandas",
+    icon: <Layout className="h-10 w-10" />, // Alternative icon for Pandas
+    category: "Libraries",
   },
 ];
 
@@ -105,14 +100,6 @@ const Skills = () => {
         >
           Tools and Frameworks that Power my Creations
         </motion.h2>
-        {/* <motion.p
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-muted-foreground mb-12"
-        >
-          Tools and frameworks that power my creations
-        </motion.p> */}
 
         <div className="relative overflow-hidden py-12 flex flex-col gap-16">
           {/* First Marquee Row */}
