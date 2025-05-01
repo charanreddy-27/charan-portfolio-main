@@ -141,17 +141,21 @@ const About = () => {
                                             </span>
                                         ))}
                                     </div>
-                                    <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                                        <Trophy className="w-4 h-4 text-primary" />
-                                        Achievements
-                                    </h4>
-                                    <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                                        {edu.achievements.map((achievement, i) => (
-                                            <li key={i}>
-                                                {achievement}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    {edu.achievements && edu.achievements.length > 0 && (
+                                        <>
+                                            <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                                                <Trophy className="w-4 h-4 text-primary" />
+                                                Achievements
+                                            </h4>
+                                            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                                {edu.achievements.map((achievement, i) => (
+                                                    <li key={i}>
+                                                        {achievement}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </>
+                                    )}
                                 </div>
                             </>
                         )}
