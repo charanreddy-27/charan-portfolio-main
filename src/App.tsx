@@ -1,3 +1,4 @@
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +17,7 @@ import Projects from "./pages/Projects";
 import Certifications from "./pages/Certificates";
 import About from "./pages/About";
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,29 +41,33 @@ const ScrollToTop = () => {
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <CustomCursor />
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Navigation />
-          <ScrollToTop /> {/* Automatically scroll to top on route change */}
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/project/:slug" element={<ProjectPost />} />
-            <Route path="/certificates" element={<Certifications />} />
-          </Routes>
-          <BackToTop />
-          <Footer />
-          <Analytics debug={process.env.NODE_ENV === 'development'} />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <CustomCursor />
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Navigation />
+            <ScrollToTop /> {/* Automatically scroll to top on route change */}
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/project/:slug" element={<ProjectPost />} />
+              <Route path="/certificates" element={<Certifications />} />
+            </Routes>
+            <BackToTop />
+            <Footer />
+            <Analytics debug={process.env.NODE_ENV === 'development'} />
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+      {/* Add this just once, anywhere globally */}
+      <SpeedInsights />
+    </>
   );
 };
 
