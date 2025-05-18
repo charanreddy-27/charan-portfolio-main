@@ -19,7 +19,7 @@ const workData = [
     position: "Digital Marketing & Social Media Intern",
     duration: "Feb 2025 – Present",
     location: "Remote (London, UK)",
-    description: "Supported digital marketing and social media strategies for a UK-based car trading platform.",
+    description: "Supported digital marketing and social media strategies for a UK-based car trading company.",
     responsibilities: [
       "Executed social media campaigns and designed creatives.",
       "Monitored metrics and refined strategies.",
