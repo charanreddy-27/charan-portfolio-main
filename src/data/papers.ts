@@ -1,7 +1,7 @@
 const papers = [
   {
     title:
-      "Lung Disease Detection and Classification with Improved Deep Learning Model Using X-Ray Images (Submitted)",
+      "Lung Disease Detection and Classification with Improved Deep Learning Model Using X-Ray Images",
     authors: ["Charan Reddy Chanda", "Dr. Babu Kumar"],
     publishedDate: "April 2025",
     publication: "Springer",
