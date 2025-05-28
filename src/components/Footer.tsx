@@ -58,7 +58,7 @@ const Footer = () => {
     visible: { opacity: 1, y: 0 }
   };
 
-  const headingText = "Let's Connect";
+  const headingWords = ["Let's", "Connect"];
   
   return (
     <footer className="py-12 bg-background relative overflow-hidden">
@@ -90,56 +90,58 @@ const Footer = () => {
         variants={containerVariants}
         className="container mx-auto px-4 relative z-10"
       >
-        <div className="mb-16">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-center mb-4 relative overflow-hidden"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+        <motion.h2 
+          className="text-3xl md:text-4xl font-bold text-center mb-8 relative overflow-hidden"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex justify-center items-center gap-2">
+            {headingWords.map((word, wordIndex) => (
+              <div key={wordIndex} className="flex">
+                {word.split('').map((char, index) => (
+                  <motion.span
+                    key={`${wordIndex}-${index}`}
+                    variants={letterVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.5,
+                      delay: (wordIndex * word.length + index) * 0.05,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    className={`${char === 'C' ? "text-primary" : ""} relative inline-block cursor-default`}
+                    whileHover={{ 
+                      y: -5, 
+                      scale: 1.2, 
+                      color: char === 'C' ? "#ffffff" : "#F76D57",
+                      transition: { duration: 0.2 }
+                    }}
+                  >
+                    {char}
+                    {char !== ' ' && (
+                      <motion.span 
+                        className="absolute bottom-0 left-0 w-full h-[2px] bg-primary"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                    )}
+                  </motion.span>
+                ))}
+              </div>
+            ))}
+          </div>
+          <motion.div 
+            className="absolute -bottom-1 left-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
+            initial={{ width: 0, x: "-50%" }}
+            whileInView={{ width: "60%" }}
             viewport={{ once: true }}
-          >
-            <div className="flex justify-center items-center">
-              {headingText.split('').map((char, index) => (
-                <motion.span
-                  key={index}
-                  variants={letterVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.05,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  className={`${char === 'C' ? "text-primary" : ""} relative inline-block cursor-default`}
-                  whileHover={{ 
-                    y: -5, 
-                    scale: 1.2, 
-                    color: char === 'C' ? "#ffffff" : "#F76D57",
-                    transition: { duration: 0.2 }
-                  }}
-                >
-                  {char}
-                  {char !== ' ' && (
-                    <motion.span 
-                      className="absolute bottom-0 left-0 w-full h-[2px] bg-primary"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  )}
-                </motion.span>
-              ))}
-            </div>
-            <motion.div 
-              className="absolute -bottom-1 left-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
-              initial={{ width: 0, x: "-50%" }}
-              whileInView={{ width: "60%" }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-            />
-          </motion.h2>
-        </div>
+            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+          />
+        </motion.h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           <motion.div

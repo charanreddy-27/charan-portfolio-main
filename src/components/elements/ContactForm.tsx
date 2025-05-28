@@ -161,44 +161,46 @@ const ContactForm = () => {
           variants={itemVariants}
           className="relative"
         >
+          <div className="relative flex items-center">
+            <motion.div 
+              className="absolute left-4 z-10"
+              animate={{ 
+                scale: focusedField === 'name' ? 1.2 : 1,
+                color: focusedField === 'name' ? "#F76D57" : "rgba(255,255,255,0.5)"
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className={`flex items-center justify-center p-1.5 rounded-full ${focusedField === 'name' ? 'bg-primary/20' : 'bg-white/5'}`}>
+                <User className="w-4 h-4" />
+              </div>
+            </motion.div>
+            
+            <motion.span
+              className="absolute -top-2 left-12 text-xs opacity-0 pointer-events-none"
+              animate={{
+                opacity: focusedField === 'name' ? 1 : 0,
+                y: focusedField === 'name' ? 0 : 5
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              Your Name
+            </motion.span>
+            
+            <Input
+              name="name"
+              placeholder="Your Name"
+              required
+              value={formState.name}
+              onChange={handleChange}
+              onFocus={() => handleFocus('name')}
+              onBlur={handleBlur}
+              disabled={isSubmitting}
+              className="w-full bg-secondary/20 rounded-lg pl-14 py-5 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all backdrop-blur-sm shadow-lg"
+            />
+          </div>
+          
           <motion.div 
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center"
-            animate={{ 
-              scale: focusedField === 'name' ? 1.2 : 1,
-              color: focusedField === 'name' ? "#F76D57" : "rgba(255,255,255,0.5)"
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className={`flex items-center justify-center p-1.5 rounded-full ${focusedField === 'name' ? 'bg-primary/20' : 'bg-white/5'}`}>
-              <User className="w-4 h-4" />
-            </div>
-          </motion.div>
-          
-          <motion.span
-            className="absolute -top-2 left-12 text-xs opacity-0 pointer-events-none"
-            animate={{
-              opacity: focusedField === 'name' ? 1 : 0,
-              y: focusedField === 'name' ? 0 : 5
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            Your Name
-          </motion.span>
-          
-          <Input
-            name="name"
-            placeholder="Your Name"
-            required
-            value={formState.name}
-            onChange={handleChange}
-            onFocus={() => handleFocus('name')}
-            onBlur={handleBlur}
-            disabled={isSubmitting}
-            className="bg-secondary/20 rounded-lg pl-14 py-5 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all backdrop-blur-sm shadow-lg"
-          />
-          
-          <motion.div 
-            className="absolute bottom-0 left-0 h-[2px] bg-primary"
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
             initial={{ width: 0 }}
             animate={{ 
               width: focusedField === 'name' || formState.name ? "100%" : "0%"
@@ -221,45 +223,47 @@ const ContactForm = () => {
           variants={itemVariants}
           className="relative"
         >
+          <div className="relative flex items-center">
+            <motion.div 
+              className="absolute left-4 z-10"
+              animate={{ 
+                scale: focusedField === 'email' ? 1.2 : 1,
+                color: focusedField === 'email' ? "#F76D57" : "rgba(255,255,255,0.5)"
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className={`flex items-center justify-center p-1.5 rounded-full ${focusedField === 'email' ? 'bg-primary/20' : 'bg-white/5'}`}>
+                <Mail className="w-4 h-4" />
+              </div>
+            </motion.div>
+            
+            <motion.span
+              className="absolute -top-2 left-12 text-xs opacity-0 pointer-events-none"
+              animate={{
+                opacity: focusedField === 'email' ? 1 : 0,
+                y: focusedField === 'email' ? 0 : 5
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              Your Email
+            </motion.span>
+            
+            <Input
+              name="email"
+              type="email"
+              placeholder="Your Email"
+              required
+              value={formState.email}
+              onChange={handleChange}
+              onFocus={() => handleFocus('email')}
+              onBlur={handleBlur}
+              disabled={isSubmitting}
+              className="w-full bg-secondary/20 rounded-lg pl-14 py-5 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all backdrop-blur-sm shadow-lg"
+            />
+          </div>
+          
           <motion.div 
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center"
-            animate={{ 
-              scale: focusedField === 'email' ? 1.2 : 1,
-              color: focusedField === 'email' ? "#F76D57" : "rgba(255,255,255,0.5)"
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className={`flex items-center justify-center p-1.5 rounded-full ${focusedField === 'email' ? 'bg-primary/20' : 'bg-white/5'}`}>
-              <Mail className="w-4 h-4" />
-            </div>
-          </motion.div>
-          
-          <motion.span
-            className="absolute -top-2 left-12 text-xs opacity-0 pointer-events-none"
-            animate={{
-              opacity: focusedField === 'email' ? 1 : 0,
-              y: focusedField === 'email' ? 0 : 5
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            Your Email
-          </motion.span>
-          
-          <Input
-            name="email"
-            type="email"
-            placeholder="Your Email"
-            required
-            value={formState.email}
-            onChange={handleChange}
-            onFocus={() => handleFocus('email')}
-            onBlur={handleBlur}
-            disabled={isSubmitting}
-            className="bg-secondary/20 rounded-lg pl-14 py-5 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all backdrop-blur-sm shadow-lg"
-          />
-          
-          <motion.div 
-            className="absolute bottom-0 left-0 h-[2px] bg-primary"
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
             initial={{ width: 0 }}
             animate={{ 
               width: focusedField === 'email' || formState.email ? "100%" : "0%"
@@ -282,44 +286,46 @@ const ContactForm = () => {
           variants={itemVariants}
           className="relative"
         >
+          <div className="relative flex">
+            <motion.div 
+              className="absolute left-4 top-3 z-10"
+              animate={{ 
+                scale: focusedField === 'message' ? 1.2 : 1,
+                color: focusedField === 'message' ? "#F76D57" : "rgba(255,255,255,0.5)"
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className={`flex items-center justify-center p-1.5 rounded-full ${focusedField === 'message' ? 'bg-primary/20' : 'bg-white/5'}`}>
+                <MessageSquare className="w-4 h-4" />
+              </div>
+            </motion.div>
+            
+            <motion.span
+              className="absolute -top-2 left-12 text-xs opacity-0 pointer-events-none"
+              animate={{
+                opacity: focusedField === 'message' ? 1 : 0,
+                y: focusedField === 'message' ? 0 : 5
+              }}
+              transition={{ duration: 0.2 }}
+            >
+              Your Message
+            </motion.span>
+            
+            <Textarea
+              name="message"
+              placeholder="Your Message"
+              required
+              value={formState.message}
+              onChange={handleChange}
+              onFocus={() => handleFocus('message')}
+              onBlur={handleBlur}
+              disabled={isSubmitting}
+              className="w-full min-h-[100px] bg-secondary/20 rounded-lg pl-14 py-3 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all backdrop-blur-sm shadow-lg"
+            />
+          </div>
+          
           <motion.div 
-            className="absolute left-4 top-5 z-10 flex items-center justify-center"
-            animate={{ 
-              scale: focusedField === 'message' ? 1.2 : 1,
-              color: focusedField === 'message' ? "#F76D57" : "rgba(255,255,255,0.5)"
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className={`flex items-center justify-center p-1.5 rounded-full ${focusedField === 'message' ? 'bg-primary/20' : 'bg-white/5'}`}>
-              <MessageSquare className="w-4 h-4" />
-            </div>
-          </motion.div>
-          
-          <motion.span
-            className="absolute -top-2 left-12 text-xs opacity-0 pointer-events-none"
-            animate={{
-              opacity: focusedField === 'message' ? 1 : 0,
-              y: focusedField === 'message' ? 0 : 5
-            }}
-            transition={{ duration: 0.2 }}
-          >
-            Your Message
-          </motion.span>
-          
-          <Textarea
-            name="message"
-            placeholder="Your Message"
-            required
-            value={formState.message}
-            onChange={handleChange}
-            onFocus={() => handleFocus('message')}
-            onBlur={handleBlur}
-            disabled={isSubmitting}
-            className="min-h-[100px] bg-secondary/20 rounded-lg pl-14 py-3 border border-white/10 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all backdrop-blur-sm shadow-lg"
-          />
-          
-          <motion.div 
-            className="absolute bottom-0 left-0 h-[2px] bg-primary"
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
             initial={{ width: 0 }}
             animate={{ 
               width: focusedField === 'message' || formState.message ? "100%" : "0%"
