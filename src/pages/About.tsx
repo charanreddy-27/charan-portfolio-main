@@ -15,6 +15,38 @@ import {
 import educationData from "@/data/education";
 import workData from "@/data/experience";
 
+const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer"
+      whileHover={{ 
+        scale: 1.2, 
+        color: "#ffffff", 
+        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
+const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-pink-500"
+      whileHover={{ 
+        scale: 1.2,
+        backgroundImage: "linear-gradient(to right, #a78bfa, #ec4899)",
+        textShadow: "0 0 12px rgba(167, 139, 250, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
 const AboutCard = ({ title, description }) => (
     <Card className="bg-secondary/50 backdrop-blur-sm hover:bg-secondary/60 transition-all duration-300">
         <CardContent className="p-6">
@@ -54,22 +86,42 @@ const Timeline = ({ title, icon: Icon, data, renderDetails, renderContent }) => 
         whileInView={{ opacity: 1, x: 0 }} 
         transition={{ duration: 0.5 }}
     >
-        <h2 className="text-3xl font-heading font-bold mb-8 flex items-center gap-2">
-            <Icon className="text-primary w-8 h-8" />
+        <motion.h2 
+            className="text-3xl font-heading font-bold mb-8 flex items-center gap-2"
+            whileHover={{ 
+                scale: 1.02,
+                color: "#a78bfa",
+                transition: { type: "spring", stiffness: 300, damping: 10 }
+            }}
+        >
+            <motion.div
+                whileHover={{ 
+                    rotate: [0, -10, 10, -10, 0],
+                    transition: { duration: 0.5 }
+                }}
+            >
+                <Icon className="text-primary w-8 h-8" />
+            </motion.div>
             {title}
-        </h2>
+        </motion.h2>
         <div className="relative">
             <div className="absolute left-0 w-0.5 h-full bg-primary/20" />
             <div className="space-y-8 pl-6">
                 {data.map((item, index) => (
-                    <TimelineItem
+                    <motion.div
                         key={index}
-                        icon={title === "Education" ? BookOpen : Building}
-                        title={item.school || item.company}
-                        subtitle={item.degree || item.position || ""}
-                        details={renderDetails(item)}
-                        content={renderContent(item)}
-                    />
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                    >
+                        <TimelineItem
+                            icon={title === "Education" ? BookOpen : Building}
+                            title={item.school || item.company}
+                            subtitle={item.degree || item.position || ""}
+                            details={renderDetails(item)}
+                            content={renderContent(item)}
+                        />
+                    </motion.div>
                 ))}
             </div>
         </div>
@@ -77,6 +129,9 @@ const Timeline = ({ title, icon: Icon, data, renderDetails, renderContent }) => 
 );
 
 const About = () => {
+    const aboutText = "About";
+    const meText = "Me";
+    
     return (
         <section className="py-20 bg-background" id="about">
             <div className="container mx-auto px-4">
@@ -86,13 +141,27 @@ const About = () => {
                     transition={{ duration: 0.5 }} 
                     className="mb-20"
                 >
-                    <h2 className="text-4xl font-heading font-bold mb-12 text-center">
-                        About Me
-                    </h2>
+                    <motion.h2 
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="text-4xl font-heading font-bold mb-12 text-center flex flex-wrap justify-center"
+                    >
+                        <div className="mr-3">
+                            {aboutText.split('').map((char, index) => (
+                                <AnimatedCharacter key={index} character={char} index={index} />
+                            ))}
+                        </div>
+                        <div>
+                            {meText.split('').map((char, index) => (
+                                <AnimatedGradientCharacter key={index} character={char} index={index} />
+                            ))}
+                        </div>
+                    </motion.h2>
                     <div className="grid md:grid-cols-2 gap-8">
                         <AboutCard
                             title="Who I Am"
-                            description="B.Tech Computer Science student specializing in Data Science with a 8.60 CGPA. Skilled in Python, machine learning, data analysis, and statistical modeling. I’m driven by curiosity, a love for data, and a passion for building smart, impactful solutions through research and collaboration."
+                            description="B.Tech Computer Science student specializing in Data Science with a 8.60 CGPA. Skilled in Python, machine learning, data analysis, and statistical modeling. I'm driven by curiosity, a love for data, and a passion for building smart, impactful solutions through research and collaboration."
                         />
                         <AboutCard
                             title="What I Do"
