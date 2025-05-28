@@ -5,8 +5,42 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer"
+      whileHover={{ 
+        scale: 1.2, 
+        color: "#ffffff", 
+        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
+const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-rose-500"
+      whileHover={{ 
+        scale: 1.2,
+        backgroundImage: "linear-gradient(to right, #fbbf24, #f43f5e)",
+        textShadow: "0 0 12px rgba(251, 191, 36, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
 const Blog = () => {
     const navigate = useNavigate();
+    const blogText = "Blog";
+    const postsText = "Posts";
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString("en-US", {
@@ -36,12 +70,21 @@ const Blog = () => {
                 </motion.div>
 
                 <motion.h1
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="text-4xl md:text-5xl font-heading font-bold mb-12"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="text-4xl md:text-5xl font-heading font-bold mb-12 flex flex-wrap"
                 >
-                    Blog Posts
+                    <div className="mr-3">
+                        {blogText.split('').map((char, index) => (
+                            <AnimatedCharacter key={index} character={char} index={index} />
+                        ))}
+                    </div>
+                    <div>
+                        {postsText.split('').map((char, index) => (
+                            <AnimatedGradientCharacter key={index} character={char} index={index} />
+                        ))}
+                    </div>
                 </motion.h1>
 
                 <motion.div

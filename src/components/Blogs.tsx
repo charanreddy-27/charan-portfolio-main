@@ -4,10 +4,44 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { blogPosts } from "@/data/posts";
 
+const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer"
+      whileHover={{ 
+        scale: 1.2, 
+        color: "#ffffff", 
+        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
+const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-fuchsia-500"
+      whileHover={{ 
+        scale: 1.2,
+        backgroundImage: "linear-gradient(to right, #818cf8, #d946ef)",
+        textShadow: "0 0 12px rgba(129, 140, 248, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
 const BlogSection = () => {
     const navigate = useNavigate();
     const featuredPost = blogPosts[0];
     const gridPosts = blogPosts.slice(1, 5);
+    const latestText = "Latest";
+    const blogPostsText = "Blog Posts";
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString("en-US", {
@@ -42,12 +76,21 @@ const BlogSection = () => {
         <section className="py-20 bg-background">
             <div className="container px-4 mx-auto">
                 <motion.h2
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="text-4xl font-heading font-bold mb-12"
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="text-4xl font-heading font-bold mb-12 flex flex-wrap"
                 >
-                    Latest Blog Posts
+                    <div className="mr-3">
+                        {latestText.split('').map((char, index) => (
+                            <AnimatedCharacter key={index} character={char} index={index} />
+                        ))}
+                    </div>
+                    <div>
+                        {blogPostsText.split('').map((char, index) => (
+                            <AnimatedGradientCharacter key={index} character={char} index={index} />
+                        ))}
+                    </div>
                 </motion.h2>
 
                 <motion.div

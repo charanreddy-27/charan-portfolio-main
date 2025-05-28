@@ -5,10 +5,44 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { projectsdata } from "@/data/projects";
 
+const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer"
+      whileHover={{ 
+        scale: 1.2, 
+        color: "#ffffff", 
+        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
+const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500"
+      whileHover={{ 
+        scale: 1.2,
+        backgroundImage: "linear-gradient(to right, #4ade80, #14b8a6)",
+        textShadow: "0 0 12px rgba(74, 222, 128, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
 const Projects = () => {
   const projects = projectsdata;
   const navigate = useNavigate();
   const prefersReducedMotion = useReducedMotion();
+  const myText = "My";
+  const projectsText = "Projects";
 
   // Simplified animations for better performance
   const fadeInUp = {
@@ -36,11 +70,21 @@ const Projects = () => {
         </motion.div>
 
         <motion.h1
-          {...fadeInUp}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="text-4xl md:text-5xl font-heading font-bold mb-8"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-4xl md:text-5xl font-heading font-bold mb-8 flex flex-wrap"
         >
-          Projects
+          <div className="mr-3">
+            {myText.split('').map((char, index) => (
+              <AnimatedCharacter key={index} character={char} index={index} />
+            ))}
+          </div>
+          <div>
+            {projectsText.split('').map((char, index) => (
+              <AnimatedGradientCharacter key={index} character={char} index={index} />
+            ))}
+          </div>
         </motion.h1>
 
         {/* <motion.p
