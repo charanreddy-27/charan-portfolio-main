@@ -41,21 +41,38 @@ const Research = () => {
               "overflow-hidden border-secondary/20 hover:border-secondary/50 transition-all duration-300"
             )}
           >
-            <div className="relative h-64 md:h-96 overflow-hidden">
-              <img
+            <motion.div 
+              className="relative h-64 md:h-96 overflow-hidden"
+              whileHover={{ 
+                scale: 1.02,
+                transition: { type: "spring", stiffness: 300 }
+              }}
+            >
+              <motion.img
                 src={paper.image}
                 alt={paper.title}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full object-cover"
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.5 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-            </div>
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" 
+                whileHover={{ opacity: 0.7 }}
+              />
+            </motion.div>
 
             <CardContent className="p-8 grid gap-6">
               <div className="flex justify-between items-start">
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium">
+                <motion.span 
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium border border-transparent"
+                  whileHover={{ 
+                    backgroundColor: "rgba(var(--primary), 0.2)",
+                    borderColor: "rgba(var(--primary), 0.5)"
+                  }}
+                >
                   <Building2 className="w-4 h-4" />
                   {paper.publication}
-                </span>
+                </motion.span>
                 <span className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Calendar className="w-4 h-4" />
                   {paper.publishedDate}
@@ -65,25 +82,46 @@ const Research = () => {
               <div className="space-y-2">
                 <div className="flex items-start gap-3">
                   <Book className="w-5 h-5 mt-1 text-primary shrink-0" />
-                  <h3 className="text-xl md:text-2xl font-heading font-bold">
+                  <motion.h3 
+                    className="text-xl md:text-2xl font-heading font-bold"
+                    initial={{ opacity: 1 }}
+                    whileHover={{ 
+                      scale: 1.01,
+                      color: "rgba(var(--primary), 1)" 
+                    }}
+                    transition={{ type: "spring", stiffness: 500 }}
+                  >
                     {paper.title}
-                  </h3>
+                  </motion.h3>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
                 <Users className="w-4 h-4 text-primary shrink-0" />
-                <div className="text-sm text-muted-foreground">
+                <motion.div 
+                  className="text-sm text-muted-foreground border-b-2 border-primary/30 pb-1 px-2 rounded-sm"
+                  whileHover={{ 
+                    borderColor: "rgba(var(--primary), 0.8)",
+                    backgroundColor: "rgba(var(--primary), 0.05)",
+                    y: -2
+                  }}
+                >
                   <AuthorsList authors={paper.authors} />
-                </div>
+                </motion.div>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 {paper.tags.map((tag) => (
                   <motion.span
                     key={tag}
-                    whileHover={{ scale: 1.05 }}
-                    className="text-sm bg-secondary/50 px-3 py-1 rounded-full"
+                    whileHover={{ 
+                      scale: 1.1, 
+                      backgroundColor: "rgba(var(--secondary), 0.7)",
+                      color: "rgba(var(--foreground), 1)",
+                      boxShadow: "0 0 8px rgba(var(--secondary), 0.5)"
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    className="text-sm bg-secondary/50 px-3 py-1 rounded-full cursor-pointer border border-transparent hover:border-secondary/70"
                   >
                     {tag}
                   </motion.span>
@@ -92,21 +130,31 @@ const Research = () => {
             </CardContent>
 
             <CardFooter className="p-8 pt-0">
-              <Button
-                variant="default"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-                asChild
+              <motion.div className="w-full"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <a
-                  href={paper.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2"
+                <Button
+                  variant="default"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                  asChild
                 >
-                  Read Paper
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </Button>
+                  <a
+                    href={paper.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    Read Paper
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.div>
+                  </a>
+                </Button>
+              </motion.div>
             </CardFooter>
           </Card>
         </motion.div>
