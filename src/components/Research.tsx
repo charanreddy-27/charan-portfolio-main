@@ -4,6 +4,7 @@ import { ArrowRight, Book, Calendar, Building2, Users } from "lucide-react";
 import { cn } from "@/utils/tw-merge";
 import { motion } from "framer-motion";
 import papers from "@/data/papers";
+import { AuthorsList } from "./elements/AuthorWithOrcid";
 
 const Research = () => {
   const paper = papers[0]; // Assuming only one paper
@@ -70,9 +71,11 @@ const Research = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="flex items-center gap-3">
                 <Users className="w-4 h-4 text-primary shrink-0" />
-                <span>{paper.authors.join(", ")}</span>
+                <div className="text-sm text-muted-foreground">
+                  <AuthorsList authors={paper.authors} />
+                </div>
               </div>
 
               <div className="flex flex-wrap gap-2">
