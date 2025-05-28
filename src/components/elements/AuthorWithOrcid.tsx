@@ -11,8 +11,25 @@ export const AuthorWithOrcid = ({ name, orcidId }: AuthorProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <span className="inline-flex items-center gap-1">
-      <span>{name}</span>
+    <motion.span 
+      className="inline-flex items-center gap-1"
+      whileHover={{ 
+        y: -3,
+        scale: 1.05,
+        color: "rgba(var(--primary), 1)"
+      }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 500, 
+        damping: 20 
+      }}
+    >
+      <motion.span
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {name}
+      </motion.span>
       {orcidId && (
         <TooltipProvider>
           <Tooltip>
@@ -25,8 +42,8 @@ export const AuthorWithOrcid = ({ name, orcidId }: AuthorProps) => {
                 whileTap={{ scale: 0.9 }}
               >
                 <motion.svg
-                  width="16"
-                  height="16"
+                  width="20"
+                  height="20"
                   viewBox="0 0 256 256"
                   xmlns="http://www.w3.org/2000/svg"
                   className="text-primary fill-current"
@@ -52,7 +69,7 @@ export const AuthorWithOrcid = ({ name, orcidId }: AuthorProps) => {
           </Tooltip>
         </TooltipProvider>
       )}
-    </span>
+    </motion.span>
   );
 };
 
