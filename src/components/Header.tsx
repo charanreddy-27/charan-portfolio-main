@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
+import ParticleBackground from "@/components/elements/ParticleBackground";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -148,6 +149,9 @@ const Navigation = () => {
         : "bg-transparent py-6"
         }`}
     >
+      {/* Subtle particle background for the navbar */}
+      {isScrolled && <ParticleBackground className="opacity-30" variant="default" />}
+      
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link
@@ -285,6 +289,9 @@ const Navigation = () => {
                 variants={menuVariants}
                 className="fixed inset-0 top-[72px] bg-background/95 backdrop-blur-md z-40 flex flex-col lg:hidden overflow-y-auto"
               >
+                {/* Particle background for mobile menu */}
+                <ParticleBackground className="opacity-40" variant="menu" />
+                
                 <div className="container mx-auto px-4 py-8 flex flex-col h-full">
                   <motion.div
                     className="flex flex-col gap-6 items-center justify-center flex-1"
