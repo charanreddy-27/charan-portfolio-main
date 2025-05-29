@@ -74,7 +74,7 @@ const Navigation = () => {
     { path: "/about", label: "About", icon: User },
   ];
 
-  // Enhanced animations
+  // Enhanced animations with performance optimizations
   const menuVariants = {
     hidden: { 
       opacity: 0,
@@ -83,7 +83,8 @@ const Navigation = () => {
         duration: 0.2,
         when: "afterChildren",
         staggerChildren: 0.05,
-        staggerDirection: -1
+        staggerDirection: -1,
+        ease: [0.4, 0.0, 0.2, 1], // Improved easing
       }
     },
     visible: {
@@ -92,7 +93,8 @@ const Navigation = () => {
       transition: {
         duration: 0.3,
         when: "beforeChildren",
-        staggerChildren: 0.1
+        staggerChildren: 0.1,
+        ease: [0.0, 0.0, 0.2, 1], // Improved easing
       }
     }
   };
@@ -105,25 +107,64 @@ const Navigation = () => {
       transition: {
         type: "spring",
         stiffness: 300,
-        damping: 24
+        damping: 24,
+        mass: 0.8, // Reduced mass for better performance
       }
     }
   };
 
-  // Hamburger button animations
+  // Hamburger button animations with will-change hint
   const topBarVariants = {
-    closed: { rotate: 0, y: 0 },
-    open: { rotate: 45, y: 6 }
+    closed: { 
+      rotate: 0, 
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0.0, 0.2, 1],
+      }
+    },
+    open: { 
+      rotate: 45, 
+      y: 6,
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0.0, 0.2, 1],
+      }
+    }
   };
   
   const centerBarVariants = {
-    closed: { opacity: 1 },
-    open: { opacity: 0 }
+    closed: { 
+      opacity: 1,
+      transition: {
+        duration: 0.2,
+      }
+    },
+    open: { 
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      }
+    }
   };
   
   const bottomBarVariants = {
-    closed: { rotate: 0, y: 0 },
-    open: { rotate: -45, y: -6 }
+    closed: { 
+      rotate: 0, 
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0.0, 0.2, 1],
+      }
+    },
+    open: { 
+      rotate: -45, 
+      y: -6,
+      transition: {
+        duration: 0.3,
+        ease: [0.4, 0.0, 0.2, 1],
+      }
+    }
   };
 
   // Social icon hover animations
@@ -176,24 +217,23 @@ const Navigation = () => {
               transition={{ duration: 0.2 }}
               className="flex flex-col justify-center items-center w-10 h-10 rounded-md focus:outline-none"
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               <motion.span
                 variants={topBarVariants}
                 animate={isOpen ? "open" : "closed"}
-                transition={{ duration: 0.3 }}
-                className="w-6 h-0.5 bg-foreground mb-1.5 transform origin-center"
+                className="w-6 h-0.5 bg-foreground mb-1.5 transform origin-center will-change-transform"
               />
               <motion.span
                 variants={centerBarVariants}
                 animate={isOpen ? "open" : "closed"}
-                transition={{ duration: 0.3 }}
-                className="w-6 h-0.5 bg-foreground mb-1.5"
+                className="w-6 h-0.5 bg-foreground mb-1.5 will-change-opacity"
               />
               <motion.span
                 variants={bottomBarVariants}
                 animate={isOpen ? "open" : "closed"}
-                transition={{ duration: 0.3 }}
-                className="w-6 h-0.5 bg-foreground transform origin-center"
+                className="w-6 h-0.5 bg-foreground transform origin-center will-change-transform"
               />
             </motion.button>
           </div>
@@ -288,6 +328,11 @@ const Navigation = () => {
                 exit="hidden"
                 variants={menuVariants}
                 className="fixed inset-0 top-[72px] bg-background/95 backdrop-blur-md z-40 flex flex-col lg:hidden overflow-y-auto"
+                id="mobile-menu"
+                aria-hidden={!isOpen}
+                role="dialog"
+                aria-modal="true"
+                aria-label="Mobile navigation"
               >
                 {/* Particle background for mobile menu */}
                 <ParticleBackground className="opacity-40" variant="menu" />
