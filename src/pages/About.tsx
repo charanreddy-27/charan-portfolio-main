@@ -1,9 +1,4 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import BackgroundPattern, { GradientBackground } from '../components/BackgroundPatterns';
-import InteractiveCard from '../components/elements/InteractiveCard';
-import ContactForm from '../components/ContactForm';
-import { LazyImage } from '../components/elements';
+import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { 
     GraduationCap, 
@@ -134,108 +129,161 @@ const Timeline = ({ title, icon: Icon, data, renderDetails, renderContent }) => 
 );
 
 const About = () => {
-  useEffect(() => {
-    document.title = "About Me | Portfolio";
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 24,
-      },
-    },
-  };
-
-  return (
-    <div className="relative min-h-screen pt-24 pb-16">
-      {/* Background patterns */}
-      <BackgroundPattern type="dots" opacity={0.03} />
-      <GradientBackground opacity={0.07} />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          className="max-w-4xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div variants={itemVariants} className="mb-12 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">About Me</h1>
-            <p className="text-xl text-muted-foreground">Get to know more about my journey and skills</p>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="mb-16">
-            <div className="flex flex-col md:flex-row gap-8 items-center">
-              <div className="w-full md:w-1/3">
-                <LazyImage
-                  src="/path/to/profile-image.jpg"
-                  alt="Charan Chanda"
-                  placeholderSrc="/path/to/placeholder.jpg"
-                  className="rounded-xl overflow-hidden"
-                />
-              </div>
-              <div className="w-full md:w-2/3">
-                <h2 className="text-2xl font-bold mb-4">Hello, I'm Charan Chanda</h2>
-                <p className="text-muted-foreground mb-4">
-                  I'm a passionate developer with expertise in building modern web applications. 
-                  With a strong foundation in both frontend and backend technologies, I create 
-                  seamless, user-friendly experiences that solve real-world problems.
-                </p>
-                <p className="text-muted-foreground">
-                  My journey in tech started with a curiosity about how things work, which evolved 
-                  into a career building innovative solutions. I'm constantly learning and exploring 
-                  new technologies to stay at the forefront of the industry.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 text-center">My Skills</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                { title: 'Frontend Development', description: 'React, Next.js, TypeScript' },
-                { title: 'Backend Development', description: 'Node.js, Express, MongoDB' },
-                { title: 'UI/UX Design', description: 'Figma, Tailwind CSS' },
-                { title: 'Mobile Development', description: 'React Native, Flutter' },
-                { title: 'DevOps', description: 'Docker, CI/CD, AWS' },
-                { title: 'Data Analysis', description: 'Python, Pandas, Visualization' },
-              ].map((skill, index) => (
-                <InteractiveCard 
-                  key={index} 
-                  className="p-6"
-                  hoverEffect={index % 3 === 0 ? 'tilt' : index % 3 === 1 ? 'glow' : 'border'}
+    const aboutText = "About";
+    const meText = "Me";
+    
+    return (
+        <section className="py-20 bg-background" id="about">
+            <div className="container mx-auto px-4">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }} 
+                    whileInView={{ opacity: 1, y: 0 }} 
+                    transition={{ duration: 0.5 }} 
+                    className="mb-20"
                 >
-                  <h3 className="font-bold mb-2">{skill.title}</h3>
-                  <p className="text-muted-foreground text-sm">{skill.description}</p>
-                </InteractiveCard>
-              ))}
+                    <motion.h2 
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="text-4xl font-heading font-bold mb-12 text-center flex flex-wrap justify-center"
+                    >
+                        <div className="mr-3">
+                            {aboutText.split('').map((char, index) => (
+                                <AnimatedCharacter key={index} character={char} index={index} />
+                            ))}
+                        </div>
+                        <div>
+                            {meText.split('').map((char, index) => (
+                                <AnimatedGradientCharacter key={index} character={char} index={index} />
+                            ))}
+                        </div>
+                    </motion.h2>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <AboutCard
+                            title="Who I Am"
+                            description="B.Tech Computer Science student specializing in Data Science with a 8.60 CGPA. Skilled in Python, machine learning, data analysis, and statistical modeling. I'm driven by curiosity, a love for data, and a passion for building smart, impactful solutions through research and collaboration."
+                        />
+                        <AboutCard
+                            title="What I Do"
+                            description="I specialize in developing scalable web applications and integrating AI-driven solutions. With expertise in the MERN stack and machine learning, I create seamless user experiences while optimizing system performance and efficiency."
+                        />
+                    </div>
+                </motion.div>
+                <div className="grid md:grid-cols-2 gap-8 mb-20">
+                    <Timeline
+                        title="Education"
+                        icon={GraduationCap}
+                        data={educationData}
+                        renderDetails={(edu) => (
+                            <>
+                                <div className="flex items-center gap-2">
+                                    <CalendarIcon className="w-4 h-4" />
+                                    {edu.duration}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <MapPin className="w-4 h-4" />
+                                    {edu.location}
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Award className="w-4 h-4" />
+                                    GPA: {edu.gpa}
+                                </div>
+                            </>
+                        )}
+                        renderContent={(edu) => (
+                            <>
+                                <p className="font-medium mb-4">
+                                    {edu.degree}
+                                </p>
+                                <div className="space-y-4">
+                                    <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                                        <Star className="w-4 h-4 text-primary" />
+                                        Key Courses
+                                    </h4>
+                                    <div className="flex flex-wrap gap-2">
+                                        {edu.courses.map((course, i) => (
+                                            <span 
+                                                key={i} 
+                                                className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                                            >
+                                                {course}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    {edu.achievements && edu.achievements.length > 0 && (
+                                        <>
+                                            <h4 className="text-sm font-semibold mb-2 flex items-center gap-2">
+                                                <Trophy className="w-4 h-4 text-primary" />
+                                                Achievements
+                                            </h4>
+                                            <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                                {edu.achievements.map((achievement, i) => (
+                                                    <li key={i}>
+                                                        {achievement}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    />
+                    <Timeline
+                        title="Work Experience"
+                        icon={Briefcase}
+                        data={workData}
+                        renderDetails={(work) => (
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <CalendarIcon className="w-4 h-4" />
+                                    <span>{work.duration}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <MapPin className="w-4 h-4" />
+                                    <span>{work.location}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Timer className="w-4 h-4" />
+                                    <span>{work.position}</span>
+                                </div>
+                            </div>
+                        )}
+                        renderContent={(work) => (
+                            <div className="space-y-4">
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {work.description}
+                                </p>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-primary" />
+                                    Key Responsibilities
+                                </h4>
+                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                    {work.responsibilities.map((responsibility, i) => (
+                                        <li key={i}>{responsibility}</li>
+                                    ))}
+                                </ul>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Trophy className="w-4 h-4 text-primary" />
+                                    Technologies
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                    {work.tools.map((tool, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                                        >
+                                            {tool}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    />
+                </div>
             </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <h2 className="text-2xl font-bold mb-6 text-center">Get In Touch</h2>
-            <ContactForm />
-          </motion.div>
-        </motion.div>
-      </div>
-    </div>
-  );
+        </section>
+    );
 };
 
 export default About;
