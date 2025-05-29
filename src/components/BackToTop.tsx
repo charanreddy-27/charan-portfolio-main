@@ -1,52 +1,57 @@
-
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-
-gsap.registerPlugin(ScrollToPlugin);
 
 const BackToTop = () => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
 
   const scrollToTop = () => {
-    if (!buttonRef.current) return;
-
-    gsap.to(window, {
-      duration: 1.5,
-      scrollTo: {
-        y: 0,
-        autoKill: false
-      },
-      ease: "power3.inOut",
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
     });
   };
 
-  useEffect(() => {
-    const button = buttonRef.current;
-    if (!button) return;
-
-    const showButton = () => {
-      gsap.to(button, {
-        opacity: window.scrollY > 500 ? 1 : 0,
-        duration: 0.3,
-        ease: "power2.inOut",
-      });
-    };
-
-    window.addEventListener('scroll', showButton);
-    return () => window.removeEventListener('scroll', showButton);
-  }, []);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      scrollToTop();
+    }
+  };
 
   return (
-    <button
-      ref={buttonRef}
-      onClick={scrollToTop}
-      className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-primary/90 text-primary-foreground opacity-0 transition-all duration-300 hover:scale-110"
-      aria-label="Back to top"
-    >
-      <ArrowUp className="w-5 h-5" />
-    </button>
+    <AnimatePresence>
+      {isVisible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          transition={{ duration: 0.3 }}
+          onClick={scrollToTop}
+          onKeyDown={handleKeyDown}
+          className="fixed bottom-8 right-8 z-40 p-3 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background transition-all duration-300"
+          aria-label="Scroll back to top"
+          role="button"
+          tabIndex={0}
+        >
+          <ArrowUp className="h-5 w-5" />
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 };
 

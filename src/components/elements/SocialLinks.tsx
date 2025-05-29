@@ -35,6 +35,13 @@ const SocialLinks = () => {
 
   const titleChars = "Connect With Me".split("");
 
+  const handleKeyDown = (e: React.KeyboardEvent, callback: () => void) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      callback();
+    }
+  };
+
   return (
     <motion.div 
       initial="hidden"
@@ -96,6 +103,8 @@ const SocialLinks = () => {
       <motion.div 
         variants={containerVariants}
         className="flex justify-center gap-4"
+        role="navigation"
+        aria-label="Social media links"
       >
         {socialLinks.map(({ icon: Icon, href, label, color }, index) => (
           <motion.div
@@ -119,16 +128,19 @@ const SocialLinks = () => {
               }
             }}
             viewport={{ once: true }}
+            className="hover-lift focus-ring"
           >
             <motion.a
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden flex items-center justify-center w-12 h-12 bg-secondary/20 hover:bg-primary text-white rounded-lg backdrop-blur-sm border border-white/10 shadow-lg"
-              aria-label={label}
+              className="group relative overflow-hidden flex items-center justify-center w-12 h-12 bg-secondary/20 hover:bg-primary text-white rounded-lg backdrop-blur-sm border border-white/10 shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              aria-label={`Visit my ${label} profile`}
+              tabIndex={0}
+              onKeyDown={(e) => handleKeyDown(e, () => window.open(href, '_blank', 'noopener,noreferrer'))}
             >
               <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-20"
+                className="absolute inset-0 opacity-0 group-hover:opacity-20 group-focus:opacity-20"
                 style={{ backgroundColor: color }}
                 animate={{ opacity: [0, 0.2, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
@@ -137,7 +149,7 @@ const SocialLinks = () => {
               <Icon className="w-5 h-5 relative z-10" />
               
               <motion.span
-                className="absolute -bottom-6 left-0 right-0 text-xs text-center opacity-0 group-hover:opacity-100 group-hover:-bottom-1 transition-all duration-300"
+                className="absolute -bottom-6 left-0 right-0 text-xs text-center opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-hover:-bottom-1 group-focus:-bottom-1 transition-all duration-300"
               >
                 {label}
               </motion.span>
@@ -160,7 +172,9 @@ const SocialLinks = () => {
         href="https://charan-reddy.vercel.app"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center gap-2 text-xs text-primary/80 hover:text-primary mt-1 transition-colors duration-300"
+        className="flex items-center justify-center gap-2 text-xs text-primary/80 hover:text-primary hover-underline focus-ring mt-1 transition-colors duration-300"
+        aria-label="View all social media profiles"
+        tabIndex={0}
       >
         <span>View all profiles</span>
         <ExternalLink className="w-2.5 h-2.5" />

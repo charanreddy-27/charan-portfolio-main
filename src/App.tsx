@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Skeleton from "@/components/elements/SkeletonLoader";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
+import BackgroundPattern from "./components/elements/BackgroundPattern";
 
 // Lazy-loaded components
 const Index = lazy(() => import("./pages/Index"));
@@ -69,6 +70,9 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            {/* Background patterns */}
+            <BackgroundPattern pattern="dots" opacity={0.03} />
+            
             {/* Skip to content link for keyboard users */}
             <a href="#main-content" className="skip-to-content">
               Skip to content
@@ -77,17 +81,17 @@ const App = () => {
             <Navigation />
             <ScrollToTop />
             
-            <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
+            <main id="main-content" tabIndex={-1} style={{ outline: "none" }} className="relative">
               <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/project/:slug" element={<ProjectPost />} />
-              <Route path="/certificates" element={<Certifications />} />
-            </Routes>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/project/:slug" element={<ProjectPost />} />
+                  <Route path="/certificates" element={<Certifications />} />
+                </Routes>
               </Suspense>
             </main>
             

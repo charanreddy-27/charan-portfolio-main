@@ -254,11 +254,12 @@ const Navigation = () => {
                     onMouseLeave={() => setHoveredItem(null)}
                     onFocus={() => setHoveredItem(item.path)}
                     onBlur={() => setHoveredItem(null)}
-                    aria-current={isItemActive ? "page" : undefined}
                     className={`relative group flex items-center gap-2 text-base ${isActive(item.path)
                       ? "text-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground focus:text-foreground"
                       } transition-colors duration-300 focus:outline-none`}
+                    aria-label={`Navigate to ${item.label} page`}
+                    aria-current={isItemActive ? "page" : undefined}
                   >
                     <motion.div
                       animate={{ 
@@ -296,6 +297,7 @@ const Navigation = () => {
                 variant="default"
                 className="relative group overflow-hidden flex items-center gap-2"
                 asChild
+                aria-label="Connect on LinkedIn"
               >
                 <a
                   href="https://www.linkedin.com/in/chandacharanreddy/"
@@ -411,6 +413,7 @@ const Navigation = () => {
                         variant="default"
                         className="relative group overflow-hidden flex items-center gap-2 w-full"
                         asChild
+                        aria-label="Connect on LinkedIn"
                       >
                         <a
                           href="https://www.linkedin.com/in/chandacharanreddy/"
@@ -448,6 +451,7 @@ const Navigation = () => {
                       variants={socialIconVariants}
                       initial="initial"
                       whileHover="hover"
+                      aria-label="Visit GitHub profile"
                     >
                       <Github className="h-5 w-5" />
                     </motion.a>
@@ -459,6 +463,7 @@ const Navigation = () => {
                       variants={socialIconVariants}
                       initial="initial"
                       whileHover="hover"
+                      aria-label="Visit Twitter profile"
                     >
                       <Twitter className="h-5 w-5" />
                     </motion.a>
