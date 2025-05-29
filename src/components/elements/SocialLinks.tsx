@@ -6,7 +6,7 @@ const SocialLinks = () => {
   const socialLinks = [
     { icon: Github, href: "https://github.com/charanreddy-27", label: "GitHub", color: "#333" },
     { icon: Linkedin, href: "https://www.linkedin.com/in/chandacharanreddy", label: "LinkedIn", color: "#0077b5" },
-    { icon: Instagram, href: "https://www.instagram.com/charan_reddy_27", label: "Instagram", color: "#E1306C" }
+    { icon: Instagram, href: "https://www.instagram.com/charan.reddy27/", label: "Instagram", color: "#E1306C" }
   ];
 
   const containerVariants = {
