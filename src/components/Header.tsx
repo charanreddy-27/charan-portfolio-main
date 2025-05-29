@@ -19,6 +19,7 @@ import { Link, useLocation } from "react-router-dom";
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
@@ -124,6 +125,19 @@ const Navigation = () => {
     open: { rotate: -45, y: -6 }
   };
 
+  // Social icon hover animations
+  const socialIconVariants = {
+    initial: { scale: 1 },
+    hover: { 
+      scale: 1.15, 
+      rotate: [0, -10, 10, -5, 5, 0],
+      transition: { 
+        scale: { duration: 0.2 },
+        rotate: { duration: 0.5, ease: "easeInOut" }
+      }
+    }
+  };
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -141,13 +155,21 @@ const Navigation = () => {
             className="text-2xl font-heading font-bold text-foreground relative group"
           >
             <span className="relative z-10">Portfolio</span>
-            <span className="absolute inset-x-0 bottom-0 h-2 bg-primary/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+            <motion.span 
+              initial={{ scaleX: 0 }}
+              whileHover={{ scaleX: 1 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="absolute inset-x-0 bottom-0 h-2 bg-primary/10 transform origin-left" 
+            />
           </Link>
 
           {/* Custom Hamburger Button */}
           <div className="lg:hidden relative z-50">
-            <button
+            <motion.button
               onClick={() => setIsOpen(!isOpen)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
               className="flex flex-col justify-center items-center w-10 h-10 rounded-md focus:outline-none"
               aria-label="Toggle menu"
             >
@@ -169,7 +191,7 @@ const Navigation = () => {
                 transition={{ duration: 0.3 }}
                 className="w-6 h-0.5 bg-foreground transform origin-center"
               />
-            </button>
+            </motion.button>
           </div>
 
           {/* Desktop Navigation */}
@@ -177,43 +199,79 @@ const Navigation = () => {
             <div className="flex items-center gap-6">
               {navItems.map((item) => {
                 const Icon = item.icon;
+                const isItemHovered = hoveredItem === item.path;
+                const isItemActive = isActive(item.path);
+                
                 return (
                   <Link
                     key={item.path}
                     to={item.path}
+                    onMouseEnter={() => setHoveredItem(item.path)}
+                    onMouseLeave={() => setHoveredItem(null)}
                     className={`relative group flex items-center gap-2 text-base ${isActive(item.path)
                       ? "text-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground"
                       } transition-colors duration-300`}
                   >
-                    <Icon className={`h-4 w-4 transition-transform duration-300 group-hover:scale-110 ${isActive(item.path) ? "text-primary" : "group-hover:text-primary"
-                      }`} />
+                    <motion.div
+                      animate={{ 
+                        scale: isItemHovered || isItemActive ? 1.1 : 1,
+                        rotate: isItemHovered && !isItemActive ? [0, -10, 10, 0] : 0
+                      }}
+                      transition={{ 
+                        scale: { duration: 0.2 }, 
+                        rotate: { duration: 0.4 }
+                      }}
+                    >
+                      <Icon className={`h-4 w-4 transition-colors duration-300 ${isActive(item.path) ? "text-primary" : "group-hover:text-primary"
+                        }`} />
+                    </motion.div>
                     <span className="relative">
                       {item.label}
-                      <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transform origin-left transition-transform duration-300 ${isActive(item.path) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                        }`} />
+                      <motion.span 
+                        initial={{ scaleX: isItemActive ? 1 : 0 }}
+                        animate={{ scaleX: isItemActive || isItemHovered ? 1 : 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transform origin-left`} 
+                      />
                     </span>
                   </Link>
                 );
               })}
             </div>
 
-            <Button
-              variant="default"
-              className="relative group overflow-hidden flex items-center gap-2"
-              asChild
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2 }}
             >
-              <a
-                href="https://www.linkedin.com/in/chandacharanreddy/"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="flex items-center gap-2"
+              <Button
+                variant="default"
+                className="relative group overflow-hidden flex items-center gap-2"
+                asChild
               >
-                <Linkedin className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
-                <span className="relative z-10">Connect</span>
-                <span className="absolute inset-0 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              </a>
-            </Button>
+                <a
+                  href="https://www.linkedin.com/in/chandacharanreddy/"
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="flex items-center gap-2"
+                >
+                  <motion.div
+                    whileHover={{ x: 2, y: -2 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Linkedin className="h-4 w-4 relative z-10" />
+                  </motion.div>
+                  <span className="relative z-10">Connect</span>
+                  <motion.span 
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 bg-primary transform origin-left" 
+                  />
+                </a>
+              </Button>
+            </motion.div>
           </div>
 
           {/* Mobile Navigation Menu */}
@@ -234,29 +292,49 @@ const Navigation = () => {
                   >
                     {navItems.map((item, index) => {
                       const Icon = item.icon;
+                      const isItemActive = isActive(item.path);
+                      
                       return (
                         <motion.div
                           key={item.path}
                           variants={itemVariants}
                           custom={index}
+                          whileHover={{ 
+                            scale: 1.05, 
+                            transition: { duration: 0.2 } 
+                          }}
+                          whileTap={{ 
+                            scale: 0.95,
+                            transition: { duration: 0.1 } 
+                          }}
                         >
                           <Link
                             to={item.path}
                             className={`relative group flex items-center gap-3 text-xl ${
-                              isActive(item.path)
+                              isItemActive
                                 ? "text-foreground font-medium"
                                 : "text-muted-foreground hover:text-foreground"
                             } transition-colors duration-300 py-3`}
                             onClick={() => setIsOpen(false)}
                           >
-                            <Icon className={`h-5 w-5 transition-transform duration-300 ${
-                              isActive(item.path) ? "text-primary" : "text-muted-foreground"
-                            }`} />
+                            <motion.div
+                              whileHover={{ 
+                                rotate: [0, -10, 10, -5, 5, 0],
+                                transition: { duration: 0.5 }
+                              }}
+                            >
+                              <Icon className={`h-5 w-5 transition-transform duration-300 ${
+                                isItemActive ? "text-primary" : "text-muted-foreground"
+                              }`} />
+                            </motion.div>
                             <span className="relative">
                               {item.label}
-                              <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transform origin-left transition-transform duration-300 ${
-                                isActive(item.path) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                              }`} />
+                              <motion.span 
+                                initial={{ scaleX: isItemActive ? 1 : 0 }}
+                                whileHover={{ scaleX: 1 }}
+                                transition={{ duration: 0.3 }}
+                                className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transform origin-left`} 
+                              />
                             </span>
                           </Link>
                         </motion.div>
@@ -268,44 +346,67 @@ const Navigation = () => {
                     className="flex justify-center mt-8"
                     variants={itemVariants}
                   >
-                    <Button
-                      variant="default"
-                      className="relative group overflow-hidden flex items-center gap-2 w-full max-w-xs"
-                      asChild
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="w-full max-w-xs"
                     >
-                      <a
-                        href="https://www.linkedin.com/in/chandacharanreddy/"
-                        target="_blank"
-                        rel="noopener noreferrer nofollow"
-                        className="flex items-center justify-center gap-2"
+                      <Button
+                        variant="default"
+                        className="relative group overflow-hidden flex items-center gap-2 w-full"
+                        asChild
                       >
-                        <Linkedin className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover:translate-x-0.5" />
-                        <span className="relative z-10">Connect on LinkedIn</span>
-                        <span className="absolute inset-0 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                      </a>
-                    </Button>
+                        <a
+                          href="https://www.linkedin.com/in/chandacharanreddy/"
+                          target="_blank"
+                          rel="noopener noreferrer nofollow"
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <motion.div
+                            whileHover={{ x: 2, y: -2 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <Linkedin className="h-4 w-4 relative z-10" />
+                          </motion.div>
+                          <span className="relative z-10">Connect on LinkedIn</span>
+                          <motion.span 
+                            initial={{ scaleX: 0 }}
+                            whileHover={{ scaleX: 1 }}
+                            transition={{ duration: 0.3 }}
+                            className="absolute inset-0 bg-primary transform origin-left" 
+                          />
+                        </a>
+                      </Button>
+                    </motion.div>
                   </motion.div>
                   
                   <motion.div 
                     className="flex justify-center gap-6 mt-8"
                     variants={itemVariants}
                   >
-                    <a
+                    <motion.a
                       href="https://github.com/chandacharanreddy"
                       target="_blank"
                       rel="noopener noreferrer nofollow"
                       className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                      variants={socialIconVariants}
+                      initial="initial"
+                      whileHover="hover"
                     >
                       <Github className="h-5 w-5" />
-                    </a>
-                    <a
+                    </motion.a>
+                    <motion.a
                       href="https://twitter.com/chandacharanr"
                       target="_blank"
                       rel="noopener noreferrer nofollow"
                       className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                      variants={socialIconVariants}
+                      initial="initial"
+                      whileHover="hover"
                     >
                       <Twitter className="h-5 w-5" />
-                    </a>
+                    </motion.a>
                   </motion.div>
                 </div>
               </motion.div>
