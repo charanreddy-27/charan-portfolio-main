@@ -1,7 +1,6 @@
-
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { cn } from "@/utils/tw-merge";
+import { cn } from "@/utils/cn";
 
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
