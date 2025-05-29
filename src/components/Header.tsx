@@ -252,10 +252,13 @@ const Navigation = () => {
                     to={item.path}
                     onMouseEnter={() => setHoveredItem(item.path)}
                     onMouseLeave={() => setHoveredItem(null)}
+                    onFocus={() => setHoveredItem(item.path)}
+                    onBlur={() => setHoveredItem(null)}
+                    aria-current={isItemActive ? "page" : undefined}
                     className={`relative group flex items-center gap-2 text-base ${isActive(item.path)
                       ? "text-foreground font-medium"
-                      : "text-muted-foreground hover:text-foreground"
-                      } transition-colors duration-300`}
+                      : "text-muted-foreground hover:text-foreground focus:text-foreground"
+                      } transition-colors duration-300 focus:outline-none`}
                   >
                     <motion.div
                       animate={{ 
@@ -267,8 +270,8 @@ const Navigation = () => {
                         rotate: { duration: 0.4 }
                       }}
                     >
-                      <Icon className={`h-4 w-4 transition-colors duration-300 ${isActive(item.path) ? "text-primary" : "group-hover:text-primary"
-                        }`} />
+                      <Icon className={`h-4 w-4 transition-colors duration-300 ${isActive(item.path) ? "text-primary" : "group-hover:text-primary group-focus:text-primary"
+                        }`} aria-hidden="true" />
                     </motion.div>
                     <span className="relative">
                       {item.label}
