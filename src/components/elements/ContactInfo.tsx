@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, Copy, Check, ExternalLink } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/utils/use-toast";
 
 const ContactInfo = () => {
   const { toast } = useToast();
