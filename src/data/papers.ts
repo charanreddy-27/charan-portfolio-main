@@ -8,10 +8,10 @@ const papers = [
     title:
       "Lung Disease Detection and Classification with Improved Deep Learning Model Using X-Ray Images",
     authors: [
-      { name: "Charan Reddy Chanda", orcidId: "0000-0002-1234-5678" },
-      { name: "Dr. Babu Kumar", orcidId: "0000-0001-8765-4321" },
-      { name: "Dr. Sarah Johnson", orcidId: "0000-0003-5678-1234" },
-      { name: "Prof. Michael Chen", orcidId: "0000-0004-4321-8765" }
+      { name: "Dr.Babu Kumar", orcidId: "0000-0002-1956-4565" },
+      { name: "Charan Reddy Chanda", orcidId: "0009-0003-2414-6717" },
+      { name: "Gudisa Vathsalya Reddy", orcidId: "0009-0003-8634-5834" },
+      { name: "T.Purna Chandu", orcidId: "0009-0001-9065-1485" }
     ],
     publishedDate: "April 2025",
     publication: "Springer",
