@@ -1,13 +1,12 @@
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Code, Database, Brain, User, Award, BookOpen, Lightbulb, Sparkles } from "lucide-react";
+import { ArrowRight, Code, Database, Brain, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
 
 const FloatingIcon = ({ icon: Icon, x, y, delay, size = 24 }) => (
   <motion.div
-    className="absolute text-primary/30"
+    className="absolute text-primary/20"
     style={{ left: `${x}%`, top: `${y}%` }}
     initial={{ opacity: 0, scale: 0 }}
     animate={{ 
@@ -28,228 +27,234 @@ const FloatingIcon = ({ icon: Icon, x, y, delay, size = 24 }) => (
 );
 
 const AboutTeaser = () => {
-  const controls = useAnimation();
   const containerRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
   
+  // Animated spotlight effect
   useEffect(() => {
-    controls.start({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8 }
-    });
+    if (!containerRef.current) return;
     
-    // Add spotlight effect with mouse movement
-    if (containerRef.current) {
-      const container = containerRef.current;
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { left, top, width, height } = containerRef.current!.getBoundingClientRect();
       
-      const handleMouseMove = (e: MouseEvent) => {
-        const { left, top, width, height } = container.getBoundingClientRect();
-        const x = e.clientX - left;
-        const y = e.clientY - top;
-        
-        gsap.to(container, {
-          '--x': `${x}px`,
-          '--y': `${y}px`,
-          duration: 0.3,
-          ease: 'sine.out'
-        });
-      };
+      const x = ((clientX - left) / width) * 100;
+      const y = ((clientY - top) / height) * 100;
       
-      container.addEventListener('mousemove', handleMouseMove);
-      
-      return () => {
-        container.removeEventListener('mousemove', handleMouseMove);
-      };
-    }
+      containerRef.current!.style.setProperty('--mouse-x', `${x}%`);
+      containerRef.current!.style.setProperty('--mouse-y', `${y}%`);
+    };
     
-    // Button hover animation
-    if (buttonRef.current) {
-      gsap.to(buttonRef.current, {
-        scale: 1.05,
-        duration: 1.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-      });
-    }
-  }, [controls]);
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.8,
-        ease: [0.215, 0.61, 0.355, 1]
-      }
-    })
-  };
+    containerRef.current.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      containerRef.current?.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
     <section 
       ref={containerRef}
-      className="py-24 relative overflow-hidden"
-      style={{
-        '--x': '50%',
-        '--y': '50%',
-      } as React.CSSProperties}
+      className="py-32 relative overflow-hidden"
+      style={{'--mouse-x': '50%', '--mouse-y': '50%'} as React.CSSProperties}
     >
-      {/* Animated gradient background */}
+      {/* Background with animated gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background to-background/90">
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `radial-gradient(
+              circle 800px at var(--mouse-x) var(--mouse-y),
+              rgba(147, 51, 234, 0.15),
+              transparent 40%
+            )`
+          }}
+        />
+      </div>
+      
+      {/* Floating icons */}
+      <FloatingIcon icon={Code} x={15} y={20} delay={0} size={38} />
+      <FloatingIcon icon={Database} x={85} y={30} delay={1.5} size={34} />
+      <FloatingIcon icon={Brain} x={25} y={70} delay={0.8} size={36} />
+      <FloatingIcon icon={Star} x={75} y={60} delay={0.3} size={32} />
+      
+      {/* Animated background shapes */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/10 to-primary/5 rounded-3xl"
-        animate={{
-          backgroundPosition: ['0% 0%', '100% 100%'],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: "mirror",
-          ease: "linear"
-        }}
-      />
-      
-      {/* Spotlight effect */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(600px circle at var(--x) var(--y), rgba(147, 51, 234, 0.15), transparent 40%)',
-        }}
-      />
-      
-      {/* Floating icons with more variety */}
-      <FloatingIcon icon={Code} x={8} y={25} delay={0} size={38} />
-      <FloatingIcon icon={Database} x={92} y={65} delay={1.5} size={34} />
-      <FloatingIcon icon={Brain} x={15} y={75} delay={0.8} size={36} />
-      <FloatingIcon icon={Lightbulb} x={85} y={20} delay={2.2} size={32} />
-      <FloatingIcon icon={Sparkles} x={25} y={30} delay={1.2} size={30} />
-      <FloatingIcon icon={User} x={80} y={80} delay={0.5} size={35} />
-      <FloatingIcon icon={BookOpen} x={40} y={85} delay={1.8} size={32} />
-      <FloatingIcon icon={Award} x={75} y={40} delay={0.3} size={36} />
-      
-      {/* Decorative elements with more dynamic animations */}
-      <motion.div 
-        className="absolute left-0 top-1/4 w-40 h-40 rounded-full bg-primary/10 blur-xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.4, 0.2],
-          x: [0, 20, 0],
-        }}
-        transition={{ duration: 8, repeat: Infinity }}
-      />
-      
-      <motion.div 
-        className="absolute right-0 bottom-1/4 w-60 h-60 rounded-full bg-secondary/10 blur-xl"
+        className="absolute top-20 left-[10%] w-64 h-64 rounded-full bg-primary/5 blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.15, 0.3, 0.15],
-          x: [0, -30, 0],
+          x: [0, 30, 0],
+          opacity: [0.3, 0.5, 0.3],
         }}
-        transition={{ duration: 10, repeat: Infinity }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       
-      {/* Content container */}
-      <div className="container mx-auto px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={controls}
-          className="max-w-4xl mx-auto text-center relative z-10"
-        >
-          <motion.div 
-            className="mb-8 inline-block"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            <motion.span
-              className="text-xs md:text-sm uppercase tracking-widest font-semibold bg-primary/20 text-primary px-4 py-2 rounded-full"
-              animate={{ 
-                boxShadow: ['0 0 0 rgba(147, 51, 234, 0)', '0 0 20px rgba(147, 51, 234, 0.5)', '0 0 0 rgba(147, 51, 234, 0)'] 
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              About Me
-            </motion.span>
-          </motion.div>
-          
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight"
-            custom={0}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-          >
-            Curious about my <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">journey</span>?
-          </motion.h2>
-          
-          <motion.p 
-            className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed"
-            custom={1}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-          >
-            From a B.Tech Computer Science student to a specialist in Data Science and AI-driven solutions. 
-            I blend technical expertise with creative problem-solving to build impactful applications.
-          </motion.p>
-          
+      <motion.div 
+        className="absolute bottom-20 right-[10%] w-96 h-96 rounded-full bg-secondary/5 blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          x: [0, -40, 0],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-5xl mx-auto">
+          {/* Content */}
           <motion.div
-            ref={buttonRef}
-            custom={2}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-            className="relative"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-center"
           >
-            <Button 
-              asChild
-              size="lg" 
-              className="group relative overflow-hidden hover:scale-110 transition-transform duration-300 text-lg py-6 px-8"
+            <motion.div 
+              className="inline-block mb-4"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <Link to="/about">
-                <span className="relative z-10 flex items-center gap-3">
-                  Discover my journey
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <ArrowRight className="w-6 h-6" />
-                  </motion.span>
-                </span>
-                <motion.span 
-                  className="absolute inset-0 bg-gradient-to-r from-primary to-purple-500"
-                  initial={{ opacity: 0.8 }}
-                  whileHover={{ opacity: 1 }}
-                />
-                
-                {/* Animated particles around button */}
-                <motion.span 
-                  className="absolute -inset-1 rounded-lg opacity-30"
-                  animate={{ 
-                    boxShadow: ['0 0 0 rgba(147, 51, 234, 0)', '0 0 20px rgba(147, 51, 234, 0.8)', '0 0 0 rgba(147, 51, 234, 0)'] 
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </Link>
-            </Button>
+              <span className="bg-primary/10 text-primary text-sm font-semibold px-4 py-1.5 rounded-full">
+                About Me
+              </span>
+            </motion.div>
             
-            {/* Animated rings */}
+            <motion.h2 
+              className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+            >
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">
+                Curious
+              </span> about my journey?
+            </motion.h2>
+            
             <motion.div
-              className="absolute -inset-4 rounded-full border border-primary/20 pointer-events-none"
-              animate={{ scale: [0.8, 1.2, 0.8], opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            />
+              className="max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+                From a <span className="text-primary font-medium">B.Tech Computer Science</span> student to a specialist in 
+                <span className="text-primary font-medium"> Data Science</span> and <span className="text-primary font-medium">AI-driven solutions</span>. 
+                I blend technical expertise with creative problem-solving to build impactful applications.
+              </p>
+            </motion.div>
+            
+            {/* Stats */}
+            <motion.div 
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              <motion.div 
+                className="bg-card p-4 rounded-xl border border-border/50 shadow-lg"
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <div className="text-center">
+                  <span className="text-3xl font-bold text-primary">8.60</span>
+                  <p className="text-sm text-muted-foreground">CGPA</p>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                className="bg-card p-4 rounded-xl border border-border/50 shadow-lg"
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <div className="text-center">
+                  <span className="text-3xl font-bold text-primary">10+</span>
+                  <p className="text-sm text-muted-foreground">Projects</p>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                className="bg-card p-4 rounded-xl border border-border/50 shadow-lg"
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <div className="text-center">
+                  <span className="text-3xl font-bold text-primary">5+</span>
+                  <p className="text-sm text-muted-foreground">Tech Skills</p>
+                </div>
+              </motion.div>
+              
+              <motion.div 
+                className="bg-card p-4 rounded-xl border border-border/50 shadow-lg"
+                whileHover={{ y: -5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <div className="text-center">
+                  <span className="text-3xl font-bold text-primary">3+</span>
+                  <p className="text-sm text-muted-foreground">Years Exp.</p>
+                </div>
+              </motion.div>
+            </motion.div>
+            
+            {/* Skills */}
             <motion.div
-              className="absolute -inset-8 rounded-full border border-primary/10 pointer-events-none"
-              animate={{ scale: [0.8, 1.2, 0.8], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 3, delay: 0.5, repeat: Infinity }}
-            />
+              className="flex flex-wrap justify-center gap-3 mb-12 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+            >
+              <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">Python</span>
+              <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">React</span>
+              <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">Machine Learning</span>
+              <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">MERN Stack</span>
+              <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">Data Science</span>
+              <span className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">AI Solutions</span>
+            </motion.div>
+            
+            {/* Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="relative inline-block"
+            >
+              <motion.div
+                className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary via-purple-500 to-secondary opacity-70 blur-sm"
+                animate={{ 
+                  opacity: [0.5, 0.8, 0.5],
+                  rotate: [0, 5, 0, -5, 0],
+                }}
+                transition={{ duration: 5, repeat: Infinity }}
+              />
+              
+              <Button 
+                asChild
+                size="lg" 
+                className="relative bg-gradient-to-r from-primary to-purple-600 hover:from-primary hover:to-purple-500 px-8 py-7 text-lg"
+              >
+                <Link to="/about">
+                  <span className="flex items-center gap-3 font-medium">
+                    Discover my full story
+                    <motion.span
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <ArrowRight className="w-5 h-5" />
+                    </motion.span>
+                  </span>
+                </Link>
+              </Button>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default AboutTeaser; 
+export default AboutTeaser;
