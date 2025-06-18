@@ -1,9 +1,9 @@
 export const smolDoclingOCRProject = {
-    id: 11,
+    id: 2,
     title: "SmolDocling-OCR: Lightweight Document OCR Pipeline",
     description:
       "A lightweight, efficient OCR pipeline for extracting text from scanned documents and images, designed for educational and linguistic research use-cases.",
-    image: "/paper/project-4.webp",
+    image: "/paper/project-9.webp",
     tools: ["Python", "Tesseract OCR", "OpenCV", "Pillow", "Flask", "React"],
     slug: "smoldocling-ocr",
     overview:

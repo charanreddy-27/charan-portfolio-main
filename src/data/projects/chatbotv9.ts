@@ -3,7 +3,7 @@ export const chatbotv9Project = {
     title: "ChatbotV9: Interactive AI Chatbot Project",
     description:
       "A project focused on creating, training, and deploying an interactive AI chatbot using Jupyter Notebook as the primary development environment.",
-    image: "/paper/project-4.webp", // Placeholder path, update as needed
+    image: "/paper/project-6.webp",
     tools: ["Jupyter Notebook", "Python", "Machine Learning", "Natural Language Processing"],
     slug: "chatbotv9",
     overview:

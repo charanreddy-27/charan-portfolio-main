@@ -3,7 +3,7 @@ export const fakeImageDetectionProject = {
     title: "Fake Image Detection Using Deep Learning",
     description:
       "Developed a deep learning-based solution to detect manipulated or fake images, enhancing digital image authenticity verification in various domains.",
-    image: "/paper/project-4.webp",
+    image: "/paper/project-7.webp",
     tools: [
       "Python",
       "TensorFlow",

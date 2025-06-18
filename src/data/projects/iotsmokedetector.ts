@@ -3,7 +3,7 @@ export const iotSmokeDetectorProject = {
   title: "IoT Smoke Detector & Alert System",
   description:
     "Developed a smart IoT-based smoke detector system for real-time fire detection and instant alert notifications, enhancing home and industrial safety.",
-  image: "/paper/project-4.webp",
+  image: "/paper/project-5.webp",
   tools: ["Arduino", "ESP8266", "MQ-2 Smoke Sensor", "C++", "Node.js", "Express", "Firebase", "React", "Twilio API"],
   slug: "iot-smoke-detector",
   overview:
