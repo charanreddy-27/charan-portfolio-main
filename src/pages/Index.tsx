@@ -4,7 +4,6 @@ import Research from "@/components/Research";
 import Skills from "@/components/Skills";
 import BlogSection from "@/components/Blogs";
 import AboutTeaser from "@/components/elements/AboutTeaser";
-import Footer from "@/components/Footer";
 
 
 const Index = () => {
@@ -16,7 +15,6 @@ const Index = () => {
       <Project />
       <BlogSection />
       <AboutTeaser />
-      <Footer />
     </div>
   );
 };
