@@ -65,6 +65,35 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Update header height on resize and ensure menu works when scrolled
+  useEffect(() => {
+    const handleResize = () => {
+      // Force a re-render to update the header height reference
+      setIsScrolled(prev => {
+        const isCurrentlyScrolled = window.scrollY > 50;
+        return isCurrentlyScrolled;
+      });
+    };
+    
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initialize on mount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Update header height on resize
+  useEffect(() => {
+    const handleResize = () => {
+      // Force a re-render to update the header height reference
+      setIsScrolled(prev => {
+        const isCurrentlyScrolled = window.scrollY > 50;
+        return isCurrentlyScrolled;
+      });
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -89,41 +118,36 @@ const Navigation = () => {
     { path: "/about", label: "About", icon: User },
   ];
 
-  // Enhanced animations with performance optimizations
+  // Instant menu appearance with minimal animation
   const menuVariants = {
     hidden: { 
       opacity: 0,
-      height: 0,
+      y: "-100%",
       transition: {
-        duration: 0.2,
+        duration: 0.1,
         when: "afterChildren",
-        staggerChildren: 0.05,
+        staggerChildren: 0.01,
         staggerDirection: -1,
-        ease: [0.4, 0.0, 0.2, 1], // Improved easing
       }
     },
     visible: {
       opacity: 1,
-      height: "auto",
+      y: "0%",
       transition: {
-        duration: 0.3,
+        duration: 0.1,
         when: "beforeChildren",
-        staggerChildren: 0.1,
-        ease: [0.0, 0.0, 0.2, 1], // Improved easing
+        staggerChildren: 0.01,
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
+    hidden: { opacity: 0, y: 0 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 24,
-        mass: 0.8, // Reduced mass for better performance
+        duration: 0.05
       }
     }
   };
@@ -195,10 +219,16 @@ const Navigation = () => {
     }
   };
 
-  // Toggle menu handler with event prevention
-  const toggleMenu = (e: React.MouseEvent | React.TouchEvent) => {
-    e.stopPropagation();
-    setIsOpen(!isOpen);
+  // Toggle menu handler - instant open/close
+  const toggleMenu = () => {
+    if (!isOpen) {
+      // Scroll to top immediately and open menu
+      window.scrollTo(0, 0);
+      setIsOpen(true);
+    } else {
+      // Close menu immediately
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -207,7 +237,7 @@ const Navigation = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className={`fixed w-full z-50 transition-all duration-500 ${isScrolled
+      className={`fixed w-full z-[59] transition-all duration-500 ${isScrolled
         ? "bg-background/80 backdrop-blur-md border-b border-border/50 py-3 shadow-lg"
         : "bg-transparent py-6"
         }`}
@@ -231,11 +261,10 @@ const Navigation = () => {
           </Link>
 
           {/* Custom Hamburger Button */}
-          <div className="lg:hidden relative z-50">
+          <div className="lg:hidden relative z-[60]">
             <motion.button
               ref={hamburgerRef}
               onClick={toggleMenu}
-              onTouchEnd={toggleMenu}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
@@ -348,7 +377,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Navigation Menu */}
-          <AnimatePresence>
+          <AnimatePresence mode="wait" initial={false}>
             {isOpen && (
               <motion.div
                 ref={menuRef}
@@ -356,8 +385,7 @@ const Navigation = () => {
                 animate="visible"
                 exit="hidden"
                 variants={menuVariants}
-                className="fixed inset-0 top-0 bg-background/95 backdrop-blur-md z-40 flex flex-col lg:hidden overflow-y-auto"
-                style={{ paddingTop: headerRef.current ? headerRef.current.offsetHeight : '72px' }}
+                className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-md z-[55] flex flex-col lg:hidden overflow-y-auto"
                 id="mobile-menu"
                 aria-hidden={!isOpen}
                 role="dialog"
@@ -367,9 +395,9 @@ const Navigation = () => {
                 {/* Particle background for mobile menu */}
                 <ParticleBackground className="opacity-40" variant="menu" />
                 
-                <div className="container mx-auto px-4 py-8 flex flex-col h-full">
+                <div className="container mx-auto px-4 pt-20 pb-8 flex flex-col h-full">
                   <motion.div
-                    className="flex flex-col gap-6 items-center justify-center flex-1"
+                    className="flex flex-col gap-6 items-center justify-center flex-1 mt-8"
                     variants={itemVariants}
                   >
                     {navItems.map((item, index) => {
@@ -397,14 +425,7 @@ const Navigation = () => {
                                 ? "text-foreground font-medium"
                                 : "text-muted-foreground hover:text-foreground"
                             } transition-colors duration-300 py-3`}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setIsOpen(false);
-                            }}
-                            onTouchEnd={(e) => {
-                              e.stopPropagation();
-                              setIsOpen(false);
-                            }}
+                            onClick={() => setIsOpen(false)}
                           >
                             <motion.div
                               whileHover={{ 
@@ -476,7 +497,7 @@ const Navigation = () => {
                     variants={itemVariants}
                   >
                     <motion.a
-                      href="https://github.com/chandacharanreddy"
+                      href="https://github.com/charanreddy-27"
                       target="_blank"
                       rel="noopener noreferrer nofollow"
                       className="text-muted-foreground hover:text-foreground transition-colors duration-300"
