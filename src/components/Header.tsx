@@ -22,18 +22,32 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
   const location = useLocation();
 
   // Handle clicks outside to close menu
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node) && isOpen) {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      // Don't close if clicking on the hamburger button
+      if (hamburgerRef.current && hamburgerRef.current.contains(target)) {
+        return;
+      }
+      
+      // Close if clicking outside the menu
+      if (menuRef.current && !menuRef.current.contains(target) && isOpen) {
         setIsOpen(false);
       }
     };
     
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside, { passive: true });
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
   }, [isOpen]);
 
   // Close menu when route changes
@@ -47,6 +61,7 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initialize scroll state
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -180,8 +195,15 @@ const Navigation = () => {
     }
   };
 
+  // Toggle menu handler with event prevention
+  const toggleMenu = (e: React.MouseEvent | React.TouchEvent) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
   return (
     <motion.nav
+      ref={headerRef}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -211,7 +233,9 @@ const Navigation = () => {
           {/* Custom Hamburger Button */}
           <div className="lg:hidden relative z-50">
             <motion.button
-              onClick={() => setIsOpen(!isOpen)}
+              ref={hamburgerRef}
+              onClick={toggleMenu}
+              onTouchEnd={toggleMenu}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
@@ -332,7 +356,8 @@ const Navigation = () => {
                 animate="visible"
                 exit="hidden"
                 variants={menuVariants}
-                className="fixed inset-0 top-[72px] bg-background/95 backdrop-blur-md z-40 flex flex-col lg:hidden overflow-y-auto"
+                className="fixed inset-0 top-0 bg-background/95 backdrop-blur-md z-40 flex flex-col lg:hidden overflow-y-auto"
+                style={{ paddingTop: headerRef.current ? headerRef.current.offsetHeight : '72px' }}
                 id="mobile-menu"
                 aria-hidden={!isOpen}
                 role="dialog"
@@ -372,7 +397,14 @@ const Navigation = () => {
                                 ? "text-foreground font-medium"
                                 : "text-muted-foreground hover:text-foreground"
                             } transition-colors duration-300 py-3`}
-                            onClick={() => setIsOpen(false)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIsOpen(false);
+                            }}
+                            onTouchEnd={(e) => {
+                              e.stopPropagation();
+                              setIsOpen(false);
+                            }}
                           >
                             <motion.div
                               whileHover={{ 
