@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Menu,
   X,
@@ -80,20 +80,6 @@ const Navigation = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Update header height on resize
-  useEffect(() => {
-    const handleResize = () => {
-      // Force a re-render to update the header height reference
-      setIsScrolled(prev => {
-        const isCurrentlyScrolled = window.scrollY > 50;
-        return isCurrentlyScrolled;
-      });
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -117,40 +103,6 @@ const Navigation = () => {
     { path: "/certificates", label: "Certificates", icon: Award },
     { path: "/about", label: "About", icon: User },
   ];
-
-  // Instant menu appearance with minimal animation
-  const menuVariants = {
-    hidden: { 
-      opacity: 0,
-      y: "-100%",
-      transition: {
-        duration: 0.1,
-        when: "afterChildren",
-        staggerChildren: 0.01,
-        staggerDirection: -1,
-      }
-    },
-    visible: {
-      opacity: 1,
-      y: "0%",
-      transition: {
-        duration: 0.1,
-        when: "beforeChildren",
-        staggerChildren: 0.01,
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 0 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.05
-      }
-    }
-  };
 
   // Hamburger button animations with will-change hint
   const topBarVariants = {
@@ -376,155 +328,98 @@ const Navigation = () => {
             </motion.div>
           </div>
 
-          {/* Mobile Navigation Menu */}
-          <AnimatePresence mode="wait" initial={false}>
-            {isOpen && (
-              <motion.div
-                ref={menuRef}
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={menuVariants}
-                className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-md z-[55] flex flex-col lg:hidden overflow-y-auto"
-                id="mobile-menu"
-                aria-hidden={!isOpen}
-                role="dialog"
-                aria-modal="true"
-                aria-label="Mobile navigation"
-              >
-                {/* Particle background for mobile menu */}
-                <ParticleBackground className="opacity-40" variant="menu" />
-                
-                <div className="container mx-auto px-4 pt-20 pb-8 flex flex-col h-full">
-                  <motion.div
-                    className="flex flex-col gap-6 items-center justify-center flex-1 mt-8"
-                    variants={itemVariants}
-                  >
-                    {navItems.map((item, index) => {
-                      const Icon = item.icon;
-                      const isItemActive = isActive(item.path);
-                      
-                      return (
-                        <motion.div
-                          key={item.path}
-                          variants={itemVariants}
-                          custom={index}
-                          whileHover={{ 
-                            scale: 1.05, 
-                            transition: { duration: 0.2 } 
-                          }}
-                          whileTap={{ 
-                            scale: 0.95,
-                            transition: { duration: 0.1 } 
-                          }}
+          {/* Mobile Navigation Menu - No animations for instant opening */}
+          {isOpen && (
+            <div
+              ref={menuRef}
+              className="fixed inset-0 top-0 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-md z-[55] flex flex-col lg:hidden overflow-y-auto"
+              id="mobile-menu"
+              aria-hidden={!isOpen}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation"
+            >
+              {/* Particle background for mobile menu */}
+              <ParticleBackground className="opacity-40" variant="menu" />
+              
+              <div className="container mx-auto px-4 pt-20 pb-8 flex flex-col h-full">
+                <div className="flex flex-col gap-6 items-center justify-center flex-1 mt-8">
+                  {navItems.map((item, index) => {
+                    const Icon = item.icon;
+                    const isItemActive = isActive(item.path);
+                    
+                    return (
+                      <div key={item.path}>
+                        <Link
+                          to={item.path}
+                          className={`relative group flex items-center gap-3 text-xl ${
+                            isItemActive
+                              ? "text-foreground font-medium"
+                              : "text-muted-foreground hover:text-foreground"
+                          } transition-colors duration-300 py-3`}
+                          onClick={() => setIsOpen(false)}
                         >
-                          <Link
-                            to={item.path}
-                            className={`relative group flex items-center gap-3 text-xl ${
-                              isItemActive
-                                ? "text-foreground font-medium"
-                                : "text-muted-foreground hover:text-foreground"
-                            } transition-colors duration-300 py-3`}
-                            onClick={() => setIsOpen(false)}
-                          >
-                            <motion.div
-                              whileHover={{ 
-                                rotate: [0, -10, 10, -5, 5, 0],
-                                transition: { duration: 0.5 }
-                              }}
-                            >
-                              <Icon className={`h-5 w-5 transition-transform duration-300 ${
-                                isItemActive ? "text-primary" : "text-muted-foreground"
-                              }`} />
-                            </motion.div>
-                            <span className="relative">
-                              {item.label}
-                              <motion.span 
-                                initial={{ scaleX: isItemActive ? 1 : 0 }}
-                                whileHover={{ scaleX: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transform origin-left`} 
-                              />
-                            </span>
-                          </Link>
-                        </motion.div>
-                      );
-                    })}
-                  </motion.div>
-                  
-                  <motion.div 
-                    className="flex justify-center mt-8"
-                    variants={itemVariants}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="w-full max-w-xs"
-                    >
-                      <Button
-                        variant="default"
-                        className="relative group overflow-hidden flex items-center gap-2 w-full"
-                        asChild
-                        aria-label="Connect on LinkedIn"
-                      >
-                        <a
-                          href="https://www.linkedin.com/in/chandacharanreddy/"
-                          target="_blank"
-                          rel="noopener noreferrer nofollow"
-                          className="flex items-center justify-center gap-2"
-                        >
-                          <motion.div
-                            whileHover={{ x: 2, y: -2 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <Linkedin className="h-4 w-4 relative z-10" />
-                          </motion.div>
-                          <span className="relative z-10">Connect on LinkedIn</span>
-                          <motion.span 
-                            initial={{ scaleX: 0 }}
-                            whileHover={{ scaleX: 1 }}
-                            transition={{ duration: 0.3 }}
-                            className="absolute inset-0 bg-primary transform origin-left" 
-                          />
-                        </a>
-                      </Button>
-                    </motion.div>
-                  </motion.div>
-                  
-                  <motion.div 
-                    className="flex justify-center gap-6 mt-8"
-                    variants={itemVariants}
-                  >
-                    <motion.a
-                      href="https://github.com/charanreddy-27"
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="text-muted-foreground hover:text-foreground transition-colors duration-300"
-                      variants={socialIconVariants}
-                      initial="initial"
-                      whileHover="hover"
-                      aria-label="Visit GitHub profile"
-                    >
-                      <Github className="h-5 w-5" />
-                    </motion.a>
-                    <motion.a
-                      href="https://twitter.com/chandacharanr"
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className="text-muted-foreground hover:text-foreground transition-colors duration-300"
-                      variants={socialIconVariants}
-                      initial="initial"
-                      whileHover="hover"
-                      aria-label="Visit Twitter profile"
-                    >
-                      <Twitter className="h-5 w-5" />
-                    </motion.a>
-                  </motion.div>
+                          <div>
+                            <Icon className={`h-5 w-5 transition-transform duration-300 ${
+                              isItemActive ? "text-primary" : "text-muted-foreground"
+                            }`} />
+                          </div>
+                          <span className="relative">
+                            {item.label}
+                            <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transform origin-left ${isItemActive ? 'scale-x-100' : 'scale-x-0'}`} />
+                          </span>
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                
+                <div className="flex justify-center mt-8">
+                  <div className="w-full max-w-xs">
+                    <Button
+                      variant="default"
+                      className="relative group overflow-hidden flex items-center gap-2 w-full"
+                      asChild
+                      aria-label="Connect on LinkedIn"
+                    >
+                      <a
+                        href="https://www.linkedin.com/in/chandacharanreddy/"
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="flex items-center justify-center gap-2"
+                      >
+                        <div>
+                          <Linkedin className="h-4 w-4 relative z-10" />
+                        </div>
+                        <span className="relative z-10">Connect on LinkedIn</span>
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="flex justify-center gap-6 mt-8">
+                  <a
+                    href="https://github.com/charanreddy-27"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                    aria-label="Visit GitHub profile"
+                  >
+                    <Github className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://twitter.com/chandacharanr"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                    aria-label="Visit Twitter profile"
+                  >
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </motion.nav>
