@@ -80,9 +80,9 @@ const Certifications = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="group flex flex-row items-center bg-white/5 border border-white/10 rounded-md shadow-md hover:shadow-xl transition-all duration-300 p-4">
+              <Card className="group flex flex-col sm:flex-row items-center bg-white/5 border border-white/10 rounded-md shadow-md hover:shadow-xl transition-all duration-300 p-4 sm:p-6 gap-4">
                 <motion.div 
-                  className="w-20 h-20 flex items-center justify-center rounded-md bg-gradient-to-r from-primary/10 to-primary/20 mr-4"
+                  className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center rounded-md bg-gradient-to-r from-primary/10 to-primary/20 mb-3 sm:mb-0 sm:mr-4"
                   whileHover={{ 
                     scale: 1.05,
                     background: "linear-gradient(to right, rgba(var(--primary), 0.2), rgba(var(--primary), 0.3))"
@@ -94,34 +94,34 @@ const Certifications = () => {
                       transition: { duration: 0.5 }
                     }}
                   >
-                    <cert.icon className="w-12 h-12 text-primary/80 transition-transform duration-300 group-hover:scale-110" />
+                    <cert.icon className="w-8 h-8 sm:w-12 sm:h-12 text-primary/80 transition-transform duration-300 group-hover:scale-110" />
                   </motion.div>
                 </motion.div>
-                <div className="flex-1">
+                <div className="flex-1 w-full">
                   <CardHeader className="p-0">
                     <motion.div
                       whileHover={{ x: 3 }}
                       transition={{ type: "spring", stiffness: 300, damping: 10 }}
                     >
-                      <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-semibold">
                         <BadgeCheckIcon className="w-5 h-5 text-primary" />
                         {cert.title}
                       </CardTitle>
                     </motion.div>
-                    <p className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                    <p className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mt-1">
                       <BuildingIcon className="w-4 h-4" /> {cert.issuer}
                     </p>
-                    <p className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                    <p className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground mt-1">
                       <CalendarIcon className="w-4 h-4" /> {cert.date}
                     </p>
                   </CardHeader>
                   <CardContent className="mt-2 p-0">
-                    <p className="text-sm text-gray-400">{cert.description}</p>
+                    <p className="text-xs sm:text-sm text-gray-400">{cert.description}</p>
                     <div className="flex flex-wrap gap-2 mt-2">
                       {cert.skills.map((skill, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary font-medium"
+                          className="px-2 py-1 sm:px-3 sm:py-1 text-[11px] sm:text-xs rounded-full bg-primary/10 text-primary font-medium"
                         >
                           {skill}
                         </span>
@@ -129,12 +129,12 @@ const Certifications = () => {
                     </div>
                   </CardContent>
                 </div>
-                <CardFooter className="ml-auto">
+                <CardFooter className="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0 p-0 flex justify-center sm:block">
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="default" className="py-2 px-4 text-sm font-semibold bg-primary text-white hover:bg-primary/90 transition">
-                          <a href={cert.detailsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                        <Button variant="default" className="w-full sm:w-auto py-2 px-4 text-xs sm:text-sm font-semibold bg-primary text-white hover:bg-primary/90 transition">
+                          <a href={cert.detailsUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
                             <ExternalLinkIcon className="w-5 h-5" /> View Certification
                           </a>
                         </Button>

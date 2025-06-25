@@ -35,6 +35,16 @@ export type Certification = {
 
 export const certifications: Certification[] = [
   {
+    id: "Digital Forensic Analysts-2025",
+    title: "Digital Forensic Analysts Training",
+    issuer: "CHRIST (Deemed to be University),Center For Advanced Research in Digital Forensics & Cyber Security (ARDC),Incognito Forensic Foundation",
+    date: "June 2025",
+    description: "Completed a 60-hour training program in Digital Forensics offered by the Centre for Advanced Research in Digital Forensics & Cyber Security (ARDC) in association with the Department of CSE.",
+    skills: ["Digital Forensics", "Cyber Security", "Investigation Techniques", "Forensic Tools"],
+    detailsUrl: "https://www.linkedin.com/in/chandacharanreddy/details/certifications/",
+    icon: BsBook,
+  },
+  {
     id: "celonis-process-mining-2025",
     title: "Academic Process Mining Fundamentals",
     issuer: "Celonis",
