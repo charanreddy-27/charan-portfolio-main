@@ -33,7 +33,18 @@ const SocialLinks = () => {
     }
   };
 
-  const titleChars = "Connect With Me".split("");
+  // Simplify by using the whole title instead of character-by-character animation
+  const titleVariant = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent, callback: () => void) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -46,53 +57,21 @@ const SocialLinks = () => {
     <motion.div 
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-100px" }}
       variants={containerVariants}
       className="space-y-4 w-full max-w-md"
     >
       <motion.h3 
-        variants={itemVariants}
+        variants={titleVariant}
         className="text-3xl font-semibold text-center relative"
       >
         <div className="overflow-hidden py-1">
           <div className="flex justify-center">
-            {titleChars.map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ 
-                  opacity: 1, 
-                  y: 0,
-                  transition: {
-                    delay: index * 0.03,
-                    duration: 0.5,
-                    ease: [0.22, 1, 0.36, 1]
-                  }
-                }}
-                viewport={{ once: true }}
-                className={`${char === " " ? "mr-2" : ""} relative inline-block cursor-default`}
-                whileHover={{ 
-                  y: -5, 
-                  scale: 1.2, 
-                  color: "#F76D57",
-                  transition: { duration: 0.2 }
-                }}
-              >
-                {char}
-                {char !== ' ' && (
-                  <motion.span 
-                    className="absolute bottom-0 left-0 w-full h-[2px] bg-primary"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                )}
-              </motion.span>
-            ))}
+            <span className="relative inline-block">Connect With Me</span>
           </div>
         </div>
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent"
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent will-change-transform"
           initial={{ width: 0, left: "50%" }}
           whileInView={{ width: "100%", left: "0%" }}
           viewport={{ once: true }}
@@ -111,9 +90,8 @@ const SocialLinks = () => {
             key={href}
             variants={itemVariants}
             whileHover={{ 
-              scale: 1.15, 
-              rotate: [0, -5, 5, -5, 0],
-              transition: { duration: 0.5 }
+              scale: 1.1, 
+              transition: { duration: 0.3 }
             }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, y: 20 }}
@@ -128,7 +106,7 @@ const SocialLinks = () => {
               }
             }}
             viewport={{ once: true }}
-            className="hover-lift focus-ring"
+            className="hover-lift focus-ring will-change-transform"
           >
             <motion.a
               href={href}
@@ -139,12 +117,7 @@ const SocialLinks = () => {
               tabIndex={0}
               onKeyDown={(e) => handleKeyDown(e, () => window.open(href, '_blank', 'noopener,noreferrer'))}
             >
-              <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-20 group-focus:opacity-20"
-                style={{ backgroundColor: color }}
-                animate={{ opacity: [0, 0.2, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
+              {/* Remove the animated background */}
               
               <Icon className="w-5 h-5 relative z-10" />
               
@@ -153,15 +126,6 @@ const SocialLinks = () => {
               >
                 {label}
               </motion.span>
-              
-              <motion.div
-                className="absolute top-0 left-0 w-full h-full bg-white/10 opacity-0"
-                whileHover={{ 
-                  opacity: 1,
-                  x: ["100%", "-100%"],
-                  transition: { duration: 0.5, ease: "easeInOut" }
-                }}
-              />
             </motion.a>
           </motion.div>
         ))}

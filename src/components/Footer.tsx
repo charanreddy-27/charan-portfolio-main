@@ -9,8 +9,9 @@ import ContactInfo from "./elements/ContactInfo";
 const Footer = () => {
   const iconsContainerRef = useRef<HTMLDivElement>(null);
 
+  // Reduce the number of floating icons from 15 to 8 for better performance
   const [iconPositions] = useState(() =>
-    Array.from({ length: 15 }).map(() => ({
+    Array.from({ length: 8 }).map(() => ({
       top: Math.random() * 100,
       left: Math.random() * 100,
       size: Math.random() * 25 + 15,
@@ -24,16 +25,21 @@ const Footer = () => {
 
     const floatingIcons = gsap.utils.toArray<HTMLElement>(".footer-floating-icon");
     if (floatingIcons.length > 0) {
+      // Create a single timeline for better performance
+      const tl = gsap.timeline();
+      
       floatingIcons.forEach((icon, index) => {
-        gsap.to(icon, {
-          y: "-=20",
-          rotation: "+=30",
-          duration: 3 + Math.random() * 2,
+        // Use less intensive animations and longer durations
+        tl.to(icon, {
+          y: "-=15",
+          rotation: "+=20",
+          duration: 4 + Math.random() * 2,
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: index * 0.15,
-        });
+          delay: index * 0.2,
+          force3D: true, // Hardware acceleration hint
+        }, 0); // Start all animations at the same time
       });
     }
 
@@ -53,9 +59,17 @@ const Footer = () => {
     },
   };
 
-  const letterVariants = {
+  // Simplify the animation by animating the whole word instead of individual characters
+  const headingVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
   };
 
   const headingWords = ["Let's", "Connect"];
@@ -68,7 +82,7 @@ const Footer = () => {
           return (
             <Icon
               key={index}
-              className="footer-floating-icon text-primary absolute"
+              className="footer-floating-icon text-primary absolute will-change-transform"
               style={{
                 top: `${position.top}%`,
                 left: `${position.left}%`,
@@ -86,7 +100,7 @@ const Footer = () => {
       <motion.div 
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
         className="container mx-auto px-4 relative z-10"
       >
@@ -98,44 +112,24 @@ const Footer = () => {
         >
           <div className="flex justify-center items-center gap-2">
             {headingWords.map((word, wordIndex) => (
-              <div key={wordIndex} className="flex">
+              <motion.div 
+                key={wordIndex} 
+                className="flex"
+                variants={headingVariants}
+              >
                 {word.split('').map((char, index) => (
-                  <motion.span
+                  <span
                     key={`${wordIndex}-${index}`}
-                    variants={letterVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0.5,
-                      delay: (wordIndex * word.length + index) * 0.05,
-                      type: "spring",
-                      stiffness: 100
-                    }}
                     className={`${char === 'C' ? "text-primary" : ""} relative inline-block cursor-default`}
-                    whileHover={{ 
-                      y: -5, 
-                      scale: 1.2, 
-                      color: char === 'C' ? "#ffffff" : "#F76D57",
-                      transition: { duration: 0.2 }
-                    }}
                   >
                     {char}
-                    {char !== ' ' && (
-                      <motion.span 
-                        className="absolute bottom-0 left-0 w-full h-[2px] bg-primary"
-                        initial={{ scaleX: 0 }}
-                        whileHover={{ scaleX: 1 }}
-                        transition={{ duration: 0.2 }}
-                      />
-                    )}
-                  </motion.span>
+                  </span>
                 ))}
-              </div>
+              </motion.div>
             ))}
           </div>
           <motion.div 
-            className="absolute -bottom-1 left-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
+            className="absolute -bottom-1 left-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent will-change-transform"
             initial={{ width: 0, x: "-50%" }}
             whileInView={{ width: "60%" }}
             viewport={{ once: true }}
@@ -147,7 +141,7 @@ const Footer = () => {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
             className="w-full flex justify-center"
           >
@@ -157,7 +151,7 @@ const Footer = () => {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-8 flex flex-col items-center w-full"
           >
