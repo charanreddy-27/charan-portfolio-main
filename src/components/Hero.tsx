@@ -5,10 +5,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import FloatingIcons from "./elements/FloatingIcons";
+import { usePerformanceTracking, usePrefersReducedMotion } from "@/utils/monitoring";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  // Performance monitoring
+  usePerformanceTracking('Hero');
+  const prefersReducedMotion = usePrefersReducedMotion();
+  
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
@@ -16,6 +21,13 @@ const Hero = () => {
 
   useEffect(() => {
     if (!sectionRef.current || !headingRef.current || !buttonsRef.current || !scrollIndicatorRef.current) {
+      return;
+    }
+
+    // Skip animations if user prefers reduced motion
+    if (prefersReducedMotion) {
+      // Simple fade-in for reduced motion users
+      gsap.set([headingRef.current, buttonsRef.current, scrollIndicatorRef.current], { opacity: 1 });
       return;
     }
 
@@ -78,7 +90,7 @@ const Hero = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [prefersReducedMotion]); // Add dependency
 
   return (
     <section

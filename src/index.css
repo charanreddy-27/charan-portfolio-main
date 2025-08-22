@@ -37,10 +37,54 @@
   
   html {
     @apply scroll-smooth overflow-x-hidden;
+    /* Improve touch scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Optimize font rendering */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden;
+    /* Improve touch responsiveness */
+    touch-action: manipulation;
+    /* Better line height for mobile reading */
+    line-height: 1.6;
+  }
+
+  /* Mobile-first responsive typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+    /* Prevent text inflation on mobile */
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+  }
+
+  /* Improved mobile typography scaling */
+  h1 { 
+    @apply text-3xl leading-tight;
+    /* Responsive scaling */
+    font-size: clamp(1.875rem, 4vw, 3.75rem);
+  }
+  h2 { 
+    @apply text-2xl leading-tight;
+    font-size: clamp(1.5rem, 3.5vw, 3rem);
+  }
+  h3 { 
+    @apply text-xl leading-tight;
+    font-size: clamp(1.25rem, 3vw, 1.875rem);
+  }
+  
+  p { 
+    @apply font-sans leading-relaxed;
+    font-size: clamp(0.875rem, 2vw, 1.125rem);
+  }
+
+  /* Better touch targets for mobile */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
   }
 
   /* Custom Scrollbar Styles */
@@ -74,15 +118,6 @@
   .horizontal-scroll::-webkit-scrollbar {
     display: none;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold tracking-tight;
-  }
-
-  h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
-  h2 { @apply text-3xl md:text-4xl lg:text-5xl; }
-  h3 { @apply text-2xl md:text-3xl; }
-  p { @apply font-sans text-base md:text-lg leading-relaxed; }
 }
 
 @layer components {

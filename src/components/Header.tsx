@@ -16,8 +16,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import ParticleBackground from "@/components/elements/ParticleBackground";
+import { usePerformanceTracking, useOptimizedScroll } from "@/utils/monitoring";
 
 const Navigation = () => {
+  // Performance monitoring
+  usePerformanceTracking('Navigation');
+  
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);

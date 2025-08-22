@@ -65,16 +65,17 @@ const Project = () => {
           </div>
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-10">
-          {projects.map((project) => (
-            <div
+        <div className="grid md:grid-cols-2 gap-10" role="region" aria-label="Featured projects">
+          {projects.map((project, index) => (
+            <article
               key={project.id}
               className="w-full h-[80vh] relative bg-secondary/10 rounded-2xl overflow-hidden backdrop-blur-md hover:bg-secondary/20 transition-all duration-500 group"
+              aria-labelledby={`project-title-${index}`}
             >
               <div className="absolute inset-0">
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt={`Screenshot of ${project.title} project showing ${project.description}`}
                   className="w-full h-full object-cover opacity-50 group-hover:opacity-60 transition-all duration-500 scale-105 group-hover:scale-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/70 to-background/90" />
@@ -82,17 +83,21 @@ const Project = () => {
 
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
                 <div className="transform translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="text-3xl md:text-4xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+                  <h3 
+                    id={`project-title-${index}`}
+                    className="text-3xl md:text-4xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50"
+                  >
                     {project.title}
                   </h3>
                   <p className="text-base md:text-lg text-muted-foreground mb-4 max-w-2xl">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-2 mb-6" role="list" aria-label="Technologies used">
                     {project.tools.map((tool) => (
                       <span
                         key={tool}
+                        role="listitem"
                         className="px-3 py-1 text-sm bg-primary/20 text-primary rounded-full backdrop-blur-sm"
                       >
                         {tool}
@@ -101,16 +106,19 @@ const Project = () => {
                   </div>
 
                   <Button
-                    onClick={() => navigate(`/project/${project.slug}`)}
+                    onClick={() => {
+                      navigate(`/project/${project.slug}`);
+                    }}
                     size="lg"
                     className="group/btn bg-primary/20 hover:bg-primary backdrop-blur-sm"
+                    aria-describedby={`project-title-${index}`}
                   >
                     <span>View Case Study</span>
-                    <ArrowRight className="w-5 h-5 ml-2 transform group-hover/btn:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-5 h-5 ml-2 transform group-hover/btn:translate-x-1 transition-transform" aria-hidden="true" />
                   </Button>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
 
