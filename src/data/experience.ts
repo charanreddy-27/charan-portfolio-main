@@ -14,7 +14,7 @@ const workData = [
       "React.js", "JavaScript", "Node.js", "Express", "HTML", "CSS", "Git"
     ]
   },
-  {
+  /*{
     company: "GB Traders",
     position: "Digital Marketing & Social Media Intern",
     duration: "Feb 2025 – Present",
@@ -28,7 +28,7 @@ const workData = [
     tools: [
       "Canva", "Meta Business Suite", "Buffer", "Google Analytics", "ChatGPT", "Google Sheets"
     ]
-  },
+  },*/
   {
     company: "DRDO",
     position: "Embedded Systems Intern – Aerospace",
