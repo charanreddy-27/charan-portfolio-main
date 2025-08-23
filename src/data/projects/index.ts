@@ -9,6 +9,7 @@ import { iotSmokeDetectorProject } from './iotsmokedetector';
 import { fakeImageDetectionProject } from './fakeimagedetection';
 import { smolDoclingOCRProject } from './smolDoclingOCR';
 import { chatbotv9Project } from './chatbotv9';
+import { storeRatingSystemProject } from './storeRatingSystem';
 
 export const projectsdata = [
   faceDBProject,
@@ -21,6 +22,7 @@ export const projectsdata = [
   fakeImageDetectionProject,
   smolDoclingOCRProject,
   chatbotv9Project,
+  storeRatingSystemProject,
 ];
 
 export type Project = typeof faceDBProject;
