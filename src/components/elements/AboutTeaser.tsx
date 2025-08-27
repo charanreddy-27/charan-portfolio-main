@@ -169,7 +169,7 @@ const AboutTeaser = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <div className="flex flex-col items-center justify-center">
-                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">10+</span>
+                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">15+</span>
                   <p className="text-sm md:text-base text-foreground/80 mt-2">Projects</p>
                 </div>
               </motion.div>
@@ -180,7 +180,7 @@ const AboutTeaser = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <div className="flex flex-col items-center justify-center">
-                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">5+</span>
+                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">25+</span>
                   <p className="text-sm md:text-base text-foreground/80 mt-2">Tech Skills</p>
                 </div>
               </motion.div>
