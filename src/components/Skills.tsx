@@ -53,6 +53,38 @@ import {
   Zap
 } from "lucide-react";
 
+const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer"
+      whileHover={{ 
+        scale: 1.2, 
+        color: "#ffffff", 
+        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
+const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+  return (
+    <motion.span
+      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500"
+      whileHover={{ 
+        scale: 1.2,
+        backgroundImage: "linear-gradient(to right, #fb923c, #ef4444)",
+        textShadow: "0 0 12px rgba(251, 146, 60, 0.8)"
+      }}
+      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+    >
+      {character === " " ? "\u00A0" : character}
+    </motion.span>
+  );
+};
+
 type Skill = {
   name: string;
   icon: React.ReactNode;
@@ -428,8 +460,14 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-heading font-bold mb-4">
-            Tools & Technologies
+          <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
+            {"Tools &".split("").map((char, index) => (
+              <AnimatedCharacter key={index} character={char} index={index} />
+            ))}
+            <span className="mx-2"></span>
+            {"Technologies".split("").map((char, index) => (
+              <AnimatedGradientCharacter key={index} character={char} index={index} />
+            ))}
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             A comprehensive showcase of programming languages, frameworks, libraries, and tools 
