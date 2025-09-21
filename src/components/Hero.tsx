@@ -124,7 +124,7 @@ const Hero = () => {
             size="lg"
             variant="outline"
             className="group relative overflow-hidden hover:scale-105 transition-transform duration-300 flex items-center gap-2"
-            onClick={() => window.open("https://drive.google.com/file/d/160flwbGyLyCGE9dwv_8gKSFwc2aS9VUY/view?usp=sharing", "_blank")}
+            onClick={() => window.open("https://drive.google.com/file/d/18-5pGPuuoUNd9kAxmO9IsGDMgExEvFt4/view?usp=sharing", "_blank")}
           >
             <Download className="w-5 h-5 group-hover:text-primary" />
             <span className="relative z-10">Download CV</span>
