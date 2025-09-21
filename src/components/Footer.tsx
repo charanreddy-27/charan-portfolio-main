@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
-import { Database, PenTool, Figma, Code, Cpu, Layers, Server, Terminal, Globe, Cloud } from "lucide-react";
+import { Cloud, Code, Cpu, Database, Figma, Globe, Layers, PenTool, Server, Terminal } from "lucide-react";
 import gsap from "gsap";
 import ContactForm from "./elements/ContactForm";
 import SocialLinks from "./elements/SocialLinks";
@@ -9,80 +9,97 @@ import ContactInfo from "./elements/ContactInfo";
 const Footer = () => {
   const iconsContainerRef = useRef<HTMLDivElement>(null);
 
-  // Reduce the number of floating icons from 15 to 8 for better performance
-  const [iconPositions] = useState(() =>
-    Array.from({ length: 8 }).map(() => ({
+  // Memoize icon positions to prevent recalculation on every render
+  const iconPositions = useMemo(() =>
+    Array.from({ length: 6 }).map(() => ({
       top: Math.random() * 100,
       left: Math.random() * 100,
-      size: Math.random() * 25 + 15,
-      opacity: Math.random() * 0.15 + 0.05,
+      size: Math.random() * 20 + 12,
+      opacity: Math.random() * 0.1 + 0.03,
       rotation: Math.random() * 360,
-    }))
+    })), []
   );
 
+  // Memoize icon components array
+  const iconComponents = useMemo(() => 
+    [Database, PenTool, Figma, Code, Cpu, Layers, Server, Terminal, Globe, Cloud], 
+    []
+  );
+
+  // Optimized GSAP animation with better performance settings
   useEffect(() => {
     if (!iconsContainerRef.current) return;
 
     const floatingIcons = gsap.utils.toArray<HTMLElement>(".footer-floating-icon");
-    if (floatingIcons.length > 0) {
-      // Create a single timeline for better performance
-      const tl = gsap.timeline();
-      
+    
+    if (floatingIcons.length === 0) return;
+
+    // Use GSAP's batch method for better performance with multiple elements
+    const ctx = gsap.context(() => {
       floatingIcons.forEach((icon, index) => {
-        // Use less intensive animations and longer durations
-        tl.to(icon, {
-          y: "-=15",
-          rotation: "+=20",
-          duration: 4 + Math.random() * 2,
+        // Use transform instead of individual properties for better performance
+        gsap.set(icon, {
+          willChange: "transform",
+          transformOrigin: "center center",
+        });
+
+        // Create optimized animation with reduced complexity
+        gsap.to(icon, {
+          y: "-=10",
+          rotation: "+=15",
+          duration: 6 + Math.random() * 2, // Slower, less intensive animations
           repeat: -1,
           yoyo: true,
           ease: "sine.inOut",
-          delay: index * 0.2,
-          force3D: true, // Hardware acceleration hint
-        }, 0); // Start all animations at the same time
+          delay: index * 0.3,
+          force3D: true, // Enable hardware acceleration
+        });
       });
-    }
+    }, iconsContainerRef);
 
     return () => {
-      gsap.killTweensOf(".footer-floating-icon");
+      ctx.revert(); // Clean up all animations in context
     };
   }, []);
 
-  const containerVariants = {
+  // Memoize animation variants to prevent recreation on every render
+  const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.15, // Slightly faster stagger
+        delayChildren: 0.2,
       },
     },
-  };
+  }), []);
 
-  // Simplify the animation by animating the whole word instead of individual characters
-  const headingVariants = {
+  // Memoize heading variants
+  const headingVariants = useMemo(() => ({
     hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4, // Slightly faster
         ease: "easeOut"
       }
     }
-  };
+  }), []);
 
-  const headingWords = ["Let's", "Connect"];
+  // Memoize heading words to prevent recreation
+  const headingWords = useMemo(() => ["Let's", "Connect"], []);
   
   return (
-    <footer className="py-12 bg-background relative overflow-hidden">
-      <div ref={iconsContainerRef} className="absolute inset-0 pointer-events-none">
+    <footer className="py-12 bg-background relative overflow-hidden" style={{ contain: "layout style paint", willChange: "transform" }}>
+      {/* Optimized floating icons container */}
+      <div ref={iconsContainerRef} className="absolute inset-0 pointer-events-none will-change-transform">
         {iconPositions.map((position, index) => {
-          const Icon = [Database, PenTool, Figma, Code, Cpu, Layers, Server, Terminal, Globe, Cloud][index % 10];
+          const Icon = iconComponents[index % iconComponents.length];
           return (
             <Icon
               key={index}
-              className="footer-floating-icon text-primary absolute will-change-transform"
+              className="footer-floating-icon text-primary absolute"
               style={{
                 top: `${position.top}%`,
                 left: `${position.left}%`,
@@ -90,7 +107,8 @@ const Footer = () => {
                 width: `${position.size}px`,
                 height: `${position.size}px`,
                 opacity: position.opacity,
-                filter: "blur(0.5px)",
+                filter: "blur(0.3px)",
+                willChange: "transform",
               }}
             />
           );
@@ -100,7 +118,7 @@ const Footer = () => {
       <motion.div 
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true, margin: "-50px", amount: 0.3 }}
         variants={containerVariants}
         className="container mx-auto px-4 relative z-10"
       >
@@ -108,7 +126,8 @@ const Footer = () => {
           className="text-3xl md:text-4xl font-bold text-center mb-8 relative overflow-hidden"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.4 }}
         >
           <div className="flex justify-center items-center gap-2">
             {headingWords.map((word, wordIndex) => (
@@ -129,30 +148,30 @@ const Footer = () => {
             ))}
           </div>
           <motion.div 
-            className="absolute -bottom-1 left-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent will-change-transform"
+            className="absolute -bottom-1 left-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
             initial={{ width: 0, x: "-50%" }}
             whileInView={{ width: "60%" }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+            transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
           />
         </motion.h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            transition={{ duration: 0.5 }}
             className="w-full flex justify-center"
           >
             <ContactForm />
           </motion.div>
           
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-8 flex flex-col items-center w-full"
           >
             <SocialLinks />
@@ -161,10 +180,10 @@ const Footer = () => {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
+          viewport={{ once: true, amount: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.4 }}
           className="flex justify-center pt-6 mt-10 border-t border-border/50"
         >
           <p className="text-sm text-muted-foreground">
