@@ -312,3 +312,19 @@
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
+
+/* Web Vitals Dashboard Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.web-vitals-dashboard {
+  animation: fadeIn 0.3s ease-out;
+}
