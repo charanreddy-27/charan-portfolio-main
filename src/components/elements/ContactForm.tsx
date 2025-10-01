@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/utils/use-toast";
-import { Loader2, Send, Mail, User, MessageSquare } from "lucide-react";
+import { Loader2, Mail, MessageSquare, Send, User } from "lucide-react";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -352,20 +352,9 @@ const ContactForm = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full group relative overflow-hidden py-5 transition-all duration-300 bg-primary/20 hover:bg-primary backdrop-blur-sm border border-white/10 rounded-lg shadow-lg"
+            className="w-full group relative overflow-hidden py-5 transition-all duration-200 bg-primary/20 hover:bg-primary backdrop-blur-sm border border-white/10 rounded-lg shadow-lg"
           >
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 opacity-0 group-hover:opacity-100"
-              animate={{ 
-                x: ["-100%", "100%"],
-              }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 1.5,
-                ease: "linear",
-                repeatDelay: 0.5
-              }}
-            />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             {isSubmitting ? (
               <Loader2 className="animate-spin w-4 h-4" />

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, Copy, Check, ExternalLink } from "lucide-react";
+import { Check, Copy, ExternalLink, Mail, Phone } from "lucide-react";
 import { useToast } from "@/utils/use-toast";
 
 const ContactInfo = () => {
@@ -168,14 +168,7 @@ const ContactInfo = () => {
             transition={{ duration: 0.3 }}
           />
           
-          <motion.div 
-            className="absolute inset-0 bg-white/5 opacity-0"
-            whileHover={{ 
-              opacity: 1,
-              x: ["100%", "-100%"],
-              transition: { duration: 1.5, ease: "easeInOut", repeat: Infinity }
-            }}
-          />
+          <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </motion.a>
       </motion.div>
     </motion.div>

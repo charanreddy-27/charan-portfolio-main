@@ -16,7 +16,6 @@ interface BackgroundPatternProps {
 const BackgroundPattern: React.FC<BackgroundPatternProps> = ({
   pattern = 'dots',
   className,
-  animate = false,
   color = 'currentColor',
   opacity = 0.05,
   inverted = false,
@@ -49,16 +48,6 @@ const BackgroundPattern: React.FC<BackgroundPatternProps> = ({
         backgroundImage: pattern !== 'noise' ? `url("data:image/svg+xml,${encodeURIComponent(getSvgString())}")` : undefined,
         backgroundSize: pattern === 'waves' ? '100px 20px' : '20px 20px',
       }}
-      animate={animate ? {
-        backgroundPosition: ['0px 0px', '20px 20px'],
-      } : undefined}
-      transition={animate ? {
-        backgroundPosition: {
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-        },
-      } : undefined}
       aria-hidden="true"
     />
   );
