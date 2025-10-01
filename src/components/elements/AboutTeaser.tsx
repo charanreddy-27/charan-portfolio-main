@@ -1,283 +1,207 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Code, Database, Brain, Star } from "lucide-react";
+import { ArrowRight, Award, BarChart3, Code2, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
-const FloatingIcon = ({ icon: Icon, x, y, delay, size = 24 }) => (
+const StatCard = ({ value, label, icon: Icon, delay }) => (
   <motion.div
-    className="absolute text-primary/30 hidden md:block" 
-    style={{ left: `${x}%`, top: `${y}%` }}
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{ 
-      opacity: [0, 1, 0.8],
-      scale: [0, 1, 0.9],
-      y: [0, -15, 0],
-      rotate: [0, 15, 0]
-    }}
-    transition={{
-      delay,
-      duration: 5,
-      repeat: Infinity,
-      repeatType: "reverse"
-    }}
+    initial={{ opacity: 0, y: 30, scale: 0.9 }}
+    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ delay, duration: 0.6, type: "spring", stiffness: 100 }}
+    whileHover={{ y: -8, scale: 1.05 }}
+    className="bg-gradient-to-br from-card/70 to-card/50 backdrop-blur-lg border border-border/40 rounded-xl p-6 text-center group relative overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
   >
-    <Icon size={size} />
+    {/* Gradient overlay on hover */}
+    <motion.div 
+      className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      initial={false}
+    />
+    
+    {/* Animated background icon */}
+    <motion.div 
+      className="absolute -top-2 -right-2 text-primary/5 group-hover:text-primary/10 transition-colors duration-300"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+    >
+      <Icon className="w-16 h-16" />
+    </motion.div>
+    
+    <div className="flex flex-col items-center space-y-3 relative z-10">
+      <motion.div
+        whileHover={{ scale: 1.2, rotate: 5 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <Icon className="w-8 h-8 text-primary/70 group-hover:text-primary transition-colors duration-300" />
+      </motion.div>
+      <motion.div 
+        className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent"
+        whileHover={{ scale: 1.1 }}
+      >
+        {value}
+      </motion.div>
+      <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider">{label}</div>
+    </div>
   </motion.div>
 );
 
+const SkillBadge = ({ skill, delay }) => (
+  <motion.span
+    initial={{ opacity: 0, scale: 0.3, y: 20 }}
+    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay, duration: 0.5, type: "spring", stiffness: 200 }}
+    whileHover={{ 
+      scale: 1.1, 
+      y: -4,
+      boxShadow: "0 10px 25px rgba(147, 51, 234, 0.2)"
+    }}
+    whileTap={{ scale: 0.95 }}
+    className="inline-block px-5 py-2.5 bg-gradient-to-r from-muted/60 to-muted/40 backdrop-blur-sm text-foreground rounded-full text-sm font-medium border border-border/30 hover:border-primary/30 transition-all duration-300 cursor-pointer relative overflow-hidden group"
+  >
+    <motion.div 
+      className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      initial={false}
+    />
+    <span className="relative z-10">{skill}</span>
+  </motion.span>
+);
+
 const AboutTeaser = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
   
-  useEffect(() => {
-    if (!containerRef.current) return;
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { left, top, width, height } = containerRef.current!.getBoundingClientRect();
-      
-      const x = ((clientX - left) / width) * 100;
-      const y = ((clientY - top) / height) * 100;
-      
-      containerRef.current!.style.setProperty('--mouse-x', `${x}%`);
-      containerRef.current!.style.setProperty('--mouse-y', `${y}%`);
-    };
-    
-    containerRef.current.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      containerRef.current?.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.4, 1, 1, 0.4]);
+  
+  const stats = [
+    { value: "8.60", label: "CGPA", icon: GraduationCap },
+    { value: "15+", label: "Projects", icon: Code2 },
+    { value: "25+", label: "Tech Skills", icon: BarChart3 },
+    { value: "3+", label: "Years Exp.", icon: Award }
+  ];
+
+  const skills = ["Python", "React", "Machine Learning", "MERN Stack", "Data Science", "AI Solutions"];
 
   return (
-    <section 
-      ref={containerRef}
-      className="py-16 md:py-20 lg:py-24 relative overflow-hidden w-full"
-      style={{'--mouse-x': '50%', '--mouse-y': '50%'} as React.CSSProperties}
-    >
-      {/* Enhanced background with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/90">
-        <div 
-          className="absolute inset-0 opacity-15"
-          style={{
-            backgroundImage: `radial-gradient(
-              circle 800px at var(--mouse-x) var(--mouse-y),
-              rgba(147, 51, 234, 0.2),
-              transparent 40%
-            )`
-          }}
-        />
-      </div>
-      
-      {/* More floating icons for visual interest */}
-      <FloatingIcon icon={Code} x={15} y={20} delay={0} size={32} />
-      <FloatingIcon icon={Database} x={85} y={30} delay={1.5} size={30} />
-      <FloatingIcon icon={Brain} x={25} y={70} delay={0.8} size={32} />
-      <FloatingIcon icon={Star} x={75} y={60} delay={0.3} size={30} />
-      
-      {/* Animated background shapes */}
+    <section ref={containerRef} className="py-8 md:py-12 bg-gradient-to-b from-background via-background/95 to-background relative overflow-hidden">
+      {/* Subtle background decorations */}
       <motion.div 
-        className="absolute top-20 left-[10%] w-72 h-72 rounded-full bg-primary/5 blur-3xl hidden md:block"
-        animate={{
+        className="absolute top-20 left-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl"
+        animate={{ 
           scale: [1, 1.2, 1],
-          x: [0, 20, 0],
-          opacity: [0.3, 0.5, 0.3],
+          opacity: [0.3, 0.5, 0.3] 
         }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
-      
       <motion.div 
-        className="absolute bottom-20 right-[10%] w-96 h-96 rounded-full bg-secondary/5 blur-3xl hidden md:block"
-        animate={{
+        className="absolute bottom-20 right-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl"
+        animate={{ 
           scale: [1, 1.3, 1],
-          x: [0, -20, 0],
-          opacity: [0.2, 0.4, 0.2],
+          opacity: [0.2, 0.4, 0.2] 
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Main Heading */}
+          <motion.h2 
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center"
+            transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 100 }}
+            style={{ y, opacity }}
           >
-            <motion.div 
-              className="inline-block mb-3"
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            <motion.span 
+              className="bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              <span className="bg-primary/20 text-white font-medium px-5 py-1.5 rounded-full text-base">
-                About Me
-              </span>
-            </motion.div>
-            
-            <motion.h2 
-              className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-            >
-              <span className="text-primary font-bold">
-                Curious
-              </span> about my journey?
-            </motion.h2>
-            
-            <motion.div
-              className="max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              <p className="text-base md:text-lg lg:text-xl text-foreground/90 leading-relaxed mb-8">
-                From a <span className="text-primary font-semibold">B.Tech Computer Science</span> student to a specialist in 
-                <span className="text-primary font-semibold"> Data Science</span> and <span className="text-primary font-semibold">AI-driven solutions</span>. 
-                I blend technical expertise with creative problem-solving to build impactful applications that solve real-world challenges.
-              </p>
-            </motion.div>
-            
-            {/* Stats with improved design */}
-            <motion.div 
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 max-w-5xl mx-auto mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              <motion.div 
-                className="bg-card/50 backdrop-blur-sm p-4 md:p-5 lg:p-6 rounded-xl border border-border/40 shadow-sm hover:shadow-md transition-all"
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div className="flex flex-col items-center justify-center">
-                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">8.60</span>
-                  <p className="text-sm md:text-base text-foreground/80 mt-2">CGPA</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-card/50 backdrop-blur-sm p-4 md:p-5 lg:p-6 rounded-xl border border-border/40 shadow-sm hover:shadow-md transition-all"
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div className="flex flex-col items-center justify-center">
-                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">15+</span>
-                  <p className="text-sm md:text-base text-foreground/80 mt-2">Projects</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-card/50 backdrop-blur-sm p-4 md:p-5 lg:p-6 rounded-xl border border-border/40 shadow-sm hover:shadow-md transition-all"
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div className="flex flex-col items-center justify-center">
-                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">25+</span>
-                  <p className="text-sm md:text-base text-foreground/80 mt-2">Tech Skills</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                className="bg-card/50 backdrop-blur-sm p-4 md:p-5 lg:p-6 rounded-xl border border-border/40 shadow-sm hover:shadow-md transition-all"
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div className="flex flex-col items-center justify-center">
-                  <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">3+</span>
-                  <p className="text-sm md:text-base text-foreground/80 mt-2">Years Exp.</p>
-                </div>
-              </motion.div>
-            </motion.div>
-            
-            {/* Skills with improved visual design */}
-            <motion.div
-              className="flex flex-wrap justify-center gap-3 mb-8 max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              <motion.span 
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-1.5 bg-primary/20 text-white rounded-full text-sm md:text-base border border-primary/30 shadow-sm"
-              >
-                Python
-              </motion.span>
-              <motion.span 
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-1.5 bg-primary/20 text-white rounded-full text-sm md:text-base border border-primary/30 shadow-sm"
-              >
-                React
-              </motion.span>
-              <motion.span 
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-1.5 bg-primary/20 text-white rounded-full text-sm md:text-base border border-primary/30 shadow-sm"
-              >
-                Machine Learning
-              </motion.span>
-              <motion.span 
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-1.5 bg-primary/20 text-white rounded-full text-sm md:text-base border border-primary/30 shadow-sm"
-              >
-                MERN Stack
-              </motion.span>
-              <motion.span 
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-1.5 bg-primary/20 text-white rounded-full text-sm md:text-base border border-primary/30 shadow-sm"
-              >
-                Data Science
-              </motion.span>
-              <motion.span 
-                whileHover={{ scale: 1.05, y: -2 }}
-                className="px-4 py-1.5 bg-primary/20 text-white rounded-full text-sm md:text-base border border-primary/30 shadow-sm"
-              >
-                AI Solutions
-              </motion.span>
-            </motion.div>
-            
-            {/* Enhanced button with better visual appeal */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="relative inline-block"
-            >
-              <motion.div
-                className="absolute -inset-1 rounded-lg bg-gradient-to-r from-primary via-purple-500 to-secondary opacity-70 blur-sm"
-                animate={{ 
-                  opacity: [0.5, 0.8, 0.5],
-                  rotate: [0, 5, 0, -5, 0],
-                }}
-                transition={{ duration: 5, repeat: Infinity }}
+              Curious
+            </motion.span>
+            <span className="text-foreground"> about my journey?</span>
+          </motion.h2>
+          
+          {/* Description */}
+          <motion.div
+            className="max-w-3xl mx-auto mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              From a <span className="text-primary font-semibold">B.Tech Computer Science</span> student to a specialist in{" "}
+              <span className="text-primary font-semibold">Data Science</span> and{" "}
+              <span className="text-primary font-semibold">AI-driven solutions</span>. 
+              I blend technical expertise with creative problem-solving to build impactful applications that solve real-world challenges.
+            </p>
+          </motion.div>
+          
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-8">
+            {stats.map((stat, index) => (
+              <StatCard 
+                key={index}
+                value={stat.value}
+                label={stat.label}
+                icon={stat.icon}
+                delay={0.3 + index * 0.1}
               />
-              
-              <Button 
-                asChild
-                size="lg"
-                className="relative bg-primary hover:bg-primary/90 text-white px-8 py-3 text-base md:text-lg"
-              >
-                <Link to="/about">
-                  <span className="flex items-center gap-2 font-medium">
-                    Discover my full story
-                    <motion.span
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.span>
-                  </span>
-                </Link>
-              </Button>
-            </motion.div>
+            ))}
+          </div>
+          
+          {/* Skills */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-3 mb-8 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+          >
+            {skills.map((skill, index) => (
+              <SkillBadge key={skill} skill={skill} delay={0.8 + index * 0.05} />
+            ))}
+          </motion.div>
+          
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.2, duration: 0.6, type: "spring", stiffness: 100 }}
+            className="relative"
+          >
+            {/* Animated glow effect */}
+            <motion.div
+              className="absolute -inset-2 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100"
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            
+            <Button 
+              asChild
+              size="lg"
+              className="relative bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-secondary/90 text-primary-foreground px-8 py-3.5 text-base font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+            >
+              <Link to="/about" className="inline-flex items-center gap-3">
+                Discover my full story
+                <motion.span
+                  className="group-hover:translate-x-1 transition-transform duration-200"
+                  whileHover={{ scale: 1.2 }}
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </motion.span>
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </div>
