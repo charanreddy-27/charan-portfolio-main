@@ -1,5 +1,5 @@
-import { onCLS, onFCP, onLCP, onTTFB, Metric } from 'web-vitals';
 import { useEffect, useState } from 'react';
+import { type Metric, onCLS, onFCP, onLCP, onTTFB } from 'web-vitals';
 
 interface PerformanceData {
   name: string;

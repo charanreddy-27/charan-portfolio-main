@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
-    GraduationCap, 
-    Briefcase, 
-    CalendarIcon, 
-    Building, 
     Award, 
     BookOpen, 
-    Star, 
-    Trophy, 
+    Briefcase, 
+    Building, 
+    CalendarIcon, 
+    GraduationCap, 
     MapPin, 
-    Timer 
+    Star, 
+    Timer, 
+    Trophy 
 } from "lucide-react";
 import educationData from "@/data/education";
 import workData from "@/data/experience";
 
-const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer"
@@ -31,7 +31,7 @@ const AnimatedCharacter = ({ character, index }: { character: string, index: num
   );
 };
 
-const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedGradientCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-pink-500"
@@ -60,7 +60,7 @@ const AboutCard = ({ title, description }) => (
     </Card>
 );
 
-const TimelineItem = ({ icon: Icon, title, subtitle, details, content }) => (
+const TimelineItem = ({ icon: Icon, title, details, content }) => (
     <Card className="relative bg-secondary/50 backdrop-blur-sm hover:bg-secondary/60 transition-all duration-300">
         <div className="absolute left-0 w-4 h-4 bg-primary rounded-full transform -translate-x-[34px] top-6" />
         <CardHeader>
@@ -117,7 +117,6 @@ const Timeline = ({ title, icon: Icon, data, renderDetails, renderContent }) => 
                         <TimelineItem
                             icon={title === "Education" ? BookOpen : Building}
                             title={item.school || item.company}
-                            subtitle={item.degree || item.position || ""}
                             details={renderDetails(item)}
                             content={renderContent(item)}
                         />
@@ -149,12 +148,12 @@ const About = () => {
                     >
                         <div className="mr-3">
                             {aboutText.split('').map((char, index) => (
-                                <AnimatedCharacter key={index} character={char} index={index} />
+                                <AnimatedCharacter key={index} character={char} />
                             ))}
                         </div>
                         <div>
                             {meText.split('').map((char, index) => (
-                                <AnimatedGradientCharacter key={index} character={char} index={index} />
+                                <AnimatedGradientCharacter key={index} character={char} />
                             ))}
                         </div>
                     </motion.h2>

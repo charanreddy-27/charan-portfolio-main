@@ -1,8 +1,7 @@
 import { useCallback } from "react";
-import { loadSlim } from "tsparticles-slim";
 import Particles from "react-tsparticles";
-import type { Engine } from "tsparticles-engine";
-import type { ISourceOptions, MoveDirection } from "tsparticles-engine";
+import { loadSlim } from "tsparticles-slim";
+import type { Engine, ISourceOptions, MoveDirection } from "tsparticles-engine";
 
 interface ParticleBackgroundProps {
   className?: string;

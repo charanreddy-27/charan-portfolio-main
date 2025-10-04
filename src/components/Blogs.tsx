@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { blogPosts } from "@/data/posts";
 
-const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer"
@@ -20,7 +20,7 @@ const AnimatedCharacter = ({ character, index }: { character: string, index: num
   );
 };
 
-const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedGradientCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-fuchsia-500"
@@ -83,12 +83,12 @@ const BlogSection = () => {
                 >
                     <div className="mr-3">
                         {latestText.split('').map((char, index) => (
-                            <AnimatedCharacter key={index} character={char} index={index} />
+                            <AnimatedCharacter key={index} character={char} />
                         ))}
                     </div>
                     <div>
                         {blogPostsText.split('').map((char, index) => (
-                            <AnimatedGradientCharacter key={index} character={char} index={index} />
+                            <AnimatedGradientCharacter key={index} character={char} />
                         ))}
                     </div>
                 </motion.h2>

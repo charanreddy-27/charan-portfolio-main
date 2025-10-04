@@ -1,12 +1,12 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Book, Calendar, Building2, Users } from "lucide-react";
+import { ArrowRight, Book, Building2, Calendar, Users } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import papers from "@/data/papers";
 import { AuthorsList } from "./elements/AuthorWithOrcid";
 
-const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer"
@@ -22,7 +22,7 @@ const AnimatedCharacter = ({ character, index }: { character: string, index: num
   );
 };
 
-const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedGradientCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50"
@@ -60,12 +60,12 @@ const Research = () => {
         >
           <div className="mr-3">
             {researchText.split('').map((char, index) => (
-              <AnimatedCharacter key={index} character={char} index={index} />
+              <AnimatedCharacter key={index} character={char} />
             ))}
           </div>
           <div>
             {papersText.split('').map((char, index) => (
-              <AnimatedGradientCharacter key={index} character={char} index={index} />
+              <AnimatedGradientCharacter key={index} character={char} />
             ))}
           </div>
         </motion.h2>

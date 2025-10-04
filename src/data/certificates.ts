@@ -1,24 +1,18 @@
-import { IconType } from "react-icons";
+import type { IconType } from "react-icons";
 import {
-  SiNeo4J,
-  SiSelenium,
-  SiPagerduty,
-  SiOracle,
-  SiPython,
-  SiWordpress,
   SiCisco,
-  SiOpenjdk,
-  SiAtlassian,
   SiClickup,
+  SiHackerrank,
   SiLinkedin,
-  SiHackerrank
+  SiNeo4J,
+  SiOracle,
+  SiPython
 } from "react-icons/si";
 import {
-  BsFillKanbanFill,
-  BsBook,
   BsAward,
-  BsGraphUp,
+  BsBook,
   BsBuilding,
+  BsGraphUp,
   BsWindow,
 } from "react-icons/bs";
 

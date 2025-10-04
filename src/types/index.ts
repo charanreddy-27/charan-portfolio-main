@@ -111,32 +111,13 @@ export interface ContactFormData {
   consent: boolean;
 }
 
-export interface ContactFormErrors {
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-  consent?: string;
-}
+
 
 // UI Component types
-export interface LoadingState {
-  isLoading: boolean;
-  error?: string;
-  data?: any;
-}
 
-export interface NavigationItem {
-  path: string;
-  label: string;
-  icon: any;
-  external?: boolean;
-}
 
-export interface SkillCategory {
-  name: string;
-  skills: Skill[];
-}
+
+
 
 export interface Skill {
   name: string;
@@ -145,58 +126,17 @@ export interface Skill {
   proficiency?: number; // 1-100
 }
 
-// Animation types
-export interface AnimationConfig {
-  duration?: number;
-  delay?: number;
-  ease?: string;
-  stagger?: number;
-}
 
-// API Response types
-export interface ApiResponse<T> {
-  data: T;
-  status: number;
-  message: string;
-  error?: string;
-}
+
+
 
 // Theme types
 export type Theme = "light" | "dark" | "system";
 
-// Accessibility types
-export interface AccessibilityPreferences {
-  reduceMotion: boolean;
-  highContrast: boolean;
-  largeText: boolean;
-  screenReader: boolean;
-}
 
-// Performance types
-export interface PerformanceMetrics {
-  fcp: number; // First Contentful Paint
-  lcp: number; // Largest Contentful Paint
-  fid: number; // First Input Delay
-  cls: number; // Cumulative Layout Shift
-  ttfb: number; // Time to First Byte
-}
 
-// Analytics types
-export interface AnalyticsEvent {
-  action: string;
-  category: string;
-  label?: string;
-  value?: number;
-  userId?: string;
-  timestamp: Date;
-}
 
-// Error types
-export interface AppError {
-  message: string;
-  code?: string;
-  stack?: string;
-  timestamp: Date;
-  userId?: string;
-  page?: string;
-}
+
+
+
+

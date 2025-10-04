@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import {
-    Database,
-    PenTool,
-    Figma,
+    Cloud,
     Code,
     Cpu,
+    Database,
+    Figma,
+    Globe,
     Layers,
+    PenTool,
     Server,
     Terminal,
-    Globe,
-    Cloud,
 } from "lucide-react";
 
 const FloatingIcons = () => {

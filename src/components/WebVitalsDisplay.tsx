@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { usePerformanceMonitor, checkPerformanceBudget } from '../utils/performance';
-import PerformanceMonitor from '../utils/performance';
+import PerformanceMonitor, { checkPerformanceBudget, usePerformanceMonitor } from '../utils/performance';
 
 // Web Vitals Dashboard Component
 export const WebVitalsDisplay = () => {

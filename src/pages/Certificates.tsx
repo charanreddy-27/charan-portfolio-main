@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { certifications } from "@/data/certificates";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { BadgeCheckIcon, CalendarIcon, ExternalLinkIcon, BuildingIcon } from "lucide-react";
+import { BadgeCheckIcon, BuildingIcon, CalendarIcon, ExternalLinkIcon } from "lucide-react";
 
-const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { certifications } from "@/data/certificates";
+
+const AnimatedCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer"
@@ -21,7 +22,7 @@ const AnimatedCharacter = ({ character, index }: { character: string, index: num
   );
 };
 
-const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedGradientCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-emerald-500"
@@ -58,12 +59,12 @@ const Certifications = () => {
           >
             <div className="mr-3">
               {myText.split('').map((char, index) => (
-                <AnimatedCharacter key={index} character={char} index={index} />
+                <AnimatedCharacter key={index} character={char} />
               ))}
             </div>
             <div>
               {certificationsText.split('').map((char, index) => (
-                <AnimatedGradientCharacter key={index} character={char} index={index} />
+                <AnimatedGradientCharacter key={index} character={char} />
               ))}
             </div>
           </motion.h1>

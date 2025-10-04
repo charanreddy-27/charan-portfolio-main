@@ -1,5 +1,5 @@
 
-import { BlogPost } from './types';
+import type { BlogPost } from './types';
 import { modernDataStackBlog } from './modernDataStackBlog';
 import { aiDrivenPersonalization } from './aiDrivenPersonalization';
 import { dataCenterOptimization } from './dataCenterOptimization';

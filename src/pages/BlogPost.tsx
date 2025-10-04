@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { blogPosts } from "@/data/posts";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";

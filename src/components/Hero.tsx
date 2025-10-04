@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { ArrowDown, Github, Download } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { ArrowDown, Download, Github } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";

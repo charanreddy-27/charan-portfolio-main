@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import BackgroundPattern from "./components/elements/BackgroundPattern";
-import { usePerformanceTracking, logPerformanceMetrics } from "@/utils/monitoring";
+import { logPerformanceMetrics, usePerformanceTracking } from "@/utils/monitoring";
 import WebVitalsDisplay from "@/components/WebVitalsDisplay";
 
 // Lazy-loaded components

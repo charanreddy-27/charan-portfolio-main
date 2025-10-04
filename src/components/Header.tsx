@@ -1,22 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Menu,
-  X,
+  Award,
+  BookOpen,
+  FolderKanban,
   Github,
+  Home,
   Linkedin,
   Twitter,
-  Home,
-  FolderKanban,
-  BookOpen,
-  User,
-  Award,
-  Download
+  User
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import ParticleBackground from "@/components/elements/ParticleBackground";
-import { usePerformanceTracking, useOptimizedScroll } from "@/utils/monitoring";
+import { usePerformanceTracking } from "@/utils/monitoring";
 
 const Navigation = () => {
   // Performance monitoring
@@ -73,7 +70,7 @@ const Navigation = () => {
   useEffect(() => {
     const handleResize = () => {
       // Force a re-render to update the header height reference
-      setIsScrolled(prev => {
+      setIsScrolled(() => {
         const isCurrentlyScrolled = window.scrollY > 50;
         return isCurrentlyScrolled;
       });
@@ -158,19 +155,6 @@ const Navigation = () => {
       transition: {
         duration: 0.3,
         ease: [0.4, 0.0, 0.2, 1],
-      }
-    }
-  };
-
-  // Social icon hover animations
-  const socialIconVariants = {
-    initial: { scale: 1 },
-    hover: { 
-      scale: 1.15, 
-      rotate: [0, -10, 10, -5, 5, 0],
-      transition: { 
-        scale: { duration: 0.2 },
-        rotate: { duration: 0.5, ease: "easeInOut" }
       }
     }
   };
@@ -348,7 +332,7 @@ const Navigation = () => {
               
               <div className="container mx-auto px-4 pt-20 pb-8 flex flex-col h-full">
                 <div className="flex flex-col gap-6 items-center justify-center flex-1 mt-8">
-                  {navItems.map((item, index) => {
+                  {navItems.map((item) => {
                     const Icon = item.icon;
                     const isItemActive = isActive(item.path);
                     

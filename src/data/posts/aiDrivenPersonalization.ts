@@ -1,4 +1,4 @@
-import { BlogPost } from './types';
+import type { BlogPost } from './types';
 
 export const aiDrivenPersonalization: BlogPost = {
   id: "2",

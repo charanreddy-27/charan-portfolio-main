@@ -1,22 +1,26 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
     const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setIsVisible(window.pageYOffset > 300);
+      }, 100); // Throttle to every 100ms
     };
 
-    window.addEventListener("scroll", toggleVisibility);
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
 
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("scroll", toggleVisibility);
+    };
   }, []);
 
   const scrollToTop = () => {

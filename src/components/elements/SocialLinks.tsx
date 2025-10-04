@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Instagram, ExternalLink } from "lucide-react";
+import { ExternalLink, Github, Instagram, Linkedin } from "lucide-react";
 
 const SocialLinks = () => {
   const socialLinks = [
@@ -85,7 +85,7 @@ const SocialLinks = () => {
         role="navigation"
         aria-label="Social media links"
       >
-        {socialLinks.map(({ icon: Icon, href, label, color }, index) => (
+        {socialLinks.map(({ icon: Icon, href, label }, index) => (
           <motion.div
             key={href}
             variants={itemVariants}

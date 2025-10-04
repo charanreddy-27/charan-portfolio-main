@@ -121,26 +121,10 @@
 }
 
 @layer components {
-  .section-padding { @apply py-20 md:py-28 lg:py-32; }
-  .container-padding { @apply px-4 md:px-6 lg:px-8; }
-  .card-hover { @apply hover:scale-[1.02] transition-transform duration-300; }
-  .btn-hover { @apply hover:scale-105 transition-all duration-300; }
-  .glass { @apply bg-background/80 backdrop-blur-md border border-border/50; }
-  .section-spacing > * + * { @apply mt-6 md:mt-8; }
-  .responsive-grid { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8; }
-  .interactive { @apply transition-all duration-300 hover:scale-105 active:scale-95; }
-  .icon { @apply w-5 h-5 md:w-6 md:h-6; }
-  .gradient-text { @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50; }
+  /* All unused utility classes removed for better performance */
 }
 
-@keyframes fade-up {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-up { animation: fade-up 0.5s ease-out forwards; }
 .animate-marquee { animation: marquee 15s linear infinite; }
-.pause-animation { animation-play-state: paused; }
 
 @keyframes marquee {
   0% { transform: translateX(0); }

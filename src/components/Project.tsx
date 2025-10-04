@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { projectsdata } from "@/data/projects";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const AnimatedCharacter = ({ character, index }: { character: string, index: number }) => {
+import { Button } from "@/components/ui/button";
+import { projectsdata } from "@/data/projects";
+
+const AnimatedCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer"
@@ -20,7 +21,7 @@ const AnimatedCharacter = ({ character, index }: { character: string, index: num
   );
 };
 
-const AnimatedGradientCharacter = ({ character, index }: { character: string, index: number }) => {
+const AnimatedGradientCharacter = ({ character }: { character: string }) => {
   return (
     <motion.span
       className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
@@ -55,12 +56,12 @@ const Project = () => {
         >
           <div className="mr-3">
             {myText.split('').map((char, index) => (
-              <AnimatedCharacter key={index} character={char} index={index} />
+              <AnimatedCharacter key={index} character={char} />
             ))}
           </div>
           <div>
             {projectsText.split('').map((char, index) => (
-              <AnimatedGradientCharacter key={index} character={char} index={index} />
+              <AnimatedGradientCharacter key={index} character={char} />
             ))}
           </div>
         </motion.h2>
