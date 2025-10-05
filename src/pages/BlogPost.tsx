@@ -1,10 +1,12 @@
-
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { blogPosts } from "@/data/posts";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
+import { ArrowLeft } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { BlogBreadcrumb } from "@/components/ui/breadcrumb";
+import { BlogSEO } from "@/components/SEO";
+import { blogPosts } from "@/data/posts";
 
 const BlogPost = () => {
     const { slug } = useParams();
@@ -31,16 +33,26 @@ const BlogPost = () => {
     });
 
     return (
-        <article className="min-h-screen bg-background">
-            <div className="container py-24">
-                <Button
-                    variant="ghost"
-                    className="mb-12 hover:bg-secondary/20 transition-colors"
-                    onClick={() => navigate("/blog")}
-                >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to Blog
-                </Button>
+        <>
+            <BlogSEO
+                title={post.title}
+                description={post.description}
+                slug={slug!}
+                publishedTime={post.date}
+                tags={post.tags}
+            />
+            <article className="min-h-screen bg-background">
+                <div className="container py-24">
+                    <BlogBreadcrumb postTitle={post.title} />
+                    
+                    <Button
+                        variant="ghost"
+                        className="mb-12 hover:bg-secondary/20 transition-colors"
+                        onClick={() => navigate("/blog")}
+                    >
+                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        Back to Blog
+                    </Button>
 
                 <div className="max-w-4xl mx-auto space-y-16">
                     <div className="aspect-video overflow-hidden rounded-xl shadow-lg">
@@ -88,7 +100,8 @@ const BlogPost = () => {
                     </div>
                 </div>
             </div>
-        </article>
+            </article>
+        </>
     );
 };
 

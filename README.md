@@ -28,9 +28,13 @@ Click below to explore my portfolio:
 ---
 ## 💼 **Features**
 ✨ **Fully Responsive Design:** Optimized for all devices.  
-🎨 **Smooth Animations:** Beautiful transitions and effects.  
-⚡ **Fast Performance:** Lightning-fast loading speed.  
+🎨 **Smooth Animations:** Beautiful transitions and effects powered by Framer Motion.  
+⚡ **Fast Performance:** Lightning-fast loading speed with skeleton loaders.  
 🌟 **Showcase of Projects:** View my top projects and contributions.  
+🧭 **Smart Navigation:** Breadcrumb navigation for better UX.  
+📊 **SEO Optimized:** Complete meta tags, Open Graph, and sitemap.  
+🎯 **Micro-interactions:** Engaging UI with ripple effects, 3D tilts, and animations.  
+⬆️ **Smart Scroll:** Back to top button with progress indicator.  
 
 ---
 

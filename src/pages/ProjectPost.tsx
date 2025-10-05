@@ -1,6 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import { ProjectBreadcrumb } from "@/components/ui/breadcrumb";
+import { ProjectSEO } from "@/components/SEO";
 import { projectsdata } from "@/data/projects";
 
 const ProjectPost = () => {
@@ -17,16 +20,24 @@ const ProjectPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background py-20">
-      <div className="container mx-auto px-4">
-        <Button
-          variant="ghost"
-          onClick={() => navigate(-1)}
-          className="mb-12 hover:bg-secondary/20"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Projects
-        </Button>
+    <>
+      <ProjectSEO
+        title={project.title}
+        description={project.overview}
+        slug={slug!}
+      />
+      <div className="min-h-screen bg-background py-20">
+        <div className="container mx-auto px-4">
+          <ProjectBreadcrumb projectTitle={project.title} />
+          
+          <Button
+            variant="ghost"
+            onClick={() => navigate(-1)}
+            className="mb-12 hover:bg-secondary/20"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Projects
+          </Button>
 
         <div className="max-w-4xl mx-auto space-y-16">
           <h1 className="text-4xl md:text-5xl font-heading font-bold mb-12">
@@ -67,8 +78,9 @@ const ProjectPost = () => {
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

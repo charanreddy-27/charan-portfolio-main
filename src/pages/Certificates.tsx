@@ -4,6 +4,8 @@ import { BadgeCheckIcon, BuildingIcon, CalendarIcon, ExternalLinkIcon } from "lu
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { CertificatesSEO } from "@/components/SEO";
 import { certifications } from "@/data/certificates";
 
 const AnimatedCharacter = ({ character }: { character: string }) => {
@@ -43,14 +45,18 @@ const Certifications = () => {
   const certificationsText = "Certifications";
   
   return (
-    <div className="min-h-screen pt-24 pb-16 px-6 md:px-12">
-      <div className="container mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
+    <>
+      <CertificatesSEO />
+      <div className="min-h-screen pt-24 pb-16 px-6 md:px-12">
+        <div className="container mx-auto">
+          <Breadcrumb className="mb-6" />
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -150,8 +156,9 @@ const Certifications = () => {
             </motion.div>
           ))}
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -305,3 +305,80 @@
 .web-vitals-dashboard {
   animation: fadeIn 0.3s ease-out;
 }
+
+/* View Transitions API Styles */
+/* Fade animation for page transitions */
+::view-transition-old(root) {
+  animation: fade-out 0.3s ease-out;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.3s ease-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Smooth transitions for specific elements */
+::view-transition-old(card),
+::view-transition-new(card) {
+  animation-duration: 0.4s;
+}
+
+/* Page slide transitions */
+::view-transition-old(page) {
+  animation: slide-out-left 0.3s ease-out;
+}
+
+::view-transition-new(page) {
+  animation: slide-in-right 0.3s ease-in;
+}
+
+@keyframes slide-out-left {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(card),
+  ::view-transition-new(card),
+  ::view-transition-old(page),
+  ::view-transition-new(page) {
+    animation: none !important;
+  }
+}

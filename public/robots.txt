@@ -1,0 +1,34 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin or private paths (if any)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://charan-reddy.vercel.app/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+# Crawl-delay: 1
+
+# Block access to specific file types (optional)
+# Disallow: /*.json$
+# Disallow: /*.xml$
+
+# Popular bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block malicious bots (optional)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot  
+Disallow: /

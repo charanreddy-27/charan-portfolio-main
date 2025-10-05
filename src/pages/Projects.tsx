@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { SEO } from "@/components/SEO";
 import { projectsdata } from "@/data/projects";
 
 const AnimatedCharacter = ({ character }: { character: string }) => {
@@ -52,13 +54,22 @@ const Projects = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-20">
-      <div className="container mx-auto px-4">
-        <motion.div
-          {...fadeInUp}
-          transition={{ duration: 0.3 }}
-          className="flex items-center mb-12"
-        >
+    <>
+      <SEO
+        title="Projects"
+        description="Explore my portfolio of projects in Data Science, Machine Learning, AI, and Full Stack Development."
+        keywords="Projects, Portfolio, Data Science, Machine Learning, AI, Full Stack Development"
+        url="/projects"
+      />
+      <div className="min-h-screen bg-background py-20">
+        <div className="container mx-auto px-4">
+          <Breadcrumb className="mb-6" />
+          
+          <motion.div
+            {...fadeInUp}
+            transition={{ duration: 0.3 }}
+            className="flex items-center mb-12"
+          >
           <Button
             onClick={() => navigate('/')}
             variant="ghost"
@@ -149,7 +160,8 @@ const Projects = () => {
           ))}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

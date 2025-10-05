@@ -1,3 +1,4 @@
+import { HomeSEO } from "@/components/SEO";
 import Hero from "@/components/Hero";
 import Project from "@/components/Project";
 import Research from "@/components/Research";
@@ -8,14 +9,17 @@ import AboutTeaser from "@/components/elements/AboutTeaser";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Hero />
-      <Skills />
-      <Research />
-      <Project />
-      <BlogSection />
-      <AboutTeaser />
-    </div>
+    <>
+      <HomeSEO />
+      <div className="min-h-screen bg-background text-foreground">
+        <Hero />
+        <Skills />
+        <Research />
+        <Project />
+        <BlogSection />
+        <AboutTeaser />
+      </div>
+    </>
   );
 };
 

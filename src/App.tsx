@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -66,10 +67,11 @@ const App = () => {
   }, []);
 
   return (
-    <AccessibilityProvider>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <CustomCursor />
+    <HelmetProvider>
+      <AccessibilityProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <CustomCursor />
           <Toaster />
           <BrowserRouter>
             <BackgroundPattern pattern="dots" opacity={0.03} />
@@ -104,8 +106,9 @@ const App = () => {
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
-      <SpeedInsights />
-    </AccessibilityProvider>
+        <SpeedInsights />
+      </AccessibilityProvider>
+    </HelmetProvider>
   );
 };
 

@@ -3,6 +3,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { SEO } from "@/components/SEO";
 import { blogPosts } from "@/data/posts";
 
 const AnimatedCharacter = ({ character }: { character: string }) => {
@@ -51,13 +53,22 @@ const Blog = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background py-20">
-            <div className="container mx-auto px-4">
-                <motion.div
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="flex items-center mb-12"
+        <>
+            <SEO
+                title="Blog"
+                description="Read my latest articles on Data Science, Machine Learning, AI, and modern web development."
+                keywords="Blog, Articles, Data Science, Machine Learning, AI, Web Development"
+                url="/blog"
+            />
+            <div className="min-h-screen bg-background py-20">
+                <div className="container mx-auto px-4">
+                    <Breadcrumb className="mb-6" />
+                    
+                    <motion.div
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="flex items-center mb-12"
                 >
                     <Button
                         onClick={() => navigate('/')}
@@ -152,7 +163,8 @@ const Blog = () => {
                     ))}
                 </motion.div>
             </div>
-        </div>
+            </div>
+        </>
     );
 };
 

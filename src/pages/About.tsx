@@ -12,6 +12,8 @@ import {
     Timer, 
     Trophy 
 } from "lucide-react";
+import { AboutSEO } from "@/components/SEO";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
 import educationData from "@/data/education";
 import workData from "@/data/experience";
 
@@ -132,8 +134,11 @@ const About = () => {
     const meText = "Me";
     
     return (
-        <section className="py-20 bg-background" id="about">
-            <div className="container mx-auto px-4">
+        <>
+            <AboutSEO />
+            <section className="py-20 bg-background" id="about">
+                <div className="container mx-auto px-4">
+                    <Breadcrumb className="mb-6" />
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }} 
                     whileInView={{ opacity: 1, y: 0 }} 
@@ -280,8 +285,9 @@ const About = () => {
                         )}
                     />
                 </div>
-            </div>
-        </section>
+                </div>
+            </section>
+        </>
     );
 };
 
