@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import FloatingIcons from "./elements/FloatingIcons";
+import TypingAnimation from "./effects/TypingAnimation";
 import { usePerformanceTracking, usePrefersReducedMotion } from "@/utils/monitoring";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -16,6 +17,7 @@ const Hero = () => {
   
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const typingRef = useRef<HTMLDivElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
@@ -32,6 +34,7 @@ const Hero = () => {
     }
 
     const ctx = gsap.context(() => {
+      // Only apply SplitType to the heading, not the typing animation
       const titleText = new SplitType(headingRef.current!, {
         types: "chars",
         tagName: "span",
@@ -67,6 +70,16 @@ const Hero = () => {
         duration: 1,
         ease: "power3.out",
       })
+        .from(
+          typingRef.current,
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          "-=0.3"
+        )
         .from(
           buttonsRef.current,
           {
@@ -105,9 +118,21 @@ const Hero = () => {
           className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6"
         >
           Hi, I'm <span className="text-primary">Charan Reddy</span>.
-          <br />
-          In the World of Static <span className="whitespace-nowrap"> - I Create Dynamic.</span>
         </h1>
+        <div 
+          ref={typingRef}
+          className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold mb-6"
+        >
+          <TypingAnimation 
+            texts={[
+              "In the World of Static - I Create Dynamic."
+            ]}
+            typingSpeed={80}
+            deletingSpeed={40}
+            delayBetweenTexts={999999}
+            className="inline-block"
+          />
+        </div>
         <div
           ref={buttonsRef}
           className="flex flex-wrap gap-4 justify-center items-center"
