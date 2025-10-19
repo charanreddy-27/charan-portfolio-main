@@ -462,11 +462,11 @@ const Skills = () => {
         >
           <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
             {"Tools &".split("").map((char, index) => (
-              <AnimatedCharacter key={index} character={char} index={index} />
+              <AnimatedCharacter key={index} character={char} />
             ))}
             <span className="mx-2"></span>
             {"Technologies".split("").map((char, index) => (
-              <AnimatedGradientCharacter key={index} character={char} index={index} />
+              <AnimatedGradientCharacter key={index} character={char} />
             ))}
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
