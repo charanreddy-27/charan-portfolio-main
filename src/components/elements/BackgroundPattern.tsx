@@ -1,4 +1,3 @@
-import React from 'react';
 import { cn } from '../../utils/cn';
 import { motion } from 'framer-motion';
 
@@ -13,13 +12,13 @@ interface BackgroundPatternProps {
   inverted?: boolean;
 }
 
-const BackgroundPattern: React.FC<BackgroundPatternProps> = ({
+const BackgroundPattern = ({
   pattern = 'dots',
   className,
   color = 'currentColor',
   opacity = 0.05,
   inverted = false,
-}) => {
+}: BackgroundPatternProps) => {
   const getSvgString = (): string => {
     switch (pattern) {
       case 'dots':
