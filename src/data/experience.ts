@@ -1,9 +1,25 @@
 const workData = [
   {
     company: "IMPRESSNO SOLUTIONS",
-    position: "Web Developer",
-    duration: "Apr 2024 - Jul 2024",
-    location: "Remote (India)",
+    position: "Chief Marketing Officer",
+    duration: "Sep 2025 - Present",
+    location: "Bangalore, India",
+    description: "Leading marketing strategy and brand development initiatives for the organization.",
+    responsibilities: [
+      "Developed and executed comprehensive marketing strategies.",
+      "Led digital marketing campaigns and brand positioning.",
+      "Managed marketing team and coordinated cross-functional initiatives.",
+      "Analyzed market trends and customer insights to drive growth."
+    ],
+    tools: [
+      "Google Analytics", "Meta Business Suite", "SEO Tools", "CRM Systems", "Marketing Automation"
+    ]
+  },
+  {
+    company: "IMPRESSNO SOLUTIONS",
+    position: "Full Stack Engineer",
+    duration: "Apr 2025 - Sep 2025",
+    location: "Bangalore, India",
     description: "Worked on front-end and back-end web development with a focus on responsive design.",
     responsibilities: [
       "Developed responsive interfaces with React.js.",

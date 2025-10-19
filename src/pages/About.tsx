@@ -8,14 +8,18 @@ import {
     CalendarIcon, 
     GraduationCap, 
     MapPin, 
+    Sparkles,
     Star, 
+    Target,
     Timer, 
-    Trophy 
+    Trophy,
+    Users
 } from "lucide-react";
 import { AboutSEO } from "@/components/SEO";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import educationData from "@/data/education";
 import workData from "@/data/experience";
+import leadershipData from "@/data/leadership";
 
 const AnimatedCharacter = ({ character }: { character: string }) => {
   return (
@@ -173,7 +177,121 @@ const About = () => {
                         />
                     </div>
                 </motion.div>
+
+                {/* Leadership & Work Experience Section - Side by Side */}
                 <div className="grid md:grid-cols-2 gap-8 mb-20">
+                    <Timeline
+                        title="Leadership & Volunteering"
+                        icon={Users}
+                        data={leadershipData}
+                        renderDetails={(leadership) => (
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <CalendarIcon className="w-4 h-4" />
+                                    <span>{leadership.duration}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Building className="w-4 h-4" />
+                                    <span>{leadership.organization}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Timer className="w-4 h-4" />
+                                    <span>{leadership.position}</span>
+                                </div>
+                                {leadership.impact && (
+                                    <div className="flex items-center gap-2 text-sm font-medium text-primary">
+                                        <Target className="w-4 h-4" />
+                                        <span>{leadership.impact}</span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        renderContent={(leadership) => (
+                            <div className="space-y-4">
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {leadership.description}
+                                </p>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-primary" />
+                                    Key Contributions
+                                </h4>
+                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                    {leadership.responsibilities.map((responsibility, i) => (
+                                        <li key={i}>{responsibility}</li>
+                                    ))}
+                                </ul>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Sparkles className="w-4 h-4 text-primary" />
+                                    Skills Developed
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                    {leadership.tools.map((tool, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                                        >
+                                            {tool}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    />
+                    <Timeline
+                        title="Work Experience"
+                        icon={Briefcase}
+                        data={workData}
+                        renderDetails={(work) => (
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <CalendarIcon className="w-4 h-4" />
+                                    <span>{work.duration}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <MapPin className="w-4 h-4" />
+                                    <span>{work.location}</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Timer className="w-4 h-4" />
+                                    <span>{work.position}</span>
+                                </div>
+                            </div>
+                        )}
+                        renderContent={(work) => (
+                            <div className="space-y-4">
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {work.description}
+                                </p>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-primary" />
+                                    Key Responsibilities
+                                </h4>
+                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                                    {work.responsibilities.map((responsibility, i) => (
+                                        <li key={i}>{responsibility}</li>
+                                    ))}
+                                </ul>
+                                <h4 className="text-sm font-semibold flex items-center gap-2">
+                                    <Trophy className="w-4 h-4 text-primary" />
+                                    Technologies
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                    {work.tools.map((tool, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
+                                        >
+                                            {tool}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    />
+                </div>
+
+                {/* Education Section - Full Width */}
+                <div className="mb-20">
                     <Timeline
                         title="Education"
                         icon={GraduationCap}
@@ -231,57 +349,6 @@ const About = () => {
                                     )}
                                 </div>
                             </>
-                        )}
-                    />
-                    <Timeline
-                        title="Work Experience"
-                        icon={Briefcase}
-                        data={workData}
-                        renderDetails={(work) => (
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <CalendarIcon className="w-4 h-4" />
-                                    <span>{work.duration}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <MapPin className="w-4 h-4" />
-                                    <span>{work.location}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Timer className="w-4 h-4" />
-                                    <span>{work.position}</span>
-                                </div>
-                            </div>
-                        )}
-                        renderContent={(work) => (
-                            <div className="space-y-4">
-                                <p className="text-muted-foreground leading-relaxed">
-                                    {work.description}
-                                </p>
-                                <h4 className="text-sm font-semibold flex items-center gap-2">
-                                    <Star className="w-4 h-4 text-primary" />
-                                    Key Responsibilities
-                                </h4>
-                                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                                    {work.responsibilities.map((responsibility, i) => (
-                                        <li key={i}>{responsibility}</li>
-                                    ))}
-                                </ul>
-                                <h4 className="text-sm font-semibold flex items-center gap-2">
-                                    <Trophy className="w-4 h-4 text-primary" />
-                                    Technologies
-                                </h4>
-                                <div className="flex flex-wrap gap-2">
-                                    {work.tools.map((tool, i) => (
-                                        <span
-                                            key={i}
-                                            className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
-                                        >
-                                            {tool}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
                         )}
                     />
                 </div>
