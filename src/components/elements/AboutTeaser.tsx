@@ -86,7 +86,7 @@ const SkillBadge = ({ skill, delay }) => (
 
 const AboutTeaser = () => {
   const stats = [
-    { value: "8.60", label: "CGPA", icon: GraduationCap },
+    { value: "8.75", label: "CGPA", icon: GraduationCap },
     { value: "15+", label: "Projects", icon: Code2 },
     { value: "5+", label: "Leadership", icon: Users },
     { value: "25+", label: "Tech Skills", icon: BarChart3 }
