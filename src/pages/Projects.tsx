@@ -6,38 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { SEO } from "@/components/SEO";
 import { projectsdata } from "@/data/projects";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "@/components/elements/AnimatedText";
 
-const AnimatedCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer"
-      whileHover={{ 
-        scale: 1.2, 
-        color: "#ffffff", 
-        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
-const AnimatedGradientCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500"
-      whileHover={{ 
-        scale: 1.2,
-        backgroundImage: "linear-gradient(to right, #4ade80, #14b8a6)",
-        textShadow: "0 0 12px rgba(74, 222, 128, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
 const Projects = () => {
   const projects = projectsdata;
@@ -93,7 +64,7 @@ const Projects = () => {
           </div>
           <div>
             {projectsText.split('').map((char, index) => (
-              <AnimatedGradientCharacter key={index} character={char} />
+              <AnimatedGradientCharacter key={index} character={char} gradient="highlight" />
             ))}
           </div>
         </motion.h1>

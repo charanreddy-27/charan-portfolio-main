@@ -4,38 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { projectsdata } from "@/data/projects";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "./elements/AnimatedText";
 
-const AnimatedCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer"
-      whileHover={{ 
-        scale: 1.2, 
-        color: "#ffffff", 
-        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
-const AnimatedGradientCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
-      whileHover={{ 
-        scale: 1.2,
-        backgroundImage: "linear-gradient(to right, #60a5fa, #a855f7)",
-        textShadow: "0 0 12px rgba(96, 165, 250, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
 const Project = () => {
   const projects = projectsdata.slice(0, 2); // Show only 2
@@ -61,7 +32,7 @@ const Project = () => {
           </div>
           <div>
             {projectsText.split('').map((char, index) => (
-              <AnimatedGradientCharacter key={index} character={char} />
+              <AnimatedGradientCharacter key={index} character={char} gradient="highlight" />
             ))}
           </div>
         </motion.h2>

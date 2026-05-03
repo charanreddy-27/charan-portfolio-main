@@ -3,38 +3,9 @@ import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { blogPosts } from "@/data/posts";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "./elements/AnimatedText";
 
-const AnimatedCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer"
-      whileHover={{ 
-        scale: 1.2, 
-        color: "#ffffff", 
-        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
-const AnimatedGradientCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-fuchsia-500"
-      whileHover={{ 
-        scale: 1.2,
-        backgroundImage: "linear-gradient(to right, #818cf8, #d946ef)",
-        textShadow: "0 0 12px rgba(129, 140, 248, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
 const BlogSection = () => {
     const navigate = useNavigate();
@@ -88,7 +59,7 @@ const BlogSection = () => {
                     </div>
                     <div>
                         {blogPostsText.split('').map((char, index) => (
-                            <AnimatedGradientCharacter key={index} character={char} />
+                            <AnimatedGradientCharacter key={index} character={char} gradient="accent" />
                         ))}
                     </div>
                 </motion.h2>

@@ -6,38 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { SEO } from "@/components/SEO";
 import { blogPosts } from "@/data/posts";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "@/components/elements/AnimatedText";
 
-const AnimatedCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer"
-      whileHover={{ 
-        scale: 1.2, 
-        color: "#ffffff", 
-        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
-const AnimatedGradientCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-rose-500"
-      whileHover={{ 
-        scale: 1.2,
-        backgroundImage: "linear-gradient(to right, #fbbf24, #f43f5e)",
-        textShadow: "0 0 12px rgba(251, 191, 36, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
 const Blog = () => {
     const navigate = useNavigate();
@@ -93,7 +64,7 @@ const Blog = () => {
                     </div>
                     <div>
                         {postsText.split('').map((char, index) => (
-                            <AnimatedGradientCharacter key={index} character={char} />
+                            <AnimatedGradientCharacter key={index} character={char} gradient="accent" />
                         ))}
                     </div>
                 </motion.h1>

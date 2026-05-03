@@ -7,38 +7,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { CertificatesSEO } from "@/components/SEO";
 import { certifications } from "@/data/certificates";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "@/components/elements/AnimatedText";
 
-const AnimatedCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer"
-      whileHover={{ 
-        scale: 1.2, 
-        color: "#ffffff", 
-        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
-const AnimatedGradientCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-emerald-500"
-      whileHover={{ 
-        scale: 1.2,
-        backgroundImage: "linear-gradient(to right, #22d3ee, #10b981)",
-        textShadow: "0 0 12px rgba(34, 211, 238, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
 const Certifications = () => {
   const myText = "My";
@@ -70,7 +41,7 @@ const Certifications = () => {
             </div>
             <div>
               {certificationsText.split('').map((char, index) => (
-                <AnimatedGradientCharacter key={index} character={char} />
+                <AnimatedGradientCharacter key={index} character={char} gradient="accent" />
               ))}
             </div>
           </motion.h1>

@@ -5,38 +5,9 @@ import { cn } from "@/utils/cn";
 import { motion } from "framer-motion";
 import papers from "@/data/papers";
 import { AuthorsList } from "./elements/AuthorWithOrcid";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "./elements/AnimatedText";
 
-const AnimatedCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer"
-      whileHover={{ 
-        scale: 1.2, 
-        color: "#ffffff", 
-        textShadow: "0 0 8px rgba(var(--primary), 1)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
-const AnimatedGradientCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50"
-      whileHover={{ 
-        scale: 1.2,
-        backgroundImage: "linear-gradient(to right, rgb(var(--primary)), rgb(var(--primary)))",
-        textShadow: "0 0 12px rgba(var(--primary), 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
 const Research = () => {
   const paper = papers[0]; // Assuming only one paper

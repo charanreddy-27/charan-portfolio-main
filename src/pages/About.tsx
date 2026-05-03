@@ -20,38 +20,8 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import educationData from "@/data/education";
 import workData from "@/data/experience";
 import leadershipData from "@/data/leadership";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "@/components/elements/AnimatedText";
 
-const AnimatedCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer"
-      whileHover={{ 
-        scale: 1.2, 
-        color: "#ffffff", 
-        textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
-
-const AnimatedGradientCharacter = ({ character }: { character: string }) => {
-  return (
-    <motion.span
-      className="inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r from-violet-400 to-pink-500"
-      whileHover={{ 
-        scale: 1.2,
-        backgroundImage: "linear-gradient(to right, #a78bfa, #ec4899)",
-        textShadow: "0 0 12px rgba(167, 139, 250, 0.8)"
-      }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
-    >
-      {character === " " ? "\u00A0" : character}
-    </motion.span>
-  );
-};
 
 const AboutCard = ({ title, description }) => (
     <Card className="bg-secondary/50 backdrop-blur-sm hover:bg-secondary/60 transition-all duration-300">
@@ -162,7 +132,7 @@ const About = () => {
                         </div>
                         <div>
                             {meText.split('').map((char, index) => (
-                                <AnimatedGradientCharacter key={index} character={char} />
+                                <AnimatedGradientCharacter key={index} character={char} gradient="accent" />
                             ))}
                         </div>
                     </motion.h2>
