@@ -290,6 +290,178 @@
   animation: shimmer 2s infinite;
 }
 
+/* ========================================
+   Branded Page Loader — "CR" initials
+   ======================================== */
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  background: hsl(var(--background));
+}
+
+/* Ambient gradient glow behind the mark */
+.page-loader__glow {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    hsla(var(--primary), 0.18) 0%,
+    hsla(var(--primary), 0.06) 40%,
+    transparent 70%
+  );
+  animation: loader-glow-pulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes loader-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50%      { transform: scale(1.15); opacity: 1; }
+}
+
+/* Container for orbit + initials */
+.page-loader__mark {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Spinning orbital ring with gradient stroke */
+.page-loader__orbit {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: hsl(var(--primary));
+  border-right-color: hsla(var(--primary), 0.35);
+  animation: loader-orbit-spin 1.2s cubic-bezier(0.6, 0.15, 0.35, 0.85) infinite;
+}
+
+/* Outer subtle ring for depth */
+.page-loader__orbit::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid hsla(var(--primary), 0.08);
+}
+
+/* Dot accent on the orbit */
+.page-loader__orbit::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 12px 2px hsla(var(--primary), 0.6);
+}
+
+@keyframes loader-orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* "CR" initials */
+.page-loader__initials {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)) 0%,
+    hsl(280 80% 65%) 50%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: loader-gradient-shift 2.8s ease-in-out infinite;
+  user-select: none;
+}
+
+@keyframes loader-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Progress bar track */
+.page-loader__track {
+  width: 140px;
+  height: 3px;
+  border-radius: 999px;
+  background: hsla(var(--primary), 0.12);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Progress bar fill with shimmer */
+.page-loader__bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary)),
+    hsl(280 80% 65%),
+    hsl(var(--primary))
+  );
+  background-size: 200% 100%;
+  animation: loader-bar-shimmer 1.4s ease-in-out infinite;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes loader-bar-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* "Loading…" label */
+.page-loader__label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: hsla(var(--muted-foreground), 0.6);
+  animation: loader-label-fade 2s ease-in-out infinite;
+}
+
+@keyframes loader-label-fade {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .page-loader__orbit,
+  .page-loader__glow,
+  .page-loader__initials,
+  .page-loader__bar,
+  .page-loader__label {
+    animation: none !important;
+  }
+  .page-loader__orbit {
+    border-color: hsl(var(--primary));
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+
 /* Web Vitals Dashboard Animations */
 @keyframes fadeIn {
   from {

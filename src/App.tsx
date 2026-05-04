@@ -14,6 +14,7 @@ import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import BackgroundPattern from "./components/elements/BackgroundPattern";
 import { logPerformanceMetrics, usePerformanceTracking } from "@/utils/monitoring";
 import WebVitalsDisplay from "@/components/WebVitalsDisplay";
+import PageLoader from "@/components/PageLoader";
 
 // Lazy-loaded components
 const Index = lazy(() => import("./pages/Index"));
@@ -33,12 +34,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// Simplified loading component
-const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-  </div>
-);
+
 
 // ScrollToTop component
 const ScrollToTop = () => {
