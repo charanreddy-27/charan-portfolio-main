@@ -46,23 +46,34 @@ const BlogSection = () => {
     return (
         <section className="py-20 bg-background">
             <div className="container px-4 mx-auto">
-                <motion.h2
-                    initial={{ opacity: 0, y: 40 }}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-4xl font-heading font-bold mb-12 flex flex-wrap"
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
                 >
-                    <div className="mr-3">
-                        {latestText.split('').map((char, index) => (
-                            <AnimatedCharacter key={index} character={char} />
-                        ))}
-                    </div>
-                    <div>
-                        {blogPostsText.split('').map((char, index) => (
-                            <AnimatedGradientCharacter key={index} character={char} gradient="accent" />
-                        ))}
-                    </div>
-                </motion.h2>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="text-4xl md:text-5xl font-heading font-bold mb-4 flex flex-wrap justify-center"
+                    >
+                        <div className="mr-3">
+                            {latestText.split('').map((char, index) => (
+                                <AnimatedCharacter key={index} character={char} />
+                            ))}
+                        </div>
+                        <div>
+                            {blogPostsText.split('').map((char, index) => (
+                                <AnimatedGradientCharacter key={index} character={char} gradient="accent" />
+                            ))}
+                        </div>
+                    </motion.h2>
+                    <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                        Insights, tutorials, and deep dives into software engineering, machine learning,
+                        and the latest in technology — straight from my desk.
+                    </p>
+                </motion.div>
 
                 <motion.div
                     variants={containerVariants}
