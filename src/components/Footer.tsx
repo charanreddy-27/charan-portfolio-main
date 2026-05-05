@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { Cloud, Code, Cpu, Database, Figma, Globe, Layers, PenTool, Server, Terminal } from "lucide-react";
 import gsap from "gsap";
 import ContactForm from "./elements/ContactForm";
 import SocialLinks from "./elements/SocialLinks";
 import ContactInfo from "./elements/ContactInfo";
+import { AnimatedCharacter, AnimatedGradientCharacter } from "./elements/AnimatedText";
 
 const Footer = () => {
   const iconsContainerRef = useRef<HTMLDivElement>(null);
@@ -74,21 +75,8 @@ const Footer = () => {
     },
   }), []);
 
-  // Memoize heading variants
-  const headingVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.4, // Slightly faster
-        ease: "easeOut"
-      }
-    }
-  }), []);
-
-  // Memoize heading words to prevent recreation
-  const headingWords = useMemo(() => ["Let's", "Connect"], []);
+  const letsText = "Let's";
+  const connectText = "Connect";
   
   return (
     <footer className="py-12 bg-background relative overflow-hidden" style={{ contain: "layout style paint", willChange: "transform" }}>
@@ -124,28 +112,22 @@ const Footer = () => {
       >
         <motion.h2 
           className="text-3xl md:text-4xl font-bold text-center mb-8 relative overflow-hidden"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="flex justify-center items-center gap-2">
-            {headingWords.map((word, wordIndex) => (
-              <motion.div 
-                key={wordIndex} 
-                className="flex"
-                variants={headingVariants}
-              >
-                {word.split('').map((char, index) => (
-                  <span
-                    key={`${wordIndex}-${index}`}
-                    className={`${char === 'C' ? "text-primary" : ""} relative inline-block cursor-default`}
-                  >
-                    {char}
-                  </span>
-                ))}
-              </motion.div>
-            ))}
+            <div>
+              {letsText.split('').map((char, index) => (
+                <AnimatedCharacter key={index} character={char} />
+              ))}
+            </div>
+            <div>
+              {connectText.split('').map((char, index) => (
+                <AnimatedGradientCharacter key={index} character={char} gradient="primary" />
+              ))}
+            </div>
           </div>
           <motion.div 
             className="absolute -bottom-1 left-1/2 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
