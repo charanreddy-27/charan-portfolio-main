@@ -189,15 +189,13 @@ const Navigation = () => {
         <div className="flex items-center justify-between">
           <Link
             to="/"
-            className="text-2xl font-heading font-bold text-foreground relative group"
+            className="nav-brand text-2xl font-heading font-bold text-foreground relative group"
           >
-            <span className="relative z-10">Portfolio</span>
-            <motion.span 
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute inset-x-0 bottom-0 h-2 bg-primary/10 transform origin-left" 
-            />
+            <span className="relative z-10">
+              <span className="nav-brand__bracket text-primary">&lt;</span>
+              <span className="nav-brand__name">Charan Reddy</span>
+              <span className="nav-brand__bracket text-primary">&gt;</span>
+            </span>
           </Link>
 
           {/* Custom Hamburger Button */}
