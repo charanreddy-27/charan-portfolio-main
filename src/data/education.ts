@@ -3,7 +3,7 @@ const educationData = [
     school:        "Christ University, Bangalore",
     degree:        "Bachelor of Technology in Computer Science with Data Science",
     duration:      "August 2022 – August 2026",
-    gpa:           "8.60 / 10.0",
+    gpa:           "8.75 / 10.0",
     location:      "Bangalore, India",
     courses: [
       "Big Data Analytics",
