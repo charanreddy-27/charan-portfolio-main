@@ -3,9 +3,20 @@ export const storeRatingSystemProject = {
     title: "Store Rating System: Full-Stack Web Application",
     description:
       "A comprehensive fullstack web application for rating and managing stores with role-based access control, built with NestJS backend and React frontend.",
-    image: "/paper/project-store-rating.webp",
-    tools: ["NestJS", "React", "TypeScript", "PostgreSQL", "JWT", "TypeORM", "React Router"],
-    slug: "store-rating-system",
+  date: "2023-12",
+  category: "web-app" as const,
+  featured: false,
+  status: "completed" as const,
+  image: "/paper/project-store-rating.webp",
+  tools: ["NestJS", "React", "TypeScript", "PostgreSQL", "JWT", "TypeORM", "React Router"],
+  slug: "store-rating-system",
+  techStack: {
+    frontend: ["React", "TypeScript", "React Router"],
+    backend: ["NestJS", "TypeScript"],
+    database: ["PostgreSQL", "TypeORM"],
+    other: ["JWT"]
+  },
+  timeline: "4 months",
     overview:
       "Store Rating System is a production-ready web application that enables users to submit and manage store ratings with a sophisticated role-based access control system. The application supports three distinct user roles: System Administrator, Normal User, and Store Owner, each with tailored functionality and dashboards. Built with modern technologies including NestJS for the backend API and React with TypeScript for the frontend interface.",
     challenges: [

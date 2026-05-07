@@ -3,9 +3,20 @@ export const meetEaseProject = {
     title: "MeetEase: Smart Meeting Scheduler & Collaboration Platform",
     description:
       "Developed an intelligent meeting scheduling and collaboration platform that streamlines team coordination, automates availability detection, and integrates with popular calendar services.",
+    date: "2023-10",
+    category: "web-app" as const,
+    featured: false,
+    status: "completed" as const,
     image: "/paper/project-8.webp",
     tools: ["React", "Next.js", "Node.js", "Express", "MongoDB", "Google Calendar API", "TypeScript"],
     slug: "meetease-platform",
+    techStack: {
+      frontend: ["React", "Next.js", "TypeScript"],
+      backend: ["Node.js", "Express"],
+      database: ["MongoDB"],
+      other: ["Google Calendar API"]
+    },
+    timeline: "5 months",
     overview:
       "MeetEase is a smart meeting management platform designed to simplify scheduling, automate conflict detection, and facilitate team collaboration. It features a responsive web interface built with React and Next.js, a real-time backend using Node.js and Express, and persistent storage with MongoDB. Integration with Google Calendar API ensures seamless syncing, while Socket.io powers live updates for meeting changes and chat.",
     challenges: [

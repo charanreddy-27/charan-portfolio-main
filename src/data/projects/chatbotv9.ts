@@ -3,9 +3,18 @@ export const chatbotv9Project = {
     title: "ChatbotV9: Interactive AI Chatbot Project",
     description:
       "A project focused on creating, training, and deploying an interactive AI chatbot using Jupyter Notebook as the primary development environment.",
+    date: "2023-02",
+    category: "ai" as const,
+    featured: false,
+    status: "completed" as const,
     image: "/paper/project-6.webp",
     tools: ["Jupyter Notebook", "Python", "Machine Learning", "Natural Language Processing"],
     slug: "chatbotv9",
+    techStack: {
+      backend: ["Python"],
+      other: ["Jupyter Notebook", "NLP", "Machine Learning"]
+    },
+    timeline: "2 months",
     overview:
       "ChatbotV9 provides an accessible platform for developing, experimenting with, and deploying conversational AI models. Developed primarily in Jupyter Notebook, it aims to simplify the process of building custom chatbots for a variety of use-cases, including education, customer support, and personal productivity.",
     challenges: [

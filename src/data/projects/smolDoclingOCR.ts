@@ -3,9 +3,19 @@ export const smolDoclingOCRProject = {
     title: "SmolDocling-OCR: Lightweight Document OCR Pipeline",
     description:
       "A lightweight, efficient OCR pipeline for extracting text from scanned documents and images, designed for educational and linguistic research use-cases.",
+    date: "2023-11",
+    category: "machine-learning" as const,
+    featured: false,
+    status: "completed" as const,
     image: "/paper/project-9.webp",
     tools: ["Python", "Tesseract OCR", "OpenCV", "Pillow", "Flask", "React"],
     slug: "smoldocling-ocr",
+    techStack: {
+      frontend: ["React"],
+      backend: ["Python", "Flask"],
+      other: ["Tesseract OCR", "OpenCV", "Pillow"]
+    },
+    timeline: "3 months",
     overview:
       "SmolDocling-OCR provides a streamlined workflow for converting scanned documents and images into machine-readable text. The system leverages Tesseract for OCR, OpenCV for image pre-processing, and a simple web interface for uploading images and viewing results. Designed for researchers and students, it emphasizes accuracy, speed, and ease of deployment.",
     challenges: [

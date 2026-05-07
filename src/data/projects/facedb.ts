@@ -3,9 +3,19 @@ export const faceDBProject = {
   title: "Face Recognition and Vector Database Integration",
   description:
     "Developed a face recognition system integrated with vector databases for accurate identification, querying, and management of facial data.",
-    image: "/paper/project-1.webp",
+  date: "2023-06",
+  category: "machine-learning" as const,
+  featured: true,
+  status: "completed" as const,
+  image: "/paper/project-1.webp",
   tools: ["Python", "face_recognition", "ChromaDB", "Pinecone", "unittest"],
   slug: "face-recognition-db",
+  techStack: {
+    backend: ["Python"],
+    database: ["ChromaDB", "Pinecone"],
+    other: ["face_recognition", "unittest"]
+  },
+  timeline: "3 months",
   overview:
     "This project focuses on managing and recognizing facial data using deep learning embeddings and vector database integrations. It supports operations such as adding, recognizing, updating, deleting, and querying face data. It offers backend flexibility through support for both local (ChromaDB) and cloud-based (Pinecone) vector stores.",
   challenges: [

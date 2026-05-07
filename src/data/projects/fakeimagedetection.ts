@@ -3,6 +3,10 @@ export const fakeImageDetectionProject = {
     title: "Fake Image Detection Using Deep Learning",
     description:
       "Developed a deep learning-based solution to detect manipulated or fake images, enhancing digital image authenticity verification in various domains.",
+    date: "2023-03",
+    category: "machine-learning" as const,
+    featured: false,
+    status: "completed" as const,
     image: "/paper/project-7.webp",
     tools: [
       "Python",
@@ -14,6 +18,11 @@ export const fakeImageDetectionProject = {
       "Jupyter Notebook"
     ],
     slug: "fake-image-detection",
+    techStack: {
+      backend: ["Python", "TensorFlow", "Keras"],
+      other: ["OpenCV", "NumPy", "Matplotlib"]
+    },
+    timeline: "3 months",
     overview:
       "The Fake Image Detection project leverages convolutional neural networks (CNNs) to analyze and classify images as real or manipulated. The system processes images using OpenCV for preprocessing, trains a deep learning model with Keras and TensorFlow, and evaluates its performance on benchmark datasets. Visualization and result analysis are conducted in Jupyter Notebooks using Matplotlib.",
     challenges: [

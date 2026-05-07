@@ -3,9 +3,20 @@ export const feelWellProject = {
   title: "FeelWell: Mental Health & Well-Being Platform",
   description:
     "Created an interactive web platform that promotes mental wellness through chatbot conversations, educational content, and statistics.",
-    image: "/paper/project-2.webp",
+  date: "2023-08",
+  category: "web-app" as const,
+  featured: true,
+  status: "completed" as const,
+  image: "/paper/project-2.webp",
   tools: ["React", "Next.js", "Flask", "Python", "Azure", "PostgreSQL"],
   slug: "feelwell-platform",
+  techStack: {
+    frontend: ["React", "Next.js"],
+    backend: ["Flask", "Python"],
+    database: ["PostgreSQL"],
+    deployment: ["Azure"]
+  },
+  timeline: "4 months",
   overview:
     "FeelWell is a comprehensive mental health platform built to raise awareness and support users' mental well-being. It integrates a voice-enabled chatbot, interactive games, mental health statistics, and educational modules on nutrition and exercise. Built with a combination of Python, Flask, React, and Next.js, the platform leverages cloud infrastructure (Azure) and a PostgreSQL database for reliability and scalability.",
   challenges: [

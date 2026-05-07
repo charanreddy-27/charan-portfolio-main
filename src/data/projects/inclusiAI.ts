@@ -3,9 +3,21 @@ export const inclusiAIProject = {
   title: "Inclusi-AI Vasyan: Mental Well-being Support System",
   description:
     "Built an AI-driven mental health application offering personalized support, mood tracking, and emotional care through GPT-3 and Azure.",
+  date: "2023-07",
+  category: "ai" as const,
+  featured: false,
+  status: "completed" as const,
   image: "/paper/project-4.webp",
   tools: ["Flask", "Next.js", "GPT-3", "Azure", "PostgreSQL", "Azure CLI"],
   slug: "inclusi-ai-vasyan",
+  techStack: {
+    frontend: ["Next.js"],
+    backend: ["Flask"],
+    database: ["PostgreSQL"],
+    deployment: ["Azure"],
+    other: ["GPT-3"]
+  },
+  timeline: "3 months",
   overview:
     "Inclusi-AI Vasyan is a modern mental health assistant designed to promote emotional well-being through AI-driven personalized experiences. Built during the Microsoft Learn Student Ambassadors Project Cohort, it integrates a conversational chatbot, secure cloud services, and mood tracking to create a holistic mental support platform.",
   challenges: [

@@ -3,9 +3,18 @@ export const googleStockPredictionProject = {
   title: "Google Stock Price Prediction using LSTM and PyTorch",
   description:
     "A project to predict the future stock prices of Google (GOOG) using historical stock data and machine learning techniques.",
+  date: "2023-05",
+  category: "machine-learning" as const,
+  featured: false,
+  status: "completed" as const,
   image: "/paper/project-3.webp",
   tools: ["PyTorch", "Keras", "yfinance", "MinMaxScaler", "Matplotlib", "Pandas"],
   slug: "google-stock-prediction",
+  techStack: {
+    backend: ["PyTorch", "Keras"],
+    other: ["Pandas", "Matplotlib", "yfinance"]
+  },
+  timeline: "2 months",
   overview:
     "This project predicts Google's stock prices using LSTM models built with Keras and PyTorch. The process includes data collection, preprocessing, feature engineering, and model evaluation.",
   challenges: [

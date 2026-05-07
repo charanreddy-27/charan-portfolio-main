@@ -3,9 +3,20 @@ export const iotSmokeDetectorProject = {
   title: "IoT Smoke Detector & Alert System",
   description:
     "Developed a smart IoT-based smoke detector system for real-time fire detection and instant alert notifications, enhancing home and industrial safety.",
+  date: "2023-04",
+  category: "iot" as const,
+  featured: false,
+  status: "completed" as const,
   image: "/paper/project-5.webp",
   tools: ["Arduino", "ESP8266", "MQ-2 Smoke Sensor", "C++", "Node.js", "Express", "Firebase", "React", "Twilio API"],
   slug: "iot-smoke-detector",
+  techStack: {
+    frontend: ["React"],
+    backend: ["Node.js", "Express"],
+    database: ["Firebase"],
+    other: ["Arduino", "ESP8266", "Twilio API"]
+  },
+  timeline: "3 months",
   overview:
     "The IoT Smoke Detector project is an intelligent fire safety solution that uses sensors and wireless modules to monitor smoke levels in real time. The system sends instant notifications to users via SMS, email, and a dedicated web dashboard. Data is collected by an Arduino with an MQ-2 smoke sensor and transmitted via ESP8266 to a Node.js backend, which processes alerts and updates the frontend dashboard built in React.",
   challenges: [

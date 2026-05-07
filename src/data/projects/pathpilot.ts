@@ -3,9 +3,19 @@ export const pathPilotProject = {
     title: "PathPilot: Autonomous Navigation & Pathfinding System",
     description:
       "Developed an advanced autonomous navigation platform for robots and drones using real-time pathfinding algorithms, interactive visualization, and dynamic obstacle avoidance.",
+    date: "2023-09",
+    category: "web-app" as const,
+    featured: false,
+    status: "completed" as const,
     image: "/paper/project-1.webp",
     tools: ["React", "Next.js", "Python", "Flask", "Dijkstra", "A*", "ROS", "OpenCV"],
     slug: "pathpilot-platform",
+    techStack: {
+      frontend: ["React", "Next.js"],
+      backend: ["Python", "Flask"],
+      other: ["ROS", "OpenCV", "Dijkstra", "A*"]
+    },
+    timeline: "4 months",
     overview:
       "PathPilot is a robust pathfinding and navigation system designed for autonomous vehicles and robotics applications. It combines efficient algorithms (Dijkstra, A*) with real-time visualization and control through a user-friendly web interface. The system leverages Python and Flask for backend logic, React and Next.js for the frontend, and integrates robotics frameworks (ROS) and image processing (OpenCV) for real-world deployment.",
     challenges: [
