@@ -139,19 +139,20 @@ const Hero = () => {
         >
           <Button
             size="lg"
-            className="group relative overflow-hidden hover:scale-105 transition-transform duration-300 flex items-center gap-2"
+            variant="outline"
+            className="group relative overflow-hidden hover:scale-105 transition-transform duration-300 flex items-center gap-2 hover:bg-background/80 hover:text-primary"
             onClick={() => window.open("https://github.com/charanreddy-27", "_blank")}
           >
-            <Github className="w-5 h-5 text-white group-hover:text-gray-300" />
+            <Github className="w-5 h-5 text-primary group-hover:text-primary animate-spin-on-hover" />
             <span className="relative z-10">View on GitHub</span>
           </Button>
           <Button
             size="lg"
-            variant="outline"
-            className="group relative overflow-hidden hover:scale-105 transition-transform duration-300 flex items-center gap-2"
+            variant="gradient"
+            className="group relative overflow-hidden hover:scale-105 transition-transform duration-300 flex items-center gap-2 font-semibold shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
             onClick={() => window.open("https://drive.google.com/file/d/1L2pas8-XARws-eF3S_waSBnKxnT-aDXv/view?usp=sharing", "_blank")}
           >
-            <Download className="w-5 h-5 group-hover:text-primary" />
+            <Download className="w-5 h-5 text-white animate-bounce-down" />
             <span className="relative z-10">Download CV</span>
           </Button>
         </div>
