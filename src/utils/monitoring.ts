@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 // ===== PERFORMANCE MONITORING =====
 
@@ -53,7 +53,9 @@ class PerformanceTracker {
 
   getAverageRenderTime(): number {
     const recentMetrics = this.getMetrics().slice(-10);
-    return recentMetrics.reduce((sum, m) => sum + m.renderTime, 0) / recentMetrics.length;
+    return recentMetrics.length > 0 
+      ? recentMetrics.reduce((sum, m) => sum + m.renderTime, 0) / recentMetrics.length
+      : 0;
   }
 }
 
@@ -68,29 +70,39 @@ export const usePerformanceTracking = (componentName: string) => {
     return () => {
       tracker.endRender(componentName);
     };
-  });
+  }, [componentName]);
 
   return PerformanceTracker.getInstance();
 };
 
-// Optimized scroll hook with throttling
+// Optimized scroll hook with requestAnimationFrame throttling
 export const useOptimizedScroll = (callback: (scrollY: number) => void, delay: number = 16) => {
+  const rafRef = useRef<number>();
   const timeoutRef = useRef<NodeJS.Timeout>();
+  const lastTimeRef = useRef<number>(0);
   
   useEffect(() => {
     const handleScroll = () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      const now = Date.now();
       
-      timeoutRef.current = setTimeout(() => {
+      if (now - lastTimeRef.current >= delay) {
+        lastTimeRef.current = now;
         callback(window.scrollY);
-      }, delay);
+      } else if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(() => {
+          callback(window.scrollY);
+          rafRef.current = undefined;
+        });
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
@@ -98,7 +110,54 @@ export const useOptimizedScroll = (callback: (scrollY: number) => void, delay: n
   }, [callback, delay]);
 };
 
+// Debounce hook for event handlers
+export const useDebounce = <T extends (...args: any[]) => any>(
+  callback: T,
+  delay: number
+) => {
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
+  return useCallback(
+    (...args: any[]) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        callback(...args);
+      }, delay);
+    },
+    [callback, delay]
+  );
+};
+
+// Lazy load hook with Intersection Observer
+export const useLazyLoad = (callback: () => void, options?: IntersectionObserverInit) => {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          callback();
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1, ...options }
+    );
+
+    observer.observe(ref.current);
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [callback, options]);
+
+  return ref;
+};
 
 // Media query hook with performance optimization
 export const useMediaQuery = (query: string): boolean => {
@@ -129,7 +188,19 @@ export const usePrefersReducedMotion = () => useMediaQuery('(prefers-reduced-mot
 export const logPerformanceMetrics = () => {
   if (process.env.NODE_ENV === 'development') {
     const tracker = PerformanceTracker.getInstance();
-    console.table(tracker.getMetrics());
+    console.log('Performance Metrics:', {
+      averageRenderTime: tracker.getAverageRenderTime().toFixed(2) + 'ms',
+      metrics: tracker.getMetrics(),
+    });
+  }
+};
+
+// Request idle callback wrapper with fallback
+export const scheduleIdleCallback = (callback: () => void) => {
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(callback);
+  } else {
+    setTimeout(callback, 0);
   }
 };
 

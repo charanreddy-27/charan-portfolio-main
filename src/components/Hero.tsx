@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import { ArrowDown, Download, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import gsap from "gsap";
@@ -10,7 +10,7 @@ import { usePerformanceTracking, usePrefersReducedMotion } from "@/utils/monitor
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = () => {
+const Hero = memo(() => {
   // Performance monitoring
   usePerformanceTracking('Hero');
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -20,6 +20,7 @@ const Hero = () => {
   const typingRef = useRef<HTMLDivElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const contextRef = useRef<gsap.Context | null>(null);
 
   useEffect(() => {
     if (!sectionRef.current || !headingRef.current || !buttonsRef.current || !scrollIndicatorRef.current) {
@@ -28,12 +29,11 @@ const Hero = () => {
 
     // Skip animations if user prefers reduced motion
     if (prefersReducedMotion) {
-      // Simple fade-in for reduced motion users
       gsap.set([headingRef.current, buttonsRef.current, scrollIndicatorRef.current], { opacity: 1 });
       return;
     }
 
-    const ctx = gsap.context(() => {
+    contextRef.current = gsap.context(() => {
       // Only apply SplitType to the heading, not the typing animation
       const titleText = new SplitType(headingRef.current!, {
         types: "chars",
@@ -41,13 +41,15 @@ const Hero = () => {
       });
 
       if (titleText.chars) {
+        // Use event delegation more efficiently
         titleText.chars.forEach((char) => {
           char.addEventListener("mouseenter", () => {
             gsap.to(char, {
               scale: 1.4,
               color: "#9333EA",
-              duration: 0.3,
+              duration: 0.2,
               ease: "power2.out",
+              overwrite: 'auto'
             });
           });
 
@@ -55,8 +57,9 @@ const Hero = () => {
             gsap.to(char, {
               scale: 1,
               color: "inherit",
-              duration: 0.3,
+              duration: 0.2,
               ease: "power2.in",
+              overwrite: 'auto'
             });
           });
         });
@@ -67,7 +70,7 @@ const Hero = () => {
       tl.from(headingRef.current, {
         y: 50,
         opacity: 0,
-        duration: 1,
+        duration: 0.8,
         ease: "power3.out",
       })
         .from(
@@ -75,7 +78,7 @@ const Hero = () => {
           {
             y: 20,
             opacity: 0,
-            duration: 0.8,
+            duration: 0.6,
             ease: "power3.out",
           },
           "-=0.3"
@@ -85,25 +88,29 @@ const Hero = () => {
           {
             y: 20,
             opacity: 0,
-            duration: 1,
+            duration: 0.6,
             ease: "power3.out",
           },
-          "-=0.5"
+          "-=0.4"
         )
         .from(
           scrollIndicatorRef.current,
           {
             y: 20,
             opacity: 0,
-            duration: 1,
+            duration: 0.6,
             ease: "power3.out",
           },
-          "-=0.5"
+          "-=0.4"
         );
     }, sectionRef);
 
-    return () => ctx.revert();
-  }, [prefersReducedMotion]); // Add dependency
+    return () => {
+      if (contextRef.current) {
+        contextRef.current.revert();
+      }
+    };
+  }, [prefersReducedMotion]);
 
   return (
     <section
@@ -115,13 +122,13 @@ const Hero = () => {
       <div className="relative z-10">
         <h1
           ref={headingRef}
-          className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6"
+          className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 will-change-transform"
         >
           Hi, I'm <span className="text-primary">Charan Reddy</span>.
         </h1>
         <div 
           ref={typingRef}
-          className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold mb-6"
+          className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 will-change-transform"
         >
           <TypingAnimation 
             texts={[
@@ -140,7 +147,7 @@ const Hero = () => {
           <Button
             size="lg"
             variant="outline"
-            className="group relative overflow-hidden hover:scale-105 transition-transform duration-300 flex items-center gap-2 hover:bg-background/80 hover:text-primary"
+            className="group relative overflow-hidden hover:scale-105 transition-transform duration-300 flex items-center gap-2 hover:bg-background/80 hover:text-primary will-change-transform"
             onClick={() => window.open("https://github.com/charanreddy-27", "_blank")}
           >
             <Github className="w-5 h-5 text-primary group-hover:text-primary animate-spin-on-hover" />
@@ -175,6 +182,8 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
+
+Hero.displayName = 'Hero';
 
 export default Hero;

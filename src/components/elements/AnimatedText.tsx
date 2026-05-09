@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { memo } from "react";
 
 /**
  * Gradient preset type for AnimatedGradientCharacter.
@@ -42,21 +43,24 @@ interface AnimatedCharacterProps {
   character: string;
 }
 
-export const AnimatedCharacter = ({ character }: AnimatedCharacterProps) => {
+export const AnimatedCharacter = memo(({ character }: AnimatedCharacterProps) => {
   return (
     <motion.span
-      className="inline-block cursor-pointer"
+      className="inline-block cursor-pointer will-change-transform"
       whileHover={{
         scale: 1.2,
         color: "#ffffff",
         textShadow: "0 0 8px rgba(255, 255, 255, 0.8)",
       }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+      layout={false}
     >
       {character === " " ? "\u00A0" : character}
     </motion.span>
   );
-};
+});
+
+AnimatedCharacter.displayName = 'AnimatedCharacter';
 
 // ─── AnimatedGradientCharacter ──────────────────────────────────────────────
 // A single character rendered with a gradient fill that intensifies on hover.
@@ -67,7 +71,7 @@ interface AnimatedGradientCharacterProps {
   gradient?: GradientPreset;
 }
 
-export const AnimatedGradientCharacter = ({
+export const AnimatedGradientCharacter = memo(({
   character,
   gradient = "primary",
 }: AnimatedGradientCharacterProps) => {
@@ -75,18 +79,21 @@ export const AnimatedGradientCharacter = ({
 
   return (
     <motion.span
-      className={`inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r ${preset.className}`}
+      className={`inline-block cursor-pointer bg-clip-text text-transparent bg-gradient-to-r ${preset.className} will-change-transform`}
       whileHover={{
         scale: 1.2,
         backgroundImage: preset.hoverGradient,
         textShadow: `0 0 12px ${preset.glowColor}`,
       }}
-      transition={{ type: "spring", stiffness: 500, damping: 10 }}
+      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+      layout={false}
     >
       {character === " " ? "\u00A0" : character}
     </motion.span>
   );
-};
+});
+
+AnimatedGradientCharacter.displayName = 'AnimatedGradientCharacter';
 
 // ─── AnimatedHeading ────────────────────────────────────────────────────────
 // Convenience wrapper: renders a two-part heading where the first part uses
@@ -102,7 +109,7 @@ interface AnimatedHeadingProps {
   gradient?: GradientPreset;
 }
 
-export const AnimatedHeading = ({
+export const AnimatedHeading = memo(({
   plainText,
   gradientText,
   gradient = "primary",
@@ -125,4 +132,6 @@ export const AnimatedHeading = ({
       </div>
     </>
   );
-};
+});
+
+AnimatedHeading.displayName = 'AnimatedHeading';
