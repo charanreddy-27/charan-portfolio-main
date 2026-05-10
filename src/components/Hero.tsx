@@ -40,29 +40,39 @@ const Hero = memo(() => {
         tagName: "span",
       });
 
-      if (titleText.chars) {
-        // Use event delegation more efficiently
-        titleText.chars.forEach((char) => {
-          char.addEventListener("mouseenter", () => {
-            gsap.to(char, {
+      if (titleText.chars && headingRef.current) {
+        // Use event delegation on parent instead of per-character listeners
+        const handleCharHover = (e: MouseEvent) => {
+          const target = e.target as HTMLElement;
+          if (!target.dataset.char) return;
+
+          if (e.type === 'mouseenter') {
+            gsap.to(target, {
               scale: 1.4,
               color: "#9333EA",
               duration: 0.2,
               ease: "power2.out",
               overwrite: 'auto'
             });
-          });
-
-          char.addEventListener("mouseleave", () => {
-            gsap.to(char, {
+          } else if (e.type === 'mouseleave') {
+            gsap.to(target, {
               scale: 1,
               color: "inherit",
               duration: 0.2,
               ease: "power2.in",
               overwrite: 'auto'
             });
-          });
+          }
+        };
+
+        // Mark characters for delegation
+        titleText.chars.forEach((char) => {
+          char.dataset.char = 'true';
         });
+
+        // Single delegated listener
+        headingRef.current.addEventListener('mouseenter', handleCharHover, true);
+        headingRef.current.addEventListener('mouseleave', handleCharHover, true);
       }
 
       const tl = gsap.timeline();

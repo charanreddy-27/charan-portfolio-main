@@ -8,6 +8,8 @@ const CustomCursor = () => {
   const trailRef = useRef<HTMLDivElement>(null);
   const [isIdle, setIsIdle] = useState(false);
   const idleTimerRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const cursor = cursorRef.current;
@@ -18,13 +20,38 @@ const CustomCursor = () => {
 
     document.body.style.cursor = "none";
 
+    // Inject optimized cursor styles with CSS transitions
+    if (!document.getElementById('cursor-styles')) {
+      const style = document.createElement('style');
+      style.id = 'cursor-styles';
+      style.textContent = `
+        .cursor-dot, .cursor-follower, .cursor-trail {
+          will-change: transform;
+          contain: layout style paint;
+        }
+        .cursor-dot { transition: all 0.15s ease-out; }
+        .cursor-follower { transition: all 0.2s ease-out; }
+        .cursor-trail { transition: all 0.25s ease-out; }
+      `;
+      document.head.appendChild(style);
+    }
+
+    let lastX = 0, lastY = 0;
+
     const updatePosition = (e: MouseEvent) => {
       const { clientX: x, clientY: y } = e;
+      lastX = x;
+      lastY = y;
 
-      // Faster transitions for better performance
-      gsap.to(cursor, { x: x - 8, y: y - 8, duration: 0.1 });
-      gsap.to(follower, { x: x - 12, y: y - 12, duration: 0.15 });
-      gsap.to(trail, { x: x - 16, y: y - 16, duration: 0.2 });
+      // Throttle updates using RAF
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      
+      rafRef.current = requestAnimationFrame(() => {
+        // Use CSS transforms for better GPU acceleration
+        cursor!.style.transform = `translate(${x - 8}px, ${y - 8}px)`;
+        follower!.style.transform = `translate(${x - 12}px, ${y - 12}px)`;
+        trail!.style.transform = `translate(${x - 16}px, ${y - 16}px)`;
+      });
     };
 
     const handleIdleState = () => {
@@ -75,7 +102,7 @@ const CustomCursor = () => {
       );
     };
 
-    document.addEventListener("mousemove", updatePosition);
+    document.addEventListener("mousemove", updatePosition, { passive: true });
     document.addEventListener("mousemove", handleIdleState);
     document.addEventListener("mouseenter", handleHover, true);
     document.addEventListener("mouseleave", resetCursor, true);
@@ -89,6 +116,7 @@ const CustomCursor = () => {
       document.removeEventListener("mouseleave", resetCursor, true);
       document.removeEventListener("click", handleClick);
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
@@ -97,17 +125,17 @@ const CustomCursor = () => {
       <div
         ref={cursorRef}
         className={cn(
-          "fixed pointer-events-none z-50 w-4 h-4 rounded-full bg-primary/40 border-2 border-primary/80 mix-blend-difference scale-100",
+          "cursor-dot fixed pointer-events-none z-50 w-4 h-4 rounded-full bg-primary/40 border-2 border-primary/80 mix-blend-difference scale-100",
           isIdle && "opacity-70"
         )}
       />
       <div
         ref={followerRef}
-        className="fixed pointer-events-none z-40 w-6 h-6 rounded-full bg-primary/20 mix-blend-difference transition-transform"
+        className="cursor-follower fixed pointer-events-none z-40 w-6 h-6 rounded-full bg-primary/20 mix-blend-difference"
       />
       <div
         ref={trailRef}
-        className="fixed pointer-events-none z-30 w-8 h-8 rounded-full bg-primary/10 mix-blend-difference transition-transform"
+        className="cursor-trail fixed pointer-events-none z-30 w-8 h-8 rounded-full bg-primary/10 mix-blend-difference"
       />
     </>
   );

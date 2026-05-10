@@ -655,3 +655,200 @@
     animation: none !important;
   }
 }
+
+/* ========================================
+   Animation Performance Optimizations
+   ======================================== */
+
+/* GPU acceleration for all animated elements */
+.animated,
+.motion-element,
+[class*="animate-"],
+.framer-motion-animated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Optimize marquee and scroll animations */
+.marquee-container {
+  contain: layout style paint;
+}
+
+/* Floating and levitation animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) translateZ(0); }
+  50% { transform: translateY(-12px) translateZ(0); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Smooth fade-in animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+.fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
+
+/* Pulse animation for attention-grabbing */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.subtle-pulse {
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
+
+/* Spin animation optimized */
+@keyframes spin-smooth {
+  from { transform: rotate(0deg) translateZ(0); }
+  to { transform: rotate(360deg) translateZ(0); }
+}
+
+.spin-smooth {
+  animation: spin-smooth 1s linear infinite;
+}
+
+/* Bounce animation with GPU acceleration */
+@keyframes bounce-smooth {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-10px) translateZ(0); }
+}
+
+.bounce-smooth {
+  animation: bounce-smooth 1s ease-in-out infinite;
+}
+
+/* Slide animations */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100px) translateZ(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100px) translateZ(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-top {
+  from {
+    transform: translateY(-100px) translateZ(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-bottom {
+  from {
+    transform: translateY(100px) translateZ(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left { animation: slide-in-left 0.5s ease-out; }
+.slide-in-right { animation: slide-in-right 0.5s ease-out; }
+.slide-in-top { animation: slide-in-top 0.5s ease-out; }
+.slide-in-bottom { animation: slide-in-bottom 0.5s ease-out; }
+
+/* Scale animations */
+@keyframes scale-in {
+  from {
+    transform: scale(0.95) translateZ(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+}
+
+.scale-in {
+  animation: scale-in 0.3s ease-out;
+}
+
+/* Glow effect for glowing elements */
+@keyframes glow-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.3),
+                0 0 20px rgba(var(--primary-rgb), 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5),
+                0 0 30px rgba(var(--primary-rgb), 0.2);
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Optimize transition timing */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transition-fast {
+  transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transition-slow {
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Containment for animation performance */
+.contain-animation {
+  contain: layout style paint;
+}
+
+/* Disable animations on low-power devices */
+@media (prefers-reduced-motion: reduce) {
+  .animated,
+  .motion-element,
+  [class*="animate-"],
+  .framer-motion-animated,
+  .float,
+  .fade-in-up,
+  .subtle-pulse,
+  .spin-smooth,
+  .bounce-smooth,
+  .slide-in-left,
+  .slide-in-right,
+  .slide-in-top,
+  .slide-in-bottom,
+  .scale-in,
+  .glow-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+}

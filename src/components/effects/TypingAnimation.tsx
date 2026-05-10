@@ -18,53 +18,26 @@ const TypingAnimation = memo(({
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [showCursor, setShowCursor] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout>();
-  const cursorIntervalRef = useRef<NodeJS.Timeout>();
 
-  // Optimize cursor blinking with CSS animation instead of state updates
-  // Only create blinking effect if needed
+  // Inject cursor blinking CSS animation once
   useMemo(() => {
-    // Add CSS animation if not already added
-    if (!document.getElementById('cursor-blink-animation')) {
+    if (!document.getElementById('typing-cursor-styles')) {
       const style = document.createElement('style');
-      style.id = 'cursor-blink-animation';
+      style.id = 'typing-cursor-styles';
       style.textContent = `
-        @keyframes cursor-blink {
+        @keyframes typing-cursor-blink {
           0%, 49% { opacity: 1; }
           50%, 100% { opacity: 0; }
         }
-        .typing-cursor-animated {
-          animation: cursor-blink 1s infinite;
+        .typing-cursor {
+          animation: typing-cursor-blink 1s infinite steps(1);
           will-change: opacity;
+          contain: layout;
         }
       `;
       document.head.appendChild(style);
     }
-  }, []);
-
-  useEffect(() => {
-    // Cursor blinking with RAF instead of interval (better performance)
-    let lastBlink = Date.now();
-    let animationFrameId: number;
-
-    const updateCursor = () => {
-      const now = Date.now();
-      if (now - lastBlink > 530) {
-        setShowCursor((prev) => !prev);
-        lastBlink = now;
-      }
-      animationFrameId = requestAnimationFrame(updateCursor);
-    };
-
-    animationFrameId = requestAnimationFrame(updateCursor);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      if (cursorIntervalRef.current) {
-        clearInterval(cursorIntervalRef.current);
-      }
-    };
   }, []);
 
   useEffect(() => {
@@ -98,9 +71,7 @@ const TypingAnimation = memo(({
         {displayText}
       </span>
       <span 
-        className={`inline-block w-0.5 h-[1em] bg-gradient-to-b from-primary to-purple-500 ml-1 ${
-          showCursor ? 'opacity-100' : 'opacity-0'
-        } transition-opacity will-change-opacity`}
+        className="typing-cursor inline-block w-0.5 h-[1em] bg-gradient-to-b from-primary to-purple-500 ml-1"
         style={{ verticalAlign: 'middle' }}
       >
         |

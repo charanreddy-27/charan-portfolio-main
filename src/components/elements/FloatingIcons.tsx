@@ -25,28 +25,51 @@ const FloatingIcons = memo(() => {
             top: Math.random() * 100,
             left: Math.random() * 100,
             size: Math.random() * 50 + 40,
+            duration: 3 + Math.random() * 2,
+            delay: Math.random() * 0.5,
         })), 
     []);
+
+    // Inject CSS keyframes for floating animation
+    useMemo(() => {
+        if (!document.getElementById('floating-icons-styles')) {
+            const style = document.createElement('style');
+            style.id = 'floating-icons-styles';
+            style.textContent = `
+                @keyframes float-icon {
+                    0%, 100% { transform: translateY(0px) translateZ(0); }
+                    50% { transform: translateY(-30px) translateZ(0); }
+                }
+                .floating-icon {
+                    will-change: transform;
+                    contain: paint layout;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }, []);
 
     useEffect(() => {
         if (!iconsContainerRef.current || prefersReducedMotion) return;
 
-        // Use GSAP context for better cleanup
+        // Use GSAP context for better cleanup and performance
         contextRef.current = gsap.context(() => {
             const floatingIcons = gsap.utils.toArray<HTMLElement>(".floating-icon");
             
             if (floatingIcons.length > 0) {
-                // Batch animations for better performance
+                // Batch animations for better performance using timeline
                 floatingIcons.forEach((icon, index) => {
+                    const position = iconPositions[index];
                     gsap.to(icon, {
                         y: "-=30",
-                        duration: 3 + Math.random() * 2, // Vary duration for natural feel
+                        duration: position.duration,
                         repeat: -1,
                         yoyo: true,
                         ease: "sine.inOut",
-                        delay: index * 0.15,
-                        // GPU acceleration
+                        delay: position.delay,
+                        // GPU acceleration settings
                         force3D: true,
+                        transformOrigin: "center center",
                     });
                 });
             }
@@ -57,7 +80,7 @@ const FloatingIcons = memo(() => {
                 contextRef.current.revert();
             }
         };
-    }, [prefersReducedMotion]);
+    }, [prefersReducedMotion, iconPositions]);
 
     const IconComponent = [
         Database,
@@ -85,15 +108,16 @@ const FloatingIcons = memo(() => {
                 return (
                     <Icon
                         key={index}
-                        className="floating-icon text-primary opacity-20 absolute will-change-transform"
+                        className="floating-icon text-primary opacity-20 absolute"
                         style={{
                             top: `${position.top}%`,
                             left: `${position.left}%`,
-                            transform: `translate(-50%, -50%)`,
+                            transform: `translate(-50%, -50%) translateZ(0)`,
                             width: `${position.size}px`,
                             height: `${position.size}px`,
                             backfaceVisibility: 'hidden',
                             perspective: 1000,
+                            WebkitFontSmoothing: 'antialiased',
                         }}
                         aria-hidden="true"
                     />
