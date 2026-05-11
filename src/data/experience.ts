@@ -1,5 +1,21 @@
 const workData = [
   {
+    company: "Infineon Solutions",
+    position: "AI & Automation Engineer",
+    duration: "March 2026 - Present",
+    location: "Bangalore, India",
+    description: "Developing and implementing AI, automation, and LLM-based solutions for enterprise applications.",
+    responsibilities: [
+      "Designed and deployed AI models and automation workflows.",
+      "Developed LLM-based applications and integrations.",
+      "Worked on end-to-end automation of business processes.",
+      "Collaborated with cross-functional teams on AI/ML initiatives."
+    ],
+    tools: [
+      "Python", "LLM APIs", "AI/ML Frameworks", "Automation Tools", "Cloud Services", "GPT Models"
+    ]
+  },
+  {
     company: "IMPRESSNO SOLUTIONS",
     position: "Chief Marketing Officer",
     duration: "Sep 2025 - Present",
