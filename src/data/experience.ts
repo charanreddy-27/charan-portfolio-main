@@ -1,18 +1,20 @@
 const workData = [
   {
     company: "Infineon Solutions",
-    position: "AI & Automation Engineer",
+    position: "Senior AI & Automation Engineer",
     duration: "March 2026 - Present",
     location: "Bangalore, India",
-    description: "Developing and implementing AI, automation, and LLM-based solutions for enterprise applications.",
+    description: "Leading the design and deployment of intelligent AI-driven automation solutions and LLM-powered applications for enterprise-scale operations, optimizing workflows and driving digital transformation.",
     responsibilities: [
-      "Designed and deployed AI models and automation workflows.",
-      "Developed LLM-based applications and integrations.",
-      "Worked on end-to-end automation of business processes.",
-      "Collaborated with cross-functional teams on AI/ML initiatives."
+      "Architected and deployed production-grade AI models and RPA workflows, reducing operational overhead by streamlining complex business processes.",
+      "Engineered end-to-end LLM-based solutions integrating advanced language models (GPT, Claude) with enterprise systems for intelligent automation.",
+      "Spearheaded development of intelligent automation platforms for process optimization, data extraction, and intelligent document processing.",
+      "Led AI/ML initiatives across cross-functional teams, establishing best practices for model development, deployment, and monitoring.",
+      "Optimized LLM performance through prompt engineering, fine-tuning, and retrieval-augmented generation (RAG) techniques for mission-critical applications.",
+      "Implemented AI solutions that enhanced productivity and reduced manual intervention, delivering measurable business impact."
     ],
     tools: [
-      "Python", "LLM APIs", "AI/ML Frameworks", "Automation Tools", "Cloud Services", "GPT Models"
+      "Python", "LLM APIs", "GPT-4/Claude", "RAG", "Prompt Engineering", "TensorFlow", "PyTorch", "FastAPI", "AWS/GCP", "Docker", "Kubernetes", "Apache Airflow", "RPA Frameworks"
     ]
   },
   {
